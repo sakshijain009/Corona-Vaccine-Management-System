@@ -5,4 +5,5 @@ nav {
 .nav-item:hover{
 	background-color: lavenderblush;
 	color: black;
+	border-radius: 10px;
 }
