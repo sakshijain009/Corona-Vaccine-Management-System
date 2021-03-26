@@ -7,11 +7,12 @@ body {
 }
 
 .mypage{
-	padding-top: 200px;
+	padding-top: 80px;
 	padding-bottom: 200px;
 	background-image: url("https://images.pexels.com/photos/4429561/pexels-photo-4429561.jpeg?cs=srgb&dl=pexels-ketut-subiyanto-4429561.jpg&fm=jpg");
 	background-size: cover;
-	margin-bottom: 0px;
+	bottom: 0px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .mypage h1{
@@ -21,4 +22,19 @@ body {
 .mypage p span{
 	font-size: 4vmin;
 	background-color: rgba(255,255,255,0.4);
+}
+
+.count{
+	padding-top: 40vmin;
+}
+
+.count h2{
+	color: green;
+	font-size: 7vmin;
+}
+.img{
+	border-radius: 900px;
+	width: 60%;
+	height: 200px;
+	margin-bottom: 4vmin;
 }
