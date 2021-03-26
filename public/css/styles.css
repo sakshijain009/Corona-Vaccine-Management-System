@@ -3,9 +3,13 @@ nav {
 }
 
 .nav-item:hover{
-	background-color: lavenderblush;
-	color: black;
-	border-radius: 10px;
+	background-color:rgba(0,0,0,0.1);
+	color: white;
+	border-radius: 2px;
+}
+
+.nav-link{
+	font-weight: 450;
 }
 
 .footer-padding {
