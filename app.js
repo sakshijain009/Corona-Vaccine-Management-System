@@ -17,6 +17,10 @@ app.get("/",(req,res)=>{
 	res.render("home");
 });
 
+app.get("/patient",(req,res)=>{
+	res.render("patient");
+});
+
 
 
 
