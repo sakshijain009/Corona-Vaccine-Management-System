@@ -29,7 +29,9 @@ app.get("/Registerinventory",(req,res)=>{
 	res.render("Registerinventory");
 });
 
-
+app.get("/hospitaldata",(req,res)=>{
+	res.render("hospitaldata");
+});
 
 
 
