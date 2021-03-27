@@ -13,17 +13,17 @@ nav {
 }
 
 .footer-padding {
-	padding-bottom: 70px;
+	padding-bottom: 30px;
 }
 
 .footer {
 	line-height: 200px;
 	text-align: center;
-	bottom: 0px;
+	bottom: 0vmin;
 	width: 100%;
 	height: 200px;
 	background-color:rgba(0,0,0,0.79);
-	margin-top: 0px;
+	margin-top: 0vmin;
 }
 
 .footer p {
