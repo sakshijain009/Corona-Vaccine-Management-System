@@ -21,6 +21,14 @@ app.get("/patient",(req,res)=>{
 	res.render("patient");
 });
 
+app.get("/Registerhospital",(req,res)=>{
+	res.render("Registerhospital");
+});
+
+app.get("/Registerinventory",(req,res)=>{
+	res.render("Registerinventory");
+});
+
 
 
 
