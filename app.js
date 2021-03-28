@@ -17,6 +17,7 @@ app.get("/",(req,res)=>{
 	res.render("home");
 });
 
+
 app.get("/patient",(req,res)=>{
 	res.render("patient");
 });
@@ -29,8 +30,17 @@ app.get("/Registerinventory",(req,res)=>{
 	res.render("Registerinventory");
 });
 
-app.get("/hospitaldata",(req,res)=>{
+app.get("/hospitaldata",(req,res) =>{
 	res.render("hospitaldata");
+});
+
+app.get("/hosp_login", (req,res) => {
+  res.render('hosp_login');
+});
+
+app.get("/inventory_login", (req,res) => {
+  res.render('inventory_login');
+
 });
 
 
@@ -40,5 +50,5 @@ app.get("/hospitaldata",(req,res)=>{
 
 /*******************************************************/
 app.listen(3000, function() {
-  console.log("Server started on port 3000");
+  console.log('Running on http://localhost:3000');
 });
