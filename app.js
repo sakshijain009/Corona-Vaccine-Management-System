@@ -11,6 +11,26 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 
+//MYSQL COONECTION
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: ""
+});
+
+//Go to this link only once to create the database
+app.get("/createdatabase",(req,res)=>{
+	con.connect(function(err) {
+	  if (err) throw err;
+	  console.log("Connected!");
+	  con.query("CREATE DATABASE coronanarona", function (err, result) {
+	    if (err) throw err;
+	    console.log("Database created");
+	  });
+	});
+
+});
 
 /*****************************GET REQUESTS****************************/
 app.get("/",(req,res)=>{
