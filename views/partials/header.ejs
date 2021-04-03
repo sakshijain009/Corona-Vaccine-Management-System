@@ -17,7 +17,7 @@
 
 
 <!---------NAVBARRRR NAV------------>
-<nav class="navbar sticky-top navbar-expand-lg navbar navbar-light bg-light">
+<nav class="navbar sticky-top navbar-expand-lg navbar navbar-light bg-light" style="padding-right: 12%;">
   <a class="navbar-brand" href="/"><img src="images/logo.png" width="190" height="90"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
     aria-controls="navbarTogglerDemo01" aria-expanded="true" aria-label="Toggle navigation">
@@ -36,11 +36,15 @@
             </div>  
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/hosp_login">Find Hospital</a>
+            <div class="dropdown">
+              <a class="nav-link">Join</a>
+             <div class="dropdown-content">
+              <a href="/hosp_login">Hospital</a>
+              <a href="/inventory_login">Inventory</a>
+            </div>
+            </div>  
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/inventory_login">Find Inventory</a>
-      </li>
+      
     </ul>
   </div>
 </nav>
