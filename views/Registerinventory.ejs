@@ -16,14 +16,18 @@
     </div>
     <div class="form-group col-md-6">
       <label for="contactinventory"><img src="images/call.png" width="4%">&nbsp;Contact No</label>
-      <input type="number" class="form-control" id="inputControl" placeholder="Enter Hospital Contact Number" required>
+      <input type="number" class="form-control" id="inputControl" placeholder="Enter Inventory Contact Number" required>
     </div>
   </div>
 
   <div class="form-row">
   <div class="form-group col-md-6">
     <label for="PINinventory"><img src="images/pin.png" width="4%">&nbsp;PIN Code</label>
-    <input type="text" class="form-control" id="inputPIN" placeholder="Enter PIN Code of your Area" required>
+    <select id="PINinventory" name="PINinventory" class="form-control">
+      <% for(var i =0;i<pincodes.length;i++){ %>
+      <option class="form-group"><%= pincodes[i].pincode %></option>
+    <% } %>
+    </select>
   </div>
   </div><br>
 
