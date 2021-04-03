@@ -89,9 +89,43 @@ app.post("/patient",(req,res)=>{
   
 });
 
+app.post("/Registerhospital",(req,res)=>{
+
+  const val = [
+    loginid(req.body.inputEmail,req.body.inputpin),
+    req.body.inputName,
+    req.body.inputEmail,
+    req.body.inputContact,
+    req.body.inputhospitaltype,
+    req.body.inputpin
+  ]
+  
+
+  console.log(val);
+
+  var sql = "INSERT INTO hospital (h_id,h_name,h_email,h_contactno,h_type,h_address) VALUES (?)";  
+  con.query(sql, [val],function (err, result) {  
+  if (err) throw err;  
+  console.log("Number of records inserted: " + result.affectedRows); 
+  res.render("hosp_login",{stat:'block'}); 
+
+  });  
+  
+});
+
+
+
 
 
 /*******************************************************/
 app.listen(3000, function() {
   console.log('Running on http://localhost:3000');
 });
+
+
+function loginid (email,pincode){
+  let arr = email.split('@');
+  let str= pincode.toString();
+  let ans=arr[0].concat(str);
+  return ans;
+}
