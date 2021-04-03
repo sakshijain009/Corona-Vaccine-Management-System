@@ -1,7 +1,18 @@
 <%- include('partials/header') %>
-<div class="alert alert-success" style="display: <%= stat %>;margin-bottom: 0vmin;" >
-    <strong>Success!</strong> Your data has been registered in our database.Login id is: <%= email %>
+
+<div class="jumbotron" style="display: <%= stat %>">
+  
+  <p class="lead"><b>Success!</b> Your Hospital has been Registered in <b>Viyond</b>. Please copy the below id to login for the details of your concerned Hospital.</p>
+  <hr class="my-4">
+  <form class="form-inline">
+  <div class="form-group mx-sm-3 mb-2">
+    <textarea class="form-control" id="comment" style="height:25px";><%= hid %></textarea>
   </div>
+  <button type="button" class="copy btn btn-primary mb-2" id="copy">COPY</button>
+  <!--<button class="btn btn-primary mb-2">Copy</button>-->
+</form>
+</div>
+
     <title>Sign In</title>
 
     <link rel="stylesheet" type="text/css" href="css/login.css">
@@ -50,7 +61,7 @@
                 </div>
             </div>
         </section>
-
+        <script type="text/javascript" src="js/copy.js"></script>
         </div>
 
         <%- include('partials/footer') %>

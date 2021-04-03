@@ -59,7 +59,7 @@ app.get("/hospitaldata",(req,res) =>{
 });
 
 app.get("/hosp_login", (req,res) => {
-  res.render('hosp_login');
+  res.render('hosp_login',{stat:'none',hid:''});
 });
 
 app.get("/inventory_login", (req,res) => {
@@ -108,7 +108,7 @@ app.post("/Registerhospital",(req,res)=>{
   con.query(sql, [val],function (err, result) {  
   if (err) throw err;  
   console.log("Number of records inserted: " + result.affectedRows); 
-  res.render("hosp_login",{stat:'block'}); 
+  res.render('hosp_login',{stat:'block',hid:loginid(req.body.inputEmail,req.body.inputpin)});
 
   });  
   
