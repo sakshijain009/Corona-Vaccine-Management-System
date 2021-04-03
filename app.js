@@ -16,20 +16,14 @@ app.use(express.static("public"));
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: ""
+  password: "",
+  database : "coronanarona"
 });
 
-//Go to this link only once to create the database
-app.get("/createdatabase",(req,res)=>{
-	con.connect(function(err) {
-	  if (err) throw err;
-	  console.log("Connected!");
-	  con.query("CREATE DATABASE coronanarona", function (err, result) {
-	    if (err) throw err;
-	    console.log("Database created");
-	  });
-	});
 
+con.connect((err)=>{
+	if (err) throw err;
+	console.log('connected');
 });
 
 /*****************************GET REQUESTS****************************/
@@ -37,9 +31,13 @@ app.get("/",(req,res)=>{
 	res.render("home");
 });
 
-
 app.get("/patient",(req,res)=>{
-	res.render("patient");
+	con.query("SELECT pincode FROM location", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+    res.render("patient",{pincodes:result});
+  });
+	
 });
 
 app.get("/Registerhospital",(req,res)=>{
