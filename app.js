@@ -47,7 +47,7 @@ app.get("/patient",(req,res)=>{
 });
 
 app.get("/Registerhospital",(req,res)=>{
-	res.render("Registerhospital");
+	res.render("Registerhospital",{pincodes:pincode});
 });
 
 app.get("/Registerinventory",(req,res)=>{
@@ -63,7 +63,7 @@ app.get("/hosp_login", (req,res) => {
 });
 
 app.get("/inventory_login", (req,res) => {
-  res.render('inventory_login');
+  res.render('inventory_login',{stat:'none',hid:''});
 
 });
 
@@ -115,6 +115,27 @@ app.post("/Registerhospital",(req,res)=>{
 });
 
 
+app.post("/Registerinventory",(req,res)=>{
+
+  const val = [
+    inventory(req.body.inputName,req.body.PINinventory),
+    req.body.inputName,
+    req.body.inputContact,
+    req.body.PINinventory
+  ]
+  
+  console.log(val);
+
+  var sql = "INSERT INTO inventory (I_id,I_name,I_contactno,I_address) VALUES (?)";  
+  con.query(sql, [val],function (err, result) {  
+  if (err) throw err;  
+  console.log("Number of records inserted: " + result.affectedRows); 
+  res.render('inventory_login',{stat:'block',iid:inventory(req.body.inputName,req.body.PINinventory)});
+  });  
+  
+});
+
+
 
 
 
@@ -129,4 +150,11 @@ function loginid (email,pincode){
   let str= pincode.toString();
   let ans=arr[0].concat(str);
   return ans;
+}
+
+function inventory(name,pincode){
+  let nam=name;
+  let pin=pincode.toString();
+  let ren=nam.concat(pin);
+  return ren;
 }

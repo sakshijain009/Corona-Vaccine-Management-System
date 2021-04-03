@@ -39,10 +39,15 @@
   </div><br>
 
   <div class="form-row">
-  <div class="form-group col-md-6">
-    <label for="pin"><img src="images/pin.png" width="4%">&nbsp;PIN Code</label>
-    <input type="text" class="form-control" id="inputpin" placeholder="Enter PIN Code of Hospital" name="inputpin" required >
+<div class="form-group col-md-6">
+    <label for="inputPIN"><img src="images/pin.png" width="4%">&nbsp;PIN Code</label>
+    <select id="inputPIN" name="inputPIN" class="form-control">
+      <% for(var i =0;i<pincodes.length;i++){ %>
+      <option class="form-group"><%= pincodes[i].pincode %></option>
+    <% } %>
+    </select>
   </div>
+
   </div><br>
 
 

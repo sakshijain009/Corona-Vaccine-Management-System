@@ -7,16 +7,16 @@
 
 <div class="container" style="margin-top: 10vmin;">
 	
-<form style="padding: 100px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);font-family: 'Varela Round', sans-serif;">
+<form style="padding: 100px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);font-family: 'Varela Round', sans-serif;" method="post" action="/Registerinventory">
 	<h1 style="font-family: 'Dancing Script', cursive;">Register for Inventory</h1><hr>
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="nameinventory"><img src="images/name.png" width="4%">&nbsp;Name</label>
-      <input type="text" class="form-control" id="inputName" placeholder="Enter the Inventory Name" required>
+      <input type="text" class="form-control" name="inputName" id="inputName" placeholder="Enter the Inventory Name" required>
     </div>
     <div class="form-group col-md-6">
       <label for="contactinventory"><img src="images/call.png" width="4%">&nbsp;Contact No</label>
-      <input type="number" class="form-control" id="inputControl" placeholder="Enter Inventory Contact Number" required>
+      <input type="number" class="form-control" name="inputContact" id="inputControl" placeholder="Enter Inventory Contact Number" required>
     </div>
   </div>
 
