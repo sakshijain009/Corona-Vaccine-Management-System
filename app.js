@@ -17,7 +17,7 @@ var con = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database : "coronanarona"
+  database : "corona"
 });
 
 
@@ -26,9 +26,14 @@ con.connect((err)=>{
 	console.log('connected');
 });
 
+
+
+
+
+
 /*****************************GET REQUESTS****************************/
 app.get("/",(req,res)=>{
-	res.render("home");
+	res.render("home",{stat:'none'});
 });
 
 app.get("/patient",(req,res)=>{
@@ -62,7 +67,27 @@ app.get("/inventory_login", (req,res) => {
 });
 
 
+/************************POST REQUESTS*******************/
+app.post("/patient",(req,res)=>{
 
+  const val = [
+    req.body.inputName,
+    req.body.inputEmail,
+    req.body.inputPIN,
+    req.body.inputDOB,
+    req.body.contact,
+    req.body.optradio
+  ]
+  
+  console.log(val);
+  var sql = "INSERT INTO person (p_name,p_email,p_address,p_dob,p_contactno,p_gender) VALUES (?)";   
+  con.query(sql, [val],function (err, result) {  
+  if (err) throw err;  
+  console.log("Number of records inserted: " + result.affectedRows); 
+  res.render("home",{stat:'block'}); 
+  });  
+  
+});
 
 
 
