@@ -27,8 +27,13 @@ con.connect((err)=>{
 });
 
 
-
-
+var pincode;
+con.query("SELECT pincode FROM location", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+    pincode=result;
+    
+  });
 
 
 /*****************************GET REQUESTS****************************/
@@ -37,11 +42,7 @@ app.get("/",(req,res)=>{
 });
 
 app.get("/patient",(req,res)=>{
-	con.query("SELECT pincode FROM location", function (err, result, fields) {
-    if (err) throw err;
-    console.log(result);
-    res.render("patient",{pincodes:result});
-  });
+	res.render("patient",{pincodes:pincode});
 	
 });
 
@@ -50,7 +51,7 @@ app.get("/Registerhospital",(req,res)=>{
 });
 
 app.get("/Registerinventory",(req,res)=>{
-	res.render("Registerinventory");
+	res.render("Registerinventory",{pincodes:pincode});
 });
 
 app.get("/hospitaldata",(req,res) =>{
