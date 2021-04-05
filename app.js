@@ -17,7 +17,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
-app.use(session({secret: "Your secret key"}));
+app.use(session({
+  secret: "Your secret key",
+  resave: true,
+  saveUninitialized: true
+}));
 
 
 
@@ -194,6 +198,8 @@ app.post('/hospital_login',async(req,res)=>{
               message:'Error: Account not found.'
             });
           }else{
+            req.session.loggedin = true;
+            req.session.username = email;
             const id = results[0].H_id;
 
             const token = jwt.sign({id:id},process.env.JWT_SECRET,{
