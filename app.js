@@ -80,6 +80,10 @@ app.get("/hosp_login", (req,res) => {
   res.render('hosp_login');
 });
 
+app.get("/hosp_logindata", (req,res) => {
+  res.render('hosp_logindata');
+});
+
 app.get("/inventory_login", (req,res) => {
   res.render('inventory_login',{stat:'none',hid:''});
 
