@@ -31,19 +31,21 @@
                     </div>
 
                     <div class="signin-form">
-                        <h2 class="form-title" style="font-family: Dancing Script;">Sign in</h2>
-                        <form method="POST" class="register-form" id="login-form">
+                        <h2 class="form-title" style="font-family: Dancing Script;">Log in</h2>
+                        <form method="POST" class="register-form" id="login-form" action="/hospital_login">
+                            <p style="color: red;"><%= message %></p>
                             <div class="form-group">
                                 <label for="Hospital ID"><i class="fas fa-hospital"></i></label>
-                                <input type="text" name="hospid" id="text" placeholder="Hospital ID" required>
+                                <input type="email" name="hospid" id="hospid" placeholder="Hospital Email ID" required>
                             </div>
                             <div class="form-group">
-                                <label for="Hospital Name"><i class="fas fa-hospital-user"></i></label>
-                                <input type="text" name="hospname" id="text" placeholder="Hospital Name" required>
+                                <label for="Hospital Password"><i class="fas fa-hospital-user"></i></label>
+                                <input type="password" name="hospwd" id="hospwd" placeholder="Hospital Password" required>
                             </div>
                             <div class="form-group form-button">
-                                <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
+                                <input type="submit" class="form-submit" value="Log in" />
                             </div>
+                            <a href="/Registerhospital">Dont have you registered? Create an account</a>
                         </form>
                     </div>
                 </div>
