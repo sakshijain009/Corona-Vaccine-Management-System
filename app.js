@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mysql = require("mysql");
 const dotenv = require("dotenv");
+const bcrypt = require("bcryptjs");
 
 dotenv.config({path:'./.env'});
 const app = express();
@@ -136,7 +137,7 @@ app.post("/Registerhospital",(req,res)=>{
   const pin = req.body.inputPin;
 
   console.log(email);
-  con.query('SELECT h_email from hospital WHERE h_email = ?',[email],(err,results)=>{
+  con.query('SELECT h_email from hospital WHERE h_email = ?',[email],async(err,results)=>{
       if (err) {throw err};
       if (results.length>0) {
         return res.render("Registerhospital",{
@@ -151,6 +152,11 @@ app.post("/Registerhospital",(req,res)=>{
           color:'danger'
         });
       }
+
+
+      let hashedPassword = await bcrypt.hash(pwd,8);
+      console.log(hashedPassword);
+
   });
 
   /*var sql = "INSERT INTO hospital (h_id,h_name,h_email,h_contactno,h_type,h_address) VALUES (?)";  
