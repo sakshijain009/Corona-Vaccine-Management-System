@@ -9,6 +9,7 @@
 	
 <form style="padding: 100px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);font-family: 'Varela Round', sans-serif;" method="post" action="/Registerhospital">
 	<h1 style="font-family: 'Dancing Script', cursive;">Register for Hospital</h1><hr>
+  <h6 style="color: red" class="alert alert-<%= color %>"><%= message %></h6>
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="name"><img src="images/name.png" width="4%">&nbsp;Name</label>
@@ -39,7 +40,18 @@
   </div><br>
 
   <div class="form-row">
-<div class="form-group col-md-6">
+    <div class="form-group col-md-6">
+      <label for="pwd"><img src="images/call.png" width="4%">&nbsp;Password</label>
+      <input type="password" class="form-control" id="pwd" placeholder="Enter Password" name="inputPassword" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="repwd"><img src="images/call.png" width="4%">&nbsp;Retype Password</label>
+      <input type="password" class="form-control" id="repwd" placeholder="Retype Password" name="reinputPassword" required>
+    </div>
+  </div><br>
+
+<div class="form-row">
+  <div class="form-group col-md-6">
     <label for="inputPIN"><img src="images/pin.png" width="4%">&nbsp;PIN Code</label>
     <select id="inputPIN" name="inputPIN" class="form-control">
       <% for(var i =0;i<pincodes.length;i++){ %>
@@ -47,12 +59,7 @@
     <% } %>
     </select>
   </div>
-  <div class="form-group col-md-6">
-      <label for="pwd"><img src="images/call.png" width="4%">&nbsp;Password</label>
-      <input type="password" class="form-control" id="pwd" placeholder="Enter Password" name="inputPassword" required>
-    </div>
-  </div><br>
-
+</div>
 
   
   <div class="form-group">
@@ -63,6 +70,7 @@
       </label>
     </div>
   </div>
+
 <br>
   <div class="row d-flex justify-content-between">
   	<div class="col-md-8">

@@ -9,8 +9,9 @@ const app = express();
 
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static("public"));
+app.use(express.json());
 
 
 
@@ -63,7 +64,7 @@ app.get("/patient",(req,res)=>{
 });
 
 app.get("/Registerhospital",(req,res)=>{
-	res.render("Registerhospital",{pincodes:pincode});
+	res.render("Registerhospital",{pincodes:pincode,message:'Enter details to Register',color:'success'});
 });
 
 app.get("/Registerinventory",(req,res)=>{
@@ -75,7 +76,7 @@ app.get("/hospitaldata",(req,res) =>{
 });
 
 app.get("/hosp_login", (req,res) => {
-  res.render('hosp_login',{stat:'none',hid:''});
+  res.render('hosp_login');
 });
 
 app.get("/inventory_login", (req,res) => {
@@ -118,27 +119,47 @@ app.post("/patient",(req,res)=>{
   
 });
 
+
+
+
+
 app.post("/Registerhospital",(req,res)=>{
+  console.log(req.body)
 
-  const val = [
-    loginid(req.body.inputEmail,req.body.inputpin),
-    req.body.inputName,
-    req.body.inputEmail,
-    req.body.inputContact,
-    req.body.inputhospitaltype,
-    req.body.inputpin
-  ]
-  
 
-  console.log(val);
+  const name = req.body.inputName;
+  const email = req.body.inputEmail;
+  const contact = req.body.inputContact;
+  const htype = req.body.inputhospitaltype;
+  const pwd = req.body.inputPassword;
+  const repwd = req.body.reinputPassword;
+  const pin = req.body.inputPin;
 
-  var sql = "INSERT INTO hospital (h_id,h_name,h_email,h_contactno,h_type,h_address) VALUES (?)";  
+  console.log(email);
+  con.query('SELECT h_email from hospital WHERE h_email = ?',[email],(err,results)=>{
+      if (err) {throw err};
+      if (results.length>0) {
+        return res.render("Registerhospital",{
+          pincodes:pincode,
+          message:'Please Note That: That email has already been registered! Kindly headover to the login page',
+          color:'danger'
+        });
+      }else if(pwd !== repwd){
+        return res.render("Registerhospital",{
+          pincodes:pincode,
+          message:'Please Note That: Passwords do not match!',
+          color:'danger'
+        });
+      }
+  });
+
+  /*var sql = "INSERT INTO hospital (h_id,h_name,h_email,h_contactno,h_type,h_address) VALUES (?)";  
   con.query(sql, [val],function (err, result) {  
   if (err) throw err;  
   console.log("Number of records inserted: " + result.affectedRows); 
-  res.render('hosp_login',{stat:'block',hid:loginid(req.body.inputEmail,req.body.inputpin)});
+  res.render('hosp_login');
 
-  });  
+  });  */
   
 });
 
@@ -173,12 +194,6 @@ app.listen(3000, function() {
 });
 
 
-function loginid (email,pincode){
-  let arr = email.split('@');
-  let str= pincode.toString();
-  let ans=arr[0].concat(str);
-  return ans;
-}
 
 function inventory(name,pincode){
   let nam=name;
