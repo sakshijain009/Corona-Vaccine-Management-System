@@ -2,7 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mysql = require("mysql");
+const dotenv = require("dotenv");
 
+dotenv.config({path:'./.env'});
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -11,13 +13,19 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 
-//MYSQL COONECTION
+
+
+
+
+
+
+//MYSQL COONECTION-----------------------------------------------------------
 
 var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database : "corona"
+  host: process.env.DATABASE_HOST,
+  user: process.env.DATABASE_USER,
+  password:process.env.DATABASE_PWD,
+  database : process.env.DATABASE
 });
 
 
@@ -34,6 +42,14 @@ con.query("SELECT pincode FROM location", function (err, result, fields) {
     pincode=result;
     
   });
+
+
+
+
+
+
+
+
 
 
 /*****************************GET REQUESTS****************************/
@@ -66,6 +82,18 @@ app.get("/inventory_login", (req,res) => {
   res.render('inventory_login',{stat:'none',hid:''});
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /************************POST REQUESTS*******************/
