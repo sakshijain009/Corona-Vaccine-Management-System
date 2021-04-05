@@ -98,7 +98,7 @@ app.get("/inventory_login", (req,res) => {
 
 
 
-/************************POST REQUESTS*******************/
+/************************POST REQUESTS*******************************/
 app.post("/patient",(req,res)=>{
 
   const val = [
@@ -123,7 +123,7 @@ app.post("/patient",(req,res)=>{
 
 
 
-
+// This is hospital signup page post request
 app.post("/Registerhospital",(req,res)=>{
   console.log(req.body)
 
@@ -134,9 +134,9 @@ app.post("/Registerhospital",(req,res)=>{
   const htype = req.body.inputhospitaltype;
   const pwd = req.body.inputPassword;
   const repwd = req.body.reinputPassword;
-  const pin = req.body.inputPin;
+  const pin = req.body.inputPIN;
 
-  console.log(email);
+  console.log(pin);
   con.query('SELECT h_email from hospital WHERE h_email = ?',[email],async(err,results)=>{
       if (err) {throw err};
       if (results.length>0) {
@@ -153,19 +153,26 @@ app.post("/Registerhospital",(req,res)=>{
         });
       }
 
-
       let hashedPassword = await bcrypt.hash(pwd,8);
       console.log(hashedPassword);
 
+
+      con.query('INSERT INTO hospital SET ?',{h_name: name,h_email: email,h_contactno: contact,h_type: htype,h_address:pin,h_pwd: hashedPassword},function (err, result) {  
+      if (err) throw err;  
+      console.log("Number of records inserted: " + result.affectedRows); 
+      return res.render("Registerhospital",{
+          pincodes:pincode,
+          message:'Success! Your Hospital has been registered. Please login to continue.',
+          color:'success'
+        });
+
+      }); 
+
+
   });
 
-  /*var sql = "INSERT INTO hospital (h_id,h_name,h_email,h_contactno,h_type,h_address) VALUES (?)";  
-  con.query(sql, [val],function (err, result) {  
-  if (err) throw err;  
-  console.log("Number of records inserted: " + result.affectedRows); 
-  res.render('hosp_login');
-
-  });  */
+   
+       
   
 });
 
