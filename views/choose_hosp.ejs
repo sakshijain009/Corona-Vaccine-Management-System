@@ -1,0 +1,38 @@
+<%- include('partials/header'); -%>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
+<div class="container" style="margin-top: 10vmin;">
+	
+<form style="padding: 80px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);font-family: 'Varela Round', sans-serif;" method="post" action="/choose_hosp">
+	<h1 style="font-family: 'Dancing Script', cursive;">Choose hospital</h1><hr>
+
+
+  
+  <div style="margin-top: 10vmin;" class="form-group col-md-6">
+    <label for="inputHOSP"><img src="images/pin.png" width="4%">&nbsp;Choose hospital closest to you</label>
+    <select id="inputHOSP" name="inputHOSP" class="form-control">
+      <% for(var i =0;i<hospital.length;i++){
+        if(hospital[i].H_address == pin) { %>
+      <option class="form-group"><%= hospital[i].H_name %></option>
+    <% }} %> 
+    </select></div>
+    
+
+  <div class="row d-flex justify-content-between">
+  	<div class="col-md-8">
+  		<button style="margin: 5vmin 0 0 16px" type="submit" class="btn btn-primary" style="width: 40%">Register</button>
+  	</div>
+
+  </div>
+</form>
+
+</div>
+
+<script type="text/javascript" src="js/end.js"></script>
+<%- include('partials/footer'); -%>
+
