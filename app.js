@@ -102,7 +102,17 @@ app.get("/hosp_login", (req,res) => {
 });
 
 app.get("/hosp_logindata", (req,res) => {
-  res.render('hosp_logindata');
+  con.start.query('SELECT * FROM hospital',(err,result)=>{
+  console.log(result);
+    if(!err){
+      if(!result){
+        console.log("Not found");
+      }else {
+       res.render('hosp_logindata', {records:result});
+  }
+    }
+  });
+
 });
 
 app.get("/inventory_login", (req,res) => {
