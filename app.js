@@ -74,6 +74,8 @@ app.get("/Registerinventory",(req,res)=>{
 	res.render("Registerinventory",{pincodes:pincode});
 });
 
+
+//Login into profile if cookie exists
 app.get("/hospitaldata", authController.isLoggedIn ,(req,res) =>{
 
   console.log("inside");
@@ -89,6 +91,9 @@ app.get("/hospitaldata", authController.isLoggedIn ,(req,res) =>{
   }
 	
 });
+
+
+app.get("/logout",authController.logout);
 
 app.get("/hosp_login", (req,res) => {
   res.render('hosp_login',{
