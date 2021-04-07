@@ -111,17 +111,25 @@ app.get("/hosp_login", (req,res) => {
   });
 });
 
-app.get("/hosp_logindata", (req,res) => {
-  con.start.query('SELECT * FROM hospital',(err,result)=>{
-  console.log(result);
-    if(!err){
-      if(!result){
-        console.log("Not found");
-      }else {
-       res.render('hosp_logindata', {records:result});
+app.get("/hosp_logindata",authController.isLoggedIn, (req,res) => {
+  console.log("inside");
+  console.log(req.user);
+  if (req.user) {
+    con.start.query('SELECT * FROM hospital',(err,result)=>{
+    console.log(result);
+      if(!err){
+        if(!result){
+          console.log("Not found");
+        }else {
+         res.render('hosp_logindata', {records:result});
+      }
+      }
+    });
+  }else{
+    res.render('hosp_login',{
+    message:''
+    });
   }
-    }
-  });
 
 });
 
