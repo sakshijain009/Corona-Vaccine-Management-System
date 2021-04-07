@@ -1,14 +1,15 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const session = require("express-session");
 const ejs = require("ejs");
 const mysql = require("mysql");
 const dotenv = require("dotenv");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const authController = require('./controllers/auth');
 
 dotenv.config({path:'./.env'});
+const con = require('./model/db');
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -17,19 +18,13 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
-app.use(session({
-  secret: "Your secret key",
-  resave: true,
-  saveUninitialized: true
-}));
-
 
 
 
 
 
 //MYSQL COONECTION-----------------------------------------------------------
-
+/*
 var con = mysql.createConnection({
   host: process.env.DATABASE_HOST,
   user: process.env.DATABASE_USER,
@@ -37,15 +32,15 @@ var con = mysql.createConnection({
   database : process.env.DATABASE
 });
 
-
-con.connect((err)=>{
+*/
+con.start.connect((err)=>{
 	if (err) throw err;
 	console.log('connected');
 });
 
 
 var pincode;
-con.query("SELECT pincode FROM location", function (err, result, fields) {
+con.start.query("SELECT pincode FROM location", function (err, result, fields) {
     if (err) throw err;
     console.log(result);
     pincode=result;
@@ -79,8 +74,15 @@ app.get("/Registerinventory",(req,res)=>{
 	res.render("Registerinventory",{pincodes:pincode});
 });
 
-app.get("/hospitaldata",(req,res) =>{
-	res.render("hospitaldata");
+app.get("/hospitaldata",authController.isLoggedIn,(req,res) =>{
+  if (req.user) {
+    res.render("/",{stat:'none'});
+  }else{
+    res.render('hosp_login',{
+    message:''
+    });
+  }
+	
 });
 
 app.get("/hosp_login", (req,res) => {
@@ -125,7 +127,7 @@ app.post("/patient",(req,res)=>{
   
   console.log(val);
   var sql = "INSERT INTO person (p_name,p_email,p_address,p_dob,p_contactno,p_gender) VALUES (?)";   
-  con.query(sql, [val],function (err, result) {  
+  con.start.query(sql, [val],function (err, result) {  
   if (err) throw err;  
   console.log("Number of records inserted: " + result.affectedRows); 
   res.render("home",{stat:'block'}); 
@@ -150,7 +152,7 @@ app.post("/Registerhospital",(req,res)=>{
   const pin = req.body.inputPIN;
 
   console.log(pin);
-  con.query('SELECT h_email from hospital WHERE h_email = ?',[email],async(err,results)=>{
+  con.start.query('SELECT h_email from hospital WHERE h_email = ?',[email],async(err,results)=>{
       if (err) {throw err};
       if (results.length>0) {
         return res.render("Registerhospital",{
@@ -170,7 +172,7 @@ app.post("/Registerhospital",(req,res)=>{
       console.log(hashedPassword);
 
 
-      con.query('INSERT INTO hospital SET ?',{h_name: name,h_email: email,h_contactno: contact,h_type: htype,h_address:pin,h_pwd: hashedPassword},function (err, result) {  
+      con.start.query('INSERT INTO hospital SET ?',{h_name: name,h_email: email,h_contactno: contact,h_type: htype,h_address:pin,h_pwd: hashedPassword},function (err, result) {  
       if (err) throw err;  
       console.log("Number of records inserted: " + result.affectedRows); 
       return res.render("Registerhospital",{
@@ -195,32 +197,33 @@ app.post('/hospital_login',async(req,res)=>{
       console.log(req.body);
       const email = req.body.hospid;
       const pwd = req.body.hospwd;
-      con.query('SELECT * from hospital WHERE h_email = ?',[email],async(err,results)=>{
-          console.log(results);
-          if (!results || !(await bcrypt.compare(pwd,results[0].h_pwd))) {
+      con.start.query('SELECT * from hospital WHERE h_email = ?',[email],async(err,results)=>{
+          console.log('Results :' + results);
+          
+          if (results.length===0) {
             res.status(401).render("hosp_login",{
               message:'Error: Account not found.'
             });
+          }else if( !(await bcrypt.compare(pwd,results[0].h_pwd))){
+            res.status(401).render("hosp_login",{
+              message:'Error: Email or password does not match.'
+            });
           }else{
-            req.session.loggedin = true;
-            req.session.username = email;
             const id = results[0].H_id;
-
-            const token = jwt.sign({id:id},process.env.JWT_SECRET,{
+            console.log("id :"+id);
+            const token = jwt.sign({ id }, process.env.JWT_SECRET, {
               expiresIn: process.env.JWT_EXPIRES_IN
             });
 
-            console.log("The token is : "+token);
-
             const cookieOptions = {
               expires: new Date(
-                  Date.now() + process.env.JWT_COOKIE_EXPIRES*24*60*60*1000 //Converting to milli second
-                ),
-              httpOnly:true
-            }
+                Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+              ),
+              httpOnly: true
+            };
+            res.cookie('jwt', token, cookieOptions);
+            res.status(200).render("/",{stat:'none'});
 
-            res.cookie('jwt',token,cookieOptions);
-            res.status(200).redirect("/");
           }
       });
 
@@ -248,7 +251,7 @@ app.post("/Registerinventory",(req,res)=>{
   console.log(val);
 
   var sql = "INSERT INTO inventory (I_id,I_name,I_contactno,I_address) VALUES (?)";  
-  con.query(sql, [val],function (err, result) {  
+  con.start.query(sql, [val],function (err, result) {  
   if (err) throw err;  
   console.log("Number of records inserted: " + result.affectedRows); 
   res.render('inventory_login',{stat:'block',iid:inventory(req.body.inputName,req.body.PINinventory)});
