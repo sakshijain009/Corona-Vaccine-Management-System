@@ -47,6 +47,13 @@ con.start.query("SELECT pincode FROM location", function (err, result, fields) {
     
   });
 
+var hospital;
+con.start.query("SELECT H_name, H_address FROM hospital", function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+    hospital = result;
+  });
+
 
 
 
@@ -61,9 +68,12 @@ app.get("/",(req,res)=>{
 	res.render("home",{stat:'none'});
 });
 
-app.get("/patient",(req,res)=>{
-	res.render("patient",{pincodes:pincode});
-	
+app.get("/patient", (req, res) => {
+  res.render("patient", { pincodes: pincode, hospital: hospital });
+});
+
+app.get("/choose_hosp", (req, res) => {
+  res.render("choose_hosp", { hospital: hospital, pin: pin });
 });
 
 app.get("/Registerhospital",(req,res)=>{
@@ -124,7 +134,8 @@ app.get("/inventory_login", (req,res) => {
 
 
 /************************POST REQUESTS*******************************/
-app.post("/patient",(req,res)=>{
+var p_id;
+app.post("/patient", (req, res) => {
 
   const val = [
     req.body.inputName,
@@ -134,19 +145,40 @@ app.post("/patient",(req,res)=>{
     req.body.contact,
     req.body.optradio
   ]
-  
-  console.log(val);
-  var sql = "INSERT INTO person (p_name,p_email,p_address,p_dob,p_contactno,p_gender) VALUES (?)";   
-  con.start.query(sql, [val],function (err, result) {  
-  if (err) throw err;  
-  console.log("Number of records inserted: " + result.affectedRows); 
-  res.render("home",{stat:'block'}); 
-  });  
-  
+
+  pin = req.body.inputPIN;
+
+  var sql = "INSERT INTO person (p_name,p_email,p_address,p_dob,p_contactno,p_gender) VALUES (?)";
+  con.start.query(sql, [val], function (err, result) {
+    if (err) throw err;
+    console.log("Number of records inserted in patient: " + result.affectedRows);
+    res.redirect("/choose_hosp");
+  });
+
+  var sql1 = "SELECT * from person where P_contactno = (?)";
+  con.start.query(sql1, [val[4]], function (err, result, fields) {
+    if (err) throw err;
+    p_id = result[0].P_id;
+  });
 });
 
+var hosp_id;
+app.post("/choose_hosp", (req, res) => {
 
+  const hosp_name = req.body.inputHOSP;
 
+  var sql2 = "SELECT * from hospital where H_name = (?)";
+  con.start.query(sql2, [hosp_name], function (err, result) {
+    if (err) throw err;
+    hosp_id = result[0].H_id;
+    const values = [p_id, hosp_id];
+    con.start.query("INSERT INTO vaccinates (P, Hosp) VALUES (?)", [values], function (err, result) {
+      if (err) throw err;
+      console.log("Number of records inserted in vaccinates: " + result.affectedRows);
+    });
+  });
+  res.render("home",{stat:'block'}); 
+});
 
 // This is hospital signup page post request
 app.post("/Registerhospital",(req,res)=>{
@@ -184,7 +216,7 @@ app.post("/Registerhospital",(req,res)=>{
 
       con.start.query('INSERT INTO hospital SET ?',{h_name: name,h_email: email,h_contactno: contact,h_type: htype,h_address:pin,h_pwd: hashedPassword},function (err, result) {  
       if (err) throw err;  
-      console.log("Number of records inserted: " + result.affectedRows); 
+      console.log("Number of records inserted in hospital: " + result.affectedRows); 
       return res.render("Registerhospital",{
           pincodes:pincode,
           message:'Success! Your Hospital has been registered. Please login to continue.',
