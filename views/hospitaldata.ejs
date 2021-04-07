@@ -9,7 +9,7 @@
     <div class="row">
       <div class="col-md-8">
         <b><h5 style="font-family: 'Montserrat', sans-serif;">Hospital Type : <span style="color: rgb(74, 135, 60);"><%= user.H_type %></span></h5>
-        <h5 style="font-family: 'Montserrat', sans-serif;">Vaccine Type Provided : <span style="color: rgb(74, 135, 60);">None</span></h5>
+        <h5 style="font-family: 'Montserrat', sans-serif;">Vaccine Provided : <span style="color: rgb(74, 135, 60);"><%= user.H_vac %></span></h5>
         <h5 style="font-family: 'Montserrat', sans-serif;">Hospital Email : <span style="color: rgb(74, 135, 60);"><%= user.H_email %></span></h5>
         <h5 style="font-family: 'Montserrat', sans-serif;">Hospital Contact : <span style="color: rgb(74, 135, 60);"><%= user.H_contactno %></span></h5></b>
         <div class="mb-4">
@@ -27,14 +27,19 @@
 </div>
 
 <div class="row container-fluid">
-      <div class="col-md-6">
+      <div class="col-md-7">
         <div class="h-100 p-5 text-white bg-dark rounded-3">
-          <h2>Change the background</h2>
-          <p>Swap the background-color utility and add a `.text-*` color utility to mix up the jumbotron look. Then, mix and match with additional component themes and more.</p>
-          <button class="btn btn-outline-light" type="button">Example button</button>
+          <h2 style="margin-bottom: 20px;">Latest Inventory Order</h2>
+          <hr style="width: 90%; height: 2.5px;">
+          <p><b>Id: </b> <%= invent_details[0].I_id %></p>
+          <p><b>Name: </b> <%= invent_details[0].I_name %></p>
+          <p><b>Contact No:</b> <%= invent_details[0].I_contactno %></p>
+          <p><b>Pincode:</b> <%= invent_details[0].I_address %></p>
+          <p><b>Vaccines ordered:</b> <%= invent_details[0].s_quantity %></p>
+          <p><b>Order Date:</b> <%= invent_details[0].s_time %></p>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-5">
         <div class="h-100 p-5 bg-light border rounded-3">
           <h2>Add borders</h2>
           <p>Or, keep it light and add a border for some added definition to the boundaries of your content. Be sure to look under the hood at the source HTML here as we've adjusted the alignment and sizing of both column's content for equal-height.</p>

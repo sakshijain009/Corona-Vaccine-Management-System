@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 
 <div class="container" style="margin-top: 10vmin;">
@@ -37,7 +38,26 @@
       </select>
     </div>
   </div>
-  </div><br>
+</div><br>
+
+<div class="form-row">
+  <div class="form-group col-md-6">
+    <label for="inputPIN"><img src="images/pin.png" width="4%">&nbsp;PIN Code</label>
+    <select id="inputPIN" name="inputPIN" class="form-control">
+      <% for(var i =0;i<pincodes.length;i++){ %>
+      <option class="form-group"><%= pincodes[i].pincode %></option>
+    <% } %>
+    </select>
+  </div>
+  <div class="form-group col-md-6">
+    <label for="inputVACC">&nbsp;Vaccine</label>
+    <select id="inputVACC" name="inputVACC" class="form-control">
+      <% for(var j =0;j<vaccines.length;j++){ %>
+      <option class="form-group"><%= vaccines[j].V_name %></option>
+    <% } %>
+    </select>
+  </div>
+</div><br>
 
   <div class="form-row">
     <div class="form-group col-md-6">
@@ -50,16 +70,6 @@
     </div>
   </div><br>
 
-<div class="form-row">
-  <div class="form-group col-md-6">
-    <label for="inputPIN"><img src="images/pin.png" width="4%">&nbsp;PIN Code</label>
-    <select id="inputPIN" name="inputPIN" class="form-control">
-      <% for(var i =0;i<pincodes.length;i++){ %>
-      <option class="form-group"><%= pincodes[i].pincode %></option>
-    <% } %>
-    </select>
-  </div>
-</div>
 
   
   <div class="form-group">
