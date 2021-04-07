@@ -74,9 +74,14 @@ app.get("/Registerinventory",(req,res)=>{
 	res.render("Registerinventory",{pincodes:pincode});
 });
 
-app.get("/hospitaldata",authController.isLoggedIn,(req,res) =>{
+app.get("/hospitaldata", authController.isLoggedIn ,(req,res) =>{
+
+  console.log("inside");
+  console.log(req.user);
   if (req.user) {
-    res.render("/",{stat:'none'});
+    res.render("hospitaldata",{
+      user:req.user
+    });
   }else{
     res.render('hosp_login',{
     message:''
@@ -204,7 +209,7 @@ app.post('/hospital_login',async(req,res)=>{
             res.status(401).render("hosp_login",{
               message:'Error: Account not found.'
             });
-          }else if( !(await bcrypt.compare(pwd,results[0].h_pwd))){
+          }else if( !(await bcrypt.compare(pwd,results[0].H_pwd))){
             res.status(401).render("hosp_login",{
               message:'Error: Email or password does not match.'
             });
@@ -222,7 +227,7 @@ app.post('/hospital_login',async(req,res)=>{
               httpOnly: true
             };
             res.cookie('jwt', token, cookieOptions);
-            res.status(200).render("/",{stat:'none'});
+            res.status(200).redirect("/hospitaldata");
 
           }
       });

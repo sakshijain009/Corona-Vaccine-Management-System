@@ -1,17 +1,17 @@
-<%- include('partials/header'); -%>
+<%- include('partials/loggedin'); -%>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 
 <div class="p-5 mb-4 bg-light rounded-3">
   <div class="container-fluid py-5">
-    <h1 class="display-5 fw-bold" style="color:#2F4F4F;font-family: 'Italiana', serif;letter-spacing: 2px;text-shadow:5px 5px 15px rgba(0, 0, 0, 0.1)";>Ambuja Hospital</h1><hr>
+    <h1 class="display-5 fw-bold" style="color:#2F4F4F;font-family: 'Italiana', serif;letter-spacing: 2px;text-shadow:5px 5px 15px rgba(0, 0, 0, 0.1)";><%= user.H_name %></h1><hr>
     <div class="row">
       <div class="col-md-8">
-        <b><h5 style="font-family: 'Montserrat', sans-serif;">Hospital Type : <span style="color: rgb(74, 135, 60);">bdcdbcib</span></h5>
-        <h5 style="font-family: 'Montserrat', sans-serif;">Vaccine Type Provided : <span style="color: rgb(74, 135, 60);">bdcdbcib</span></h5>
-        <h5 style="font-family: 'Montserrat', sans-serif;">Hospital Email : <span style="color: rgb(74, 135, 60);">bdcdbcib</span></h5>
-        <h5 style="font-family: 'Montserrat', sans-serif;">Hospital Contact : <span style="color: rgb(74, 135, 60);">bdcdbcib</span></h5></b>
+        <b><h5 style="font-family: 'Montserrat', sans-serif;">Hospital Type : <span style="color: rgb(74, 135, 60);"><%= user.H_type %></span></h5>
+        <h5 style="font-family: 'Montserrat', sans-serif;">Vaccine Type Provided : <span style="color: rgb(74, 135, 60);">None</span></h5>
+        <h5 style="font-family: 'Montserrat', sans-serif;">Hospital Email : <span style="color: rgb(74, 135, 60);"><%= user.H_email %></span></h5>
+        <h5 style="font-family: 'Montserrat', sans-serif;">Hospital Contact : <span style="color: rgb(74, 135, 60);"><%= user.H_contactno %></span></h5></b>
         <div class="mb-4">
                 <hr style="border-top: 7px solid rgba(204,229,255,0.9);">
             </div>

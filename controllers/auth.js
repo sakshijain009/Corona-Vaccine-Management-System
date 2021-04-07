@@ -1,4 +1,5 @@
 const {promisify} = require('util');
+const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config({path:'../.env'});
@@ -29,12 +30,16 @@ exports.isLoggedIn = async(req,res,next)=>{  //Middleware
 				}
 
 				req.user = result[0];
+				console.log("req.user in auth is: "+req.user);
+				console.log("next");
 				return next();
 			});
 		}catch(error){
 			console.log(error);
 			return next();
 		}
+	}else{
+		next();
 	}
-	next();
+	
 }
