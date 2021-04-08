@@ -90,8 +90,8 @@ INSERT INTO Inventory VALUES(3, "Sanjeevani Inventory", 5882310, 303609);
 INSERT INTO Vaccine VALUES("Covaxin", "Bharat Biotech", 3500);
 INSERT INTO Vaccine VALUES("Covishield", "AstraZeneca", 3000);
 
-INSERT INTO Person VALUES(1, "Himani", "F", "2001-05-01", 7923017823, 395009, "himani@gmail.com");
-INSERT INTO Person VALUES(2, "Akash", "M", "1998-05-15", 9235178353, 400038, "akash@gmail.com");
-INSERT INTO Person VALUES(3, "Sakshi", "F", "2005-12-19", 9991202389, 110005, "sakshi@gmail.com");
-INSERT INTO Person VALUES(4, "Ram Nivas", "M", "1973-12-07", 8218903456, 110001, "nivasram@gmail.com");
-INSERT INTO Person VALUES(5, "Aditya", "M", "2000-01-01", 7923961209, 395009, "aditya@gmail.com");
+INSERT INTO Person VALUES(1, "Himani", "Female", "2001-05-01", 7923017823, 395009, "himani@gmail.com");
+INSERT INTO Person VALUES(2, "Akash", "Male", "1998-05-15", 9235178353, 400038, "akash@gmail.com");
+INSERT INTO Person VALUES(3, "Sakshi", "Female", "2005-12-19", 9991202389, 110005, "sakshi@gmail.com");
+INSERT INTO Person VALUES(4, "Ram Nivas", "Male", "1973-12-07", 8218903456, 110001, "nivasram@gmail.com");
+INSERT INTO Person VALUES(5, "Aditya", "Male", "2000-01-01", 7923961209, 395009, "aditya@gmail.com");
