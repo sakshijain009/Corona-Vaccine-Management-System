@@ -48,12 +48,12 @@
 <div style="box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);padding:20px;background-color: rgba(0,0,0,0.7);color: white;" class="container-fluid">
 <form class="form-inline" style="padding:20px;">
   <div class="form-group mb-2">
-    <label for="name">Name&nbsp; &nbsp;</label>
-    <input type="text" class="form-control" id="name" placeholder="Enter Name" required>
+    <label for="id">ID&nbsp; &nbsp;</label>
+    <input type="number" class="form-control" id="id" placeholder="Enter ID" required>
   </div>&nbsp; &nbsp;
   <div class="form-group mx-sm-3 mb-2">
-    <label for="contact">Contact No&nbsp; &nbsp;</label>
-    <input type="number" class="form-control" id="contact" placeholder="Enter Contact No" required>
+    <label for="name">Name&nbsp; &nbsp;</label>
+    <input type="name" class="form-control" id="name" placeholder="Enter Name" required>
   </div>&nbsp;&nbsp;
   <div class="form-group mx-sm-3 mb-2">
     <label for="dose1">Dose 1&nbsp; &nbsp;</label>
@@ -85,14 +85,16 @@
     <th style="width:18%;">Dose-2 Date</th>
   </tr>
 
-  <% for(i=0; i<records.length; i++) { %>
+  <% for(i=0; i<patient_details.length; i++) { %>
   <tr>
-    <td><%= records[i].H_id %></td>
-    <td><%= records[i].H_name %></td>
-    <td><%= records[i].H_contactno %></td>
-    <td><%= records[i].H_type %></td>
-    <td><%= records[i].H_address %></td>
-    <td><%= records[i].H_email %></td>
+    <td><%= patient_details[i].P_id %></td>
+    <td><%= patient_details[i].P_name %></td>
+    <td><%= patient_details[i].P_Gender %></td>
+    <td><%= patient_details[i].P_contactno %></td>
+    <% if(patient_details[i].Date_first===null)patient_details[i].Date_first='N/A' %>
+    <td><%= patient_details[i].Date_first %></td>
+   <% if(patient_details[i].Date_second===null)patient_details[i].Date_second='N/A' %>
+    <td><%= patient_details[i].Date_second %></td>
   </tr>
 <%  } %>
 </table>
