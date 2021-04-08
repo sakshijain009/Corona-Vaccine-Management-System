@@ -86,7 +86,7 @@ app.get("/choose_hosp", (req, res) => {
 });
 
 app.get("/Registerhospital", (req, res) => {
-  res.render("Registerhospital", { pincodes: pincode,  message: 'Enter details to Register', color: 'success', vaccines: vaccine });
+  res.render("Registerhospital", { pincodes: pincode, message: 'Enter details to Register', color: 'success', vaccines: vaccine });
 });
 
 app.get("/Registerinventory", (req, res) => {
@@ -97,25 +97,31 @@ app.get("/Registerinventory", (req, res) => {
 
 //Login into profile if cookie exists
 app.get("/hospitaldata", authController.isLoggedIn, (req, res) => {
-    console.log("inside");
-    console.log(req.user);
-        if (req.user) {
-           let sql = "select i.*, s.s_time,s.s_quantity from inventory i join supplies s on s_inventory = i.i_id join hospital h on h.h_id = s.s_hospital where h.h_id = ? order by s.s_time desc;";
-            con.start.query(sql,req.user.H_id, function(err,result){
-            if(err) throw err;
-            const invent_details = result[0];
-            res.render("hospitaldata", {
-            user: req.user,
-            invent_details: invent_details
-            });
-            });
-          
-        } else {
-          res.render('hosp_login', {
-            message: ''
-          });
-        }
-  
+  console.log("inside");
+  console.log(req.user);
+  if (req.user) {
+    let sql1 = "select count(*) as count from vaccinates where hosp = ?;";
+    con.start.query(sql1, req.user.H_id, function (err, result) {
+      if (err) throw err;
+      const count = result[0].count;
+      let sql = "select i.*, s.s_time,s.s_quantity from inventory i join supplies s on s_inventory = i.i_id join hospital h on h.h_id = s.s_hospital where h.h_id = ? order by s.s_time desc;";
+      con.start.query(sql, req.user.H_id, function (err, result) {
+        if (err) throw err;
+        const invent_details = result[0];
+        res.render("hospitaldata", {
+          user: req.user,
+          invent_details: invent_details,
+          count: count
+        });
+      });
+    });
+
+  } else {
+    res.render('hosp_login', {
+      message: ''
+    });
+  }
+
 });
 
 
@@ -127,46 +133,46 @@ app.get("/hosp_login", (req, res) => {
   });
 });
 
-app.get("/hosp_logindata",authController.isLoggedIn, (req,res) => {
-  
+app.get("/hosp_logindata", authController.isLoggedIn, (req, res) => {
+
   if (req.user) {
-      let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hospital h on v.hosp = h.h_id where h.h_id = ?;";
-      con.start.query(sql1,req.user.H_id,function(err,result){
-        if (err) throw err;
-        console.log(result);
-        res.render("hosp_logindata", {
+    let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hospital h on v.hosp = h.h_id where h.h_id = ?;";
+    con.start.query(sql1, req.user.H_id, function (err, result) {
+      if (err) throw err;
+      console.log(result);
+      res.render("hosp_logindata", {
         user: req.user,
         patient_details: result
       });
-      });
-    }
-    else{
-      res.render('hosp_login', {
-        message: ''
-      });
-    }
+    });
+  }
+  else {
+    res.render('hosp_login', {
+      message: ''
+    });
+  }
 });
 
 app.get("/inventory_login", (req, res) => {
   res.render('inventory_login', { stat: 'none', iid: '' });
 });
 
-app.get("/inventory_data",authController.isLoggedIn,  (req, res) => {
+app.get("/inventory_data", authController.isLoggedIn, (req, res) => {
 
   if (req.user) {
-           let sql = "select i.*, s.s_time,s.s_quantity from inventory i join supplies s on s_inventory = i.i_id join hospital h on h.h_id = s.s_hospital where h.h_id = ? order by s.s_time desc;";
-            con.start.query(sql,req.user.H_id, function(err,result){
-            if(err) throw err;
-            const invent_details = result;
-            res.render('inventory_data', { inventory: invent_details });
-            });
-          
-        } else {
-          res.render('hosp_login', {
-            message: ''
-          });
-        }
-  
+    let sql = "select i.*, s.s_time,s.s_quantity from inventory i join supplies s on s_inventory = i.i_id join hospital h on h.h_id = s.s_hospital where h.h_id = ? order by s.s_time desc;";
+    con.start.query(sql, req.user.H_id, function (err, result) {
+      if (err) throw err;
+      const invent_details = result;
+      res.render('inventory_data', { inventory: invent_details });
+    });
+
+  } else {
+    res.render('hosp_login', {
+      message: ''
+    });
+  }
+
 });
 
 
@@ -249,7 +255,7 @@ app.post("/Registerhospital", (req, res) => {
     if (err) { throw err };
     if (results.length > 0) {
       return res.render("Registerhospital", {
-        pincodes: pincode,        
+        pincodes: pincode,
         message: 'Please Note That: That email has already been registered! Kindly headover to the login page',
         color: 'danger',
         vaccines: vaccine
@@ -267,7 +273,7 @@ app.post("/Registerhospital", (req, res) => {
     console.log(hashedPassword);
 
 
-    con.start.query('INSERT INTO hospital SET ?', { h_name: name, h_email: email, h_contactno: contact, h_type: htype, h_address: pin, h_pwd: hashedPassword, h_vac: vacc}, function (err, result) {
+    con.start.query('INSERT INTO hospital SET ?', { h_name: name, h_email: email, h_contactno: contact, h_type: htype, h_address: pin, h_pwd: hashedPassword, h_vac: vacc }, function (err, result) {
       if (err) throw err;
       console.log("Number of records inserted in hospital: " + result.affectedRows);
       return res.render("Registerhospital", {
@@ -343,7 +349,7 @@ app.post("/Registerinventory", (req, res) => {
   con.start.query(sql, [val], function (err, result) {
     if (err) throw err;
     console.log("Number of records inserted: " + result.affectedRows);
-    res.render('inventory_login', { stat: 'block'});
+    res.render('inventory_login', { stat: 'block' });
   });
 
 });
