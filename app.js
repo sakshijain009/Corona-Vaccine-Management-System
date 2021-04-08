@@ -73,8 +73,14 @@ con.start.query("SELECT V_name from vaccine", function (err, result) {
 
 
 /*****************************GET REQUESTS****************************/
+var counts;
 app.get("/", (req, res) => {
-  res.render("home", { stat: 'none' });
+  let sql = "select ( select count(*) from vaccinates) as count_vacc, ( select count(*) from hospital) as count_hosp, ( select count(*) from inventory) as count_invent from dual;";
+  con.start.query(sql,function(err,result){
+    if(err) throw error;
+    counts = result[0];
+    res.render("home", { stat: 'none', count: counts});
+  })
 });
 
 app.get("/patient", (req, res) => {
@@ -233,7 +239,7 @@ app.post("/choose_hosp", (req, res) => {
       console.log("Number of records inserted in vaccinates: " + result.affectedRows);
     });
   });
-  res.render("home", { stat: 'block' });
+  res.render("home", { stat: 'block', count: counts });
 });
 
 // This is hospital signup page post request
