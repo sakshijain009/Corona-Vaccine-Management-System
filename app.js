@@ -94,30 +94,9 @@ app.get("/Registerinventory", (req, res) => {
 });
 
 
-var  patient_details;
+
 //Login into profile if cookie exists
 app.get("/hospitaldata", authController.isLoggedIn, (req, res) => {
-<<<<<<< HEAD
-  var sql = "select i.*, s.s_time,s.s_quantity from inventory i join supplies s on s_inventory = i.i_id join hospital h on h.h_id = s.s_hospital where h.h_id = ? order by s.s_time desc;";
-  con.start.query(sql,req.user.H_id, function(err,result){
-    if(err) throw err;
-    invent_details = result;
-    console.log("inside");
-    console.log(req.user);
-    if (req.user) {
-      res.render("hospitaldata", {
-        user: req.user,
-        invent_details: invent_details
-      });
-    } else {
-      res.render('hosp_login', {
-        message: ''
-      });
-    }
-  });
-=======
-
-
     console.log("inside");
     console.log(req.user);
         if (req.user) {
@@ -136,12 +115,7 @@ app.get("/hospitaldata", authController.isLoggedIn, (req, res) => {
             message: ''
           });
         }
-  /*var sql1 = "select p.* from person p join vaccinates v on v.P = p.p_id join hospital h on v.hosp = h.h_id where h.h_id = ?;";
-  con.start.query(sql1,req.user.H_id,function(err,result){
-    if (err) throw err;
-    patient_details = result;
-  });*/
->>>>>>> c201074c58610aec0892f007293009cb05d8b334
+  
 });
 
 
