@@ -45,7 +45,19 @@
 	</style>
 </head>
 <body>
+<div style="box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);padding:20px;background-color: rgba(0,0,0,0.7);color: white;" class="container-fluid">
+<form class="form-inline" style="padding:20px;" method="post" action="/inventory_data">
 
+  <div class="form-group mx-sm-3 mb-2">
+    <label for="id">Inventory ID&nbsp; &nbsp;</label>
+    <input type="number" class="form-control" id="id" name="id" placeholder="Enter ID" required>
+  </div>&nbsp;&nbsp;
+  <div class="form-group mx-sm-3 mb-2">
+    <label for="quantity">Quantity&nbsp; &nbsp;</label>
+    <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Enter Quantity" required>
+  </div>&nbsp;&nbsp;
+  <button type="submit" class="form-control btn btn-primary mx-sm-3 mb-3">Add!</button>
+</form></div>
 <br><br>
 <h1 style="text-align: center; font-family:Times New Roman;font-size: 40px">Inventory Data</h1><br>
 

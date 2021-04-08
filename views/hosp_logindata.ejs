@@ -46,22 +46,18 @@
 </head>
 <body>
 <div style="box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);padding:20px;background-color: rgba(0,0,0,0.7);color: white;" class="container-fluid">
-<form class="form-inline" style="padding:20px;">
+<form class="form-inline" style="padding:20px;" method="post" action="/hosp_logindata">
   <div class="form-group mb-2">
     <label for="id">ID&nbsp; &nbsp;</label>
-    <input type="number" class="form-control" id="id" placeholder="Enter ID" required>
+    <input type="number" class="form-control" id="id" name="id" placeholder="Enter ID" required>
   </div>&nbsp; &nbsp;
   <div class="form-group mx-sm-3 mb-2">
-    <label for="name">Name&nbsp; &nbsp;</label>
-    <input type="name" class="form-control" id="name" placeholder="Enter Name" required>
-  </div>&nbsp;&nbsp;
-  <div class="form-group mx-sm-3 mb-2">
     <label for="dose1">Dose 1&nbsp; &nbsp;</label>
-    <input type="date" class="form-control" id="dose1">
+    <input type="date" class="form-control" id="dose1" name="dose1">
   </div>&nbsp;&nbsp;
   <div class="form-group mx-sm-3 mb-2">
     <label for="dose2">Dose 2&nbsp; &nbsp;</label>
-    <input type="date" class="form-control" id="dose2">
+    <input type="date" class="form-control" id="dose2" name="dose2">
   </div>
   &nbsp; &nbsp;
   <button type="submit" class="form-control btn btn-primary mx-sm-3 mb-3">Update</button>
