@@ -366,13 +366,11 @@ app.post("/Registerinventory", (req, res) => {
 
 app.post("/inventory_data", authController.isLoggedIn, (req, res) =>{
   if (req.user) {
-      var today = new Date();
-      var ts = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
       const val = [
       req.user.H_id,
       req.body.id,
       req.body.quantity,
-      ts
+      req.body.date
       ]  
       let sql3 = "INSERT INTO supplies (S_hospital,S_inventory,S_quantity,S_time) VALUES (?);";
       con.start.query(sql3, [val], function (err, result) {

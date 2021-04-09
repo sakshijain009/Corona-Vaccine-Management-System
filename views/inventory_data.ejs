@@ -56,19 +56,23 @@
     <label for="quantity">Quantity&nbsp; &nbsp;</label>
     <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Enter Quantity" required>
   </div>&nbsp;&nbsp;
+  <div class="form-group mx-sm-3 mb-2">
+    <label for="date">Date&nbsp; &nbsp;</label>
+    <input type="date" class="form-control" id="date" name="date" placeholder="Enter Quantity" required>
+  </div>&nbsp;&nbsp;
   <button type="submit" class="form-control btn btn-primary mx-sm-3 mb-3">Add!</button>
 </form></div>
 <br><br>
 <h1 style="text-align: center; font-family:Times New Roman;font-size: 40px">Inventory Data</h1><br>
-
-
+<div class="float-right" style="padding-right: 90px">
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Name"></div><br><br>
 <table id="myTable" style="font-family: gadugi;text-align: center">
   <tr class="header" style="background-color:rgb(60,179,113);color: white;">
     <th style="width:7%;">ID</th>
     <th style="width:15%;">Name</th>
     <th style="width:20%;">Contact No</th>
     <th style="width:18%;">Pincode</th>
-    <th style="width:18%;">Timestamp</th>
+    <th style="width:18%;">Date</th>
     <th style="width:18%;">Quantity</th>
   </tr>
   <% for(i =0;i<inventory.length ;i++){ %>
@@ -77,31 +81,12 @@
     <td><%= inventory[i].I_name %></td>
     <td><%= inventory[i].I_contactno %></td>
     <td><%= inventory[i].I_address %></td>
-    <td><%= inventory[i].s_time %></td>
+    <td><%= inventory[i].s_time.toString().substring(0,16) %></td>
     <td><%= inventory[i].s_quantity %></td>
   </tr>
   <% } %>
 </table>
 
-<script>
-function myFunction() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
-}
-</script>
+<script type="text/javascript" src="js/search.js"></script>
 
 <%- include('partials/footer'); -%>
