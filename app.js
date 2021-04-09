@@ -179,7 +179,8 @@ app.get("/hosp_logindata", authController.isLoggedIn, (req, res) => {
       if (err) throw err;
       res.render("hosp_logindata", {
         user: req.user,
-        patient_details: result
+        patient_details: result,
+        message:'All records'
       });
     });
   }
@@ -190,7 +191,65 @@ app.get("/hosp_logindata", authController.isLoggedIn, (req, res) => {
   }
 });
 
+app.get("/onedose", authController.isLoggedIn, (req, res) => {
 
+  if (req.user) {
+    let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ? and v.Date_first is not NULL and v.Date_second = '0000-00-00';";
+    con.start.query(sql1, req.user.H_id, function (err, result) {
+      if (err) throw err;
+      res.render("hosp_logindata", {
+        user: req.user,
+        patient_details: result,
+        message:'One dose administered'
+      });
+    });
+  }
+  else {
+    res.render('hosp_login', {
+      message: ''
+    });
+  }
+});
+
+app.get("/nodose", authController.isLoggedIn, (req, res) => {
+
+  if (req.user) {
+    let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ? and v.Date_first is null and v.Date_second is null";
+    con.start.query(sql1, req.user.H_id, function (err, result) {
+      if (err) throw err;
+      res.render("hosp_logindata", {
+        user: req.user,
+        patient_details: result,
+        message:'No dose administered'
+      });
+    });
+  }
+  else {
+    res.render('hosp_login', {
+      message: ''
+    });
+  }
+});
+
+app.get("/bothdose", authController.isLoggedIn, (req, res) => {
+
+  if (req.user) {
+    let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ? and v.Date_first != '0000-00-00' and v.Date_second != '0000-00-00';";
+    con.start.query(sql1, req.user.H_id, function (err, result) {
+      if (err) throw err;
+      res.render("hosp_logindata", {
+        user: req.user,
+        patient_details: result,
+        message:'Both dose administered'
+      });
+    });
+  }
+  else {
+    res.render('hosp_login', {
+      message: ''
+    });
+  }
+});
 
 
 
@@ -403,13 +462,6 @@ app.post("/hosp_logindata", authController.isLoggedIn, (req, res) => {
     });
   }
 });
-
-
-
-
-
-
-
 
 
 /*******************************************************/

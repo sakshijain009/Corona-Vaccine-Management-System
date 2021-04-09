@@ -42,6 +42,10 @@
   background-color: #f1f1f1;
 }
 
+.inline-block-child {
+    display: inline-block;
+  }
+
   </style>
 </head>
 <body>
@@ -63,15 +67,24 @@
   <button type="submit" class="form-control btn btn-primary mx-sm-3 mb-3">Update</button>
 </form></div>
 <br><br>
-<h1 style="text-align: center; font-family:Times New Roman;font-size: 40px">List of Registered Persons for</h1><br>
+<h1 style="text-align: center; font-family:Times New Roman;font-size: 40px">List of Registered Persons</h1><br>
 
- <label for="myInput" style="padding-left:20px;padding-top:10px;font-size: 20px;font-family: 'Karla', sans-serif;">To Update the Information of the Person in the above Form first Search for the Person to check if he/she is registered for vaccination.</label>
+<label for="myInput" style="padding-left:60px;padding-top:10px;font-size:20px;font-family:'Karla', sans-serif;margin-bottom: 30px;display: block;">To Update the Information of the Person in the above Form first Search for the Person to check if he/she is registered for vaccination.</label>
+<p class ="float-left" style="margin-left:60px;font-size: 30px;font-family: 'Karla', sans-serif;color: rgb(60,179,113);margin-bottom: 40px;"><%= message %></p>
+<div class="dropdown float-right" style="margin-right: 40px;">
+  <a class="nav-link" style="border: 1px solid black;width: 150px;">Filter</a>
+ <div class="dropdown-content">
+  <a href="/nodose">No Dose</a>
+  <a href="/onedose">One Dose</a>
+  <a href="/bothdose">Both Dose</a>
+  <a href="/hosp_logindata">All Records</a>
+</div><br> 
+</div>
+<div class="float-right" style="padding-right: 30px">  
+  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Name"><br>
+</div>
 
-<div class="float-right" style="padding-right: 30px">
-
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Name"></div><br><br>
-
-<table id="myTable" style="font-family: gadugi;text-align: center">
+<table id="myTable" style="font-family: gadugi;text-align: center;">
   <tr class="header" style="background-color:rgb(60,179,113);color: white;">
     <th style="width:7%;">ID</th>
     <th style="width:15%;">Person Name</th>
