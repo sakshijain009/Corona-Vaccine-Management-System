@@ -53,7 +53,7 @@
   </div>&nbsp; &nbsp;
   <div class="form-group mx-sm-3 mb-2">
     <label for="dose1">Dose 1&nbsp; &nbsp;</label>
-    <input type="date" class="form-control" id="dose1" name="dose1">
+    <input type="date" class="form-control" id="dose1" name="dose1" required>
   </div>&nbsp;&nbsp;
   <div class="form-group mx-sm-3 mb-2">
     <label for="dose2">Dose 2&nbsp; &nbsp;</label>
@@ -87,10 +87,10 @@
     <td><%= patient_details[i].P_name %></td>
     <td><%= patient_details[i].P_Gender %></td>
     <td><%= patient_details[i].P_contactno %></td>
-    <% if(patient_details[i].Date_first===null)patient_details[i].Date_first='N/A' %>
-    <td><%= patient_details[i].Date_first %></td>
-   <% if(patient_details[i].Date_second===null)patient_details[i].Date_second='N/A' %>
-    <td><%= patient_details[i].Date_second %></td>
+    <% if(patient_details[i].Date_first===null ||patient_details[i].Date_first==='0000-00-00')patient_details[i].Date_first='N/A' %>
+    <td><%= patient_details[i].Date_first.toString().substring(0,16) %></td>
+   <% if(patient_details[i].Date_second===null ||patient_details[i].Date_second==='0000-00-00')patient_details[i].Date_second='N/A' %>
+    <td><%= patient_details[i].Date_second.toString().substring(0,16) %></td>
   </tr>
 <%  } %>
 </table>
