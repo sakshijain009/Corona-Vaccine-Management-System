@@ -75,6 +75,7 @@ CREATE TABLE Vaccinates
     FOREIGN KEY (Hosp) REFERENCES Hospital(H_id)  ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE VIEW hosp_data AS SELECT H_id, H_name, H_contactno, H_type, H_address, H_email, H_vac FROM hospital;
 
 INSERT INTO Location VALUES(110005, "Anand Parbat", "Delhi", "Delhi");
 INSERT INTO Location VALUES(110001, "Baroda House", "Delhi", "Delhi");

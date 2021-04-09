@@ -47,7 +47,7 @@ con.start.query("SELECT pincode FROM location", function (err, result, fields) {
 });
 
 var hospital;
-con.start.query("SELECT H_name, H_address FROM hospital", function (err, result, fields) {
+con.start.query("SELECT H_name, H_address FROM hosp_data", function (err, result, fields) {
   if (err) throw err;
   hospital = result;
 });
@@ -70,8 +70,8 @@ con.start.query("SELECT V_name from vaccine", function (err, result) {
 var counts;
 var vaccine;
 app.get("/", (req, res) => {
-  let sql = "select ( select count(*) from vaccinates) as count_vacc, ( select count(*) from hospital) as count_hosp, ( select count(*) from inventory) as count_invent from dual;";
-  let sqla = "SELECT count(*) as count_,h.H_vac from vaccinates as v INNER JOIN hospital as h WHERE v.Hosp=h.H_id GROUP By h.H_vac";
+  let sql = "select ( select count(*) from vaccinates) as count_vacc, ( select count(*) from hosp_data) as count_hosp, ( select count(*) from inventory) as count_invent from dual;";
+  let sqla = "SELECT count(*) as count_,h.H_vac from vaccinates as v INNER JOIN hosp_data as h WHERE v.Hosp=h.H_id GROUP By h.H_vac";
   con.start.query(sql, function (err, result) {
     if (err) throw error;
     counts = result[0];
@@ -87,7 +87,7 @@ app.get("/patient", (req, res) => {
 });
 
 app.get("/choose_hosp/:pin/:pid", (req, res) => {
-  let sql = "SELECT * FROM hospital where h_address = ?";
+  let sql = "SELECT * FROM hosp_data where h_address = ?";
   con.start.query(sql,[req.params.pin],(err,result)=>{
     console.log(req.params.pin);
     res.render("choose_hosp", { hospital: result,myid:req.params.pid});
@@ -109,7 +109,7 @@ app.get("/inventory_data", authController.isLoggedIn, (req, res) => {
 
   if (req.user) {
 
-    let sql = "select i.*, s.s_time,s.s_quantity from inventory i join supplies s on s_inventory = i.i_id join hospital h on h.h_id = s.s_hospital where h.h_id = ? order by s.s_time desc;";
+    let sql = "select i.*, s.s_time,s.s_quantity from inventory i join supplies s on s_inventory = i.i_id join hosp_data h on h.h_id = s.s_hospital where h.h_id = ? order by s.s_time desc;";
     con.start.query(sql, req.user.H_id, function (err, result) {
       if (err) throw err;
       const invent_details = result;
@@ -134,7 +134,7 @@ app.get("/hospitaldata", authController.isLoggedIn, (req, res) => {
     con.start.query(sql1, req.user.H_id, function (err, result) {
       if (err) throw err;
       const count = result[0].count;
-      let sql = "select i.*, s.s_time,s.s_quantity from inventory i join supplies s on s_inventory = i.i_id join hospital h on h.h_id = s.s_hospital where h.h_id = ? order by s.s_time desc;";
+      let sql = "select i.*, s.s_time,s.s_quantity from inventory i join supplies s on s_inventory = i.i_id join hosp_data h on h.h_id = s.s_hospital where h.h_id = ? order by s.s_time desc;";
       con.start.query(sql, req.user.H_id, function (err, result) {
         if (err) throw err;
         const invent_details = result[0];
@@ -174,7 +174,7 @@ app.get("/hosp_login", (req, res) => {
 app.get("/hosp_logindata", authController.isLoggedIn, (req, res) => {
 
   if (req.user) {
-    let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hospital h on v.hosp = h.h_id where h.h_id = ?;";
+    let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ?;";
     con.start.query(sql1, req.user.H_id, function (err, result) {
       if (err) throw err;
       res.render("hosp_logindata", {
@@ -231,7 +231,7 @@ app.post("/patient", (req, res) => {
 app.post("/choose_hosp/:id", (req, res) => {
 
   const hosp_name = req.body.inputHOSP;
-  var sql2 = "SELECT * from hospital where H_name = (?)";
+  var sql2 = "SELECT * from hosp_data where H_name = (?)";
   con.start.query(sql2, [hosp_name], function (err, result) {
     if (err) throw err;
     const hosp_id = result[0].H_id;
@@ -260,7 +260,7 @@ app.post("/Registerhospital", (req, res) => {
   const vacc = req.body.inputVACC;
 
   console.log(pin);
-  con.start.query('SELECT h_email from hospital WHERE h_email = ?', [email], async (err, results) => {
+  con.start.query('SELECT h_email from hosp_data WHERE h_email = ?', [email], async (err, results) => {
     if (err) { throw err };
     if (results.length > 0) {
       return res.render("Registerhospital", {
@@ -355,7 +355,7 @@ app.post("/Registerinventory", (req, res) => {
   con.start.query(sql, [val], function (err, result) {
     if (err) throw err;
     console.log("Number of records inserted: " + result.affectedRows);
-    res.render('inventory_login', { stat: 'block' });
+    res.redirect("/");
   });
 
 });
@@ -369,10 +369,11 @@ app.post("/inventory_data", authController.isLoggedIn, (req, res) => {
       req.body.quantity,
       req.body.date
       ]  
+
       let sql3 = "INSERT INTO supplies (S_hospital,S_inventory,S_quantity,S_time) VALUES (?);";
       con.start.query(sql3, [val], function (err, result) {
         if (err) throw err;
-        console.log("Number of records inserted: " + result.affectedRows);
+        console.log("Number of records inserted in inventory: " + result.affectedRows);
         res.redirect('/inventory_data');
 
     });
