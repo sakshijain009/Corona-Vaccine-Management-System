@@ -39,7 +39,7 @@
 
 </div>
 
-<div class="bg-dark text-secondary px-4 py-5 text-center">
+<div class="bg-dark text-secondary px-4 py-5 text-center"  style="margin-bottom: 20vmin;">
   <div class="py-5">
     <h1 class="display-5 fw-bold text-white">Why Vaccinate?</h1>
     <div class="col-lg-6 mx-auto">
@@ -51,27 +51,21 @@
   </div>
 </div>
 
-<div style="padding-top: 20vmin;padding-bottom: 20vmin;background-color:rgb(128,128,128,0.1)">
-<div class="card  text-center mx-auto" style="box-shadow: inset 0 0 5rem rgba(0, 0, 0, .3);">
-  <div class="card-body">
-    <h1 class="card-title"><%= vaccine[0].H_vac %></h1>
-    <p class="card-text">
-      Number of patients successfully vaccinated
-    </p>
-    <h1 style="color: green">+<%= vaccine[0].count_ %></h1>
-  </div>
-</div>
 
-<div class="card text-center mx-auto" style="margin-top: 2vmin;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+
+<% for(var j=0;j<vaccine.length;j++){ %>
+  <div class="card text-center mx-auto" style="margin-top: 2vmin;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
   <div class="card-body">
-    <h1 class="card-title"><%= vaccine[1].H_vac %></h1>
+    <h1 class="card-title"><%= vaccine[j].H_vac %></h1>
     <p class="card-text">
       Number of patients successfully vaccinated
     </p>
-    <h1 style="color: green">+<%= vaccine[1].count_ %></h1>
+    <h1 style="color: green">+<%= vaccine[j].count_ %></h1>
   </div>
 </div>
 </div>
+<% } %>
+
 
 <section class="section-4" style="padding-top: 20vmin;">
             <div class="container text-center">
