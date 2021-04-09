@@ -24,15 +24,7 @@ app.use(cookieParser());
 
 
 // MYSQL CONNECTION-----------------------------------------------------------
-/*
-var con = mysql.createConnection({
-  host: process.env.DATABASE_HOST,
-  user: process.env.DATABASE_USER,
-  password:process.env.DATABASE_PWD,
-  database : process.env.DATABASE
-});
 
-*/
 con.start.connect((err) => {
   if (err) throw err;
   console.log('connected');
