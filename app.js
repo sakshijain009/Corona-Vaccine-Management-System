@@ -52,12 +52,6 @@ con.start.query("SELECT H_name, H_address FROM hospital", function (err, result,
   hospital = result;
 });
 
-// var invent;
-// con.start.query("SELECT * from inventory", function (err, result) {
-//   if (err) throw err;
-//   invent = result;
-// });
-
 var vaccine;
 con.start.query("SELECT V_name from vaccine", function (err, result) {
   if (err) throw err;
@@ -76,9 +70,11 @@ con.start.query("SELECT V_name from vaccine", function (err, result) {
 var counts;
 app.get("/", (req, res) => {
   let sql = "select ( select count(*) from vaccinates) as count_vacc, ( select count(*) from hospital) as count_hosp, ( select count(*) from inventory) as count_invent from dual;";
+  /*let sqla = "SELECT count(*) as count_,h.H_vac from vaccinates as v INNER JOIN hospital as h WHERE v.Hosp=h.H_id GROUP By h.H_vac";*/
   con.start.query(sql,function(err,result){
     if(err) throw error;
     counts = result[0];
+    console.log(counts);
     res.render("home", { stat: 'none', count: counts});
   })
 });
@@ -164,13 +160,6 @@ app.get("/hosp_login", (req, res) => {
     message: ''
   });
 });
-
-
-
-app.get("/inventory_login", (req, res) => {
-  res.render('inventory_login', { stat: 'none', iid: '' });
-});
-
 
 app.get("/hosp_logindata", authController.isLoggedIn, (req, res) => {
  
@@ -349,39 +338,44 @@ app.post('/hospital_login', async (req, res) => {
   }
 });
 
+
+
+
 app.post("/Registerinventory", (req, res) => {
 
-  const val = [
-    req.body.inputName,
-    req.body.inputContact,
-    req.body.PINinventory
-  ]
-
-  var sql = "INSERT INTO inventory (I_name,I_contactno,I_address) VALUES (?)";
-  con.start.query(sql, [val], function (err, result) {
-    if (err) throw err;
-    console.log("Number of records inserted: " + result.affectedRows);
-    res.render('inventory_login', { stat: 'block' });
-  });
+    const val = [
+      req.body.inputName,
+      req.body.inputContact,
+      req.body.PINinventory
+    ]
+    let sql = "INSERT INTO inventory (I_name,I_contactno,I_address) VALUES (?)";
+    con.start.query(sql, [val], function (err, result) {
+      if (err) throw err;
+      console.log("Number of records inserted: " + result.affectedRows);
+      res.render('inventory_login', { stat: 'block' });
+    });
 
 });
 
+
+
+
 app.post("/inventory_data", authController.isLoggedIn, (req, res) =>{
   if (req.user) {
-    var today = new Date();
-    var ts = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-    const val = [
-    req.user.H_id,
-    req.body.id,
-    req.body.quantity,
-    ts
-  ]  
+      var today = new Date();
+      var ts = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+      const val = [
+      req.user.H_id,
+      req.body.id,
+      req.body.quantity,
+      ts
+      ]  
       let sql3 = "INSERT INTO supplies (S_hospital,S_inventory,S_quantity,S_time) VALUES (?);";
       con.start.query(sql3, [val], function (err, result) {
-      if (err) throw err;
-     console.log("Number of records inserted: " + result.affectedRows);
-     res.redirect('/inventory_data');
-  });
+        if (err) throw err;
+        console.log("Number of records inserted: " + result.affectedRows);
+        res.redirect('/inventory_data');
+    });
   }  
   else {
     res.render('hosp_login', {
@@ -391,14 +385,17 @@ app.post("/inventory_data", authController.isLoggedIn, (req, res) =>{
 
 });
 
+
+
+
 app.post("/hosp_logindata", authController.isLoggedIn, (req, res) =>{
   if (req.user) {
     console.log(req.body.dose1);
-  let sql4 = "Update vaccinates SET Date_first= ? and Date_second= ? where Hosp= ? and P=?";
-  con.start.query(sql4,[[req.body.dose1],[req.body.dose2],[req.user.H_id],[req.body.id]],function (err, result) {
-      if (err) throw err;
-     console.log("Number of records updated: " + result.affectedRows);
-     res.redirect('/hosp_logindata');
+    let sql4 = "Update vaccinates SET Date_first= ? and Date_second= ? where Hosp= ? and P=?";
+    con.start.query(sql4,[[req.body.dose1],[req.body.dose2],[req.user.H_id],[req.body.id]],function (err, result) {
+        if (err) throw err;
+        console.log("Number of records updated: " + result.affectedRows);
+        res.redirect('/hosp_logindata');
   });
 }
 else {
@@ -407,6 +404,12 @@ else {
     });
   }
 });
+
+
+
+
+
+
 
 
 
