@@ -22,5 +22,4 @@ To install all the dependencies write the following command on your terminal:
 - Himani Verma (U19CS075)
 - Riya Sharma (U19CS079)
 - Esha Srivastav (U19CS109)
--
 
