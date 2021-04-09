@@ -440,8 +440,8 @@ app.post("/inventory_data", authController.isLoggedIn, (req, res) => {
 
 app.post("/hosp_logindata", authController.isLoggedIn, (req, res) => {
   if (req.user) {
-    const val = [[req.body.dose1], [req.body.dose2], [req.user.H_id], [req.body.id]]
-    let sql4 = "Update vaccinates SET Date_first= ?, Date_second= ? where Hosp= ? and P=?;";
+    const val = [[req.body.dose1], [req.body.dose2], [req.user.H_id], [req.body.id], [req.user.H_id]];
+    let sql4 = "Update vaccinates SET Date_first= ?, Date_second= ? where Hosp= ? and P=? and exists (select * from supplies where s_hospital= ?);";
     con.start.query(sql4, val, function (err, result) {
       if (err) throw err;
       console.log("Number of records updated: " + result.affectedRows);
