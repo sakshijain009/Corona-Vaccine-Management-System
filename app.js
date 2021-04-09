@@ -70,12 +70,16 @@ con.start.query("SELECT V_name from vaccine", function (err, result) {
 var counts;
 app.get("/", (req, res) => {
   let sql = "select ( select count(*) from vaccinates) as count_vacc, ( select count(*) from hospital) as count_hosp, ( select count(*) from inventory) as count_invent from dual;";
-  /*let sqla = "SELECT count(*) as count_,h.H_vac from vaccinates as v INNER JOIN hospital as h WHERE v.Hosp=h.H_id GROUP By h.H_vac";*/
+  let sqla = "SELECT count(*) as count_,h.H_vac from vaccinates as v INNER JOIN hospital as h WHERE v.Hosp=h.H_id GROUP By h.H_vac";
   con.start.query(sql,function(err,result){
     if(err) throw error;
     counts = result[0];
     console.log(counts);
-    res.render("home", { stat: 'none', count: counts});
+    con.start.query(sqla,function(err,result){
+        console.log(result);
+        res.render("home", { stat: 'none', count: counts,vaccine:result});
+    });
+    
   })
 });
 
