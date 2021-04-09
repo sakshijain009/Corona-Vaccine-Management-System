@@ -18,8 +18,8 @@ To install all the dependencies write the following command on your terminal:
 - node.js - Backend Development environment
 - express.js - Web Application framework
 ## Contributors
-- Sakshi Jain
-- Riya Sharma
-- Himani Verma
-- Esha Srivastav
+- Sakshi Jain (U19CS048)
+- Himani Verma (U19CS075)
+- Riya Sharma (U19CS079)
+- Esha Srivastav (U19CS109)
 

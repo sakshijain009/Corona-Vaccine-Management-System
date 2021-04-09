@@ -42,7 +42,7 @@
   </div><br>
   <div class="row d-flex justify-content-between">
   	<div class="col-md-8">
-  		<button type="submit" class="btn btn-primary" style="width: 40%">Register</button>
+  		<button type="submit" class="btn btn-primary" style="width: 40%" onclick="myFunction()">Register</button>
   	</div>
   	<div class="col-md-4">
   		<br><img src="images\inventory.png" class="img-fluid">
@@ -52,5 +52,11 @@
 </form>
 
 </div>
-
+<script>
+  function myFunction() {
+    alert("Inventory registration is successful.");
+  }
+  </script>
+  <script type="text/javascript" src="js/end.js"></script>
+  
 <%- include('partials/footer'); -%>
