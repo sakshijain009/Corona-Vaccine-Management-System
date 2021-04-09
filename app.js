@@ -52,12 +52,6 @@ con.start.query("SELECT H_name, H_address FROM hospital", function (err, result,
   hospital = result;
 });
 
-// var invent;
-// con.start.query("SELECT * from inventory", function (err, result) {
-//   if (err) throw err;
-//   invent = result;
-// });
-
 var vaccine;
 con.start.query("SELECT V_name from vaccine", function (err, result) {
   if (err) throw err;
@@ -76,10 +70,15 @@ con.start.query("SELECT V_name from vaccine", function (err, result) {
 var counts;
 app.get("/", (req, res) => {
   let sql = "select ( select count(*) from vaccinates) as count_vacc, ( select count(*) from hospital) as count_hosp, ( select count(*) from inventory) as count_invent from dual;";
+  let sqla = "SELECT count(*) as count_,h.H_vac from vaccinates as v INNER JOIN hospital as h WHERE v.Hosp=h.H_id GROUP By h.H_vac";
   con.start.query(sql, function (err, result) {
     if (err) throw error;
     counts = result[0];
-    res.render("home", { stat: 'none', count: counts });
+    console.log(counts);
+    con.start.query(sqla, function (err, result) {
+      console.log(result);
+      res.render("home", { stat: 'none', count: counts, vaccine: result });
+    });
   })
 });
 
@@ -164,13 +163,6 @@ app.get("/hosp_login", (req, res) => {
     message: ''
   });
 });
-
-
-
-app.get("/inventory_login", (req, res) => {
-  res.render('inventory_login', { stat: 'none', iid: '' });
-});
-
 
 app.get("/hosp_logindata", authController.isLoggedIn, (req, res) => {
 
@@ -348,6 +340,9 @@ app.post('/hospital_login', async (req, res) => {
   }
 });
 
+
+
+
 app.post("/Registerinventory", (req, res) => {
 
   const val = [
@@ -355,8 +350,7 @@ app.post("/Registerinventory", (req, res) => {
     req.body.inputContact,
     req.body.PINinventory
   ]
-
-  var sql = "INSERT INTO inventory (I_name,I_contactno,I_address) VALUES (?)";
+  let sql = "INSERT INTO inventory (I_name,I_contactno,I_address) VALUES (?)";
   con.start.query(sql, [val], function (err, result) {
     if (err) throw err;
     console.log("Number of records inserted: " + result.affectedRows);
@@ -406,6 +400,12 @@ app.post("/hosp_logindata", authController.isLoggedIn, (req, res) => {
     });
   }
 });
+
+
+
+
+
+
 
 
 

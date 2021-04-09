@@ -19,18 +19,19 @@
     <div class="row">
       <div class="col-lg-4 text-center">
         <img src="images/vaccine.png" class="img-fluid img">
+       <% if (count.count_vacc === undefined) count.count_vacc=0; %>
         <h2>+<%= count.count_vacc %></h2>
         <p>Citizens Have Been Registered</p>
       </div><!-- /.col-lg-4 -->
       <div class="col-lg-4 text-center">
         <img src="images/doctor.png" class="img-fluid img">
-
+       <% if (count.count_hosp === undefined) count.count_hosp=0; %>
         <h2>+<%= count.count_hosp %></h2>
         <p>Hospitals Have Been Registered</p>
       </div><!-- /.col-lg-4 -->
       <div class="col-lg-4 text-center">
         <img src="images/hospital.png" class="img-fluid img">
-
+       <% if (count.count_invent === undefined) count.count_invent=0; %>
         <h2>+<%= count.count_invent %></h2>
         <p>Inventories Have Been Connected</p>
       </div>
@@ -38,7 +39,7 @@
 
 </div>
 
-<div class="bg-dark text-secondary px-4 py-5 text-center">
+<div class="bg-dark text-secondary px-4 py-5 text-center"  style="margin-bottom: 20vmin;">
   <div class="py-5">
     <h1 class="display-5 fw-bold text-white">Why Vaccinate?</h1>
     <div class="col-lg-6 mx-auto">
@@ -50,27 +51,21 @@
   </div>
 </div>
 
-<div style="padding-top: 20vmin;padding-bottom: 20vmin;background-color:rgb(128,128,128,0.1)">
-<div class="card  text-center mx-auto" style="box-shadow: inset 0 0 5rem rgba(0, 0, 0, .3);">
-  <div class="card-body">
-    <h1 class="card-title">Covaccine</h1>
-    <p class="card-text">
-      Number of patients successfully vaccinated
-    </p>
-    <h1 style="color: green">+89</h1>
-  </div>
-</div>
 
-<div class="card text-center mx-auto" style="margin-top: 2vmin;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+
+<% for(var j=0;j<vaccine.length;j++){ %>
+  <div class="card text-center mx-auto" style="margin-top: 2vmin;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
   <div class="card-body">
-    <h1 class="card-title">Covi-Shield</h1>
+    <h1 class="card-title"><%= vaccine[j].H_vac %></h1>
     <p class="card-text">
       Number of patients successfully vaccinated
     </p>
-    <h1 style="color: green">+142</h1>
+    <h1 style="color: green">+<%= vaccine[j].count_ %></h1>
   </div>
 </div>
 </div>
+<% } %>
+
 
 <section class="section-4" style="padding-top: 20vmin;">
             <div class="container text-center">
