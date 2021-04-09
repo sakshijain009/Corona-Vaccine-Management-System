@@ -11,12 +11,11 @@
 }
 
 #myInput {
-  background-image: url('/css/searchicon.png');
   background-position: 10px 10px;
   background-repeat: no-repeat;
   width: 100%;
   font-size: 16px;
-  padding: 12px 20px 12px 40px;
+  padding: 10px 20px;
   border: 1px solid #ddd;
   margin-bottom: 12px;
 }
@@ -44,7 +43,23 @@
 
 .inline-block-child {
     display: inline-block;
-  }
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown:after {
+    content: "";
+    position: absolute;
+    right: 10px;
+    top: 32%;
+    width: 0; 
+    height: 0; 
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #333;
+}
 
   </style>
 </head>
@@ -72,7 +87,7 @@
 <label for="myInput" style="padding-left:60px;padding-top:10px;font-size:20px;font-family:'Karla', sans-serif;margin-bottom: 30px;display: block;">To Update the Information of the Person in the above Form first Search for the Person to check if he/she is registered for vaccination.</label>
 <p class ="float-left" style="margin-left:60px;font-size: 30px;font-family: 'Karla', sans-serif;color: rgb(60,179,113);margin-bottom: 40px;"><%= message %></p>
 <div class="dropdown float-right" style="margin-right: 40px;">
-  <a class="nav-link" style="border: 1px solid black;width: 150px;">Filter</a>
+  <a class="nav-link" style="border: 1px solid lightgrey;width: 150px;margin-top: 2px;">Filter</a>
  <div class="dropdown-content">
   <a href="/nodose">No Dose</a>
   <a href="/onedose">One Dose</a>
@@ -80,8 +95,8 @@
   <a href="/hosp_logindata">All Records</a>
 </div><br> 
 </div>
-<div class="float-right" style="padding-right: 30px">  
-  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Name"><br>
+<div class="float-right" style="padding-right: 20px">  
+  <input type="text" id="myInput" class="search" onkeyup="myFunction()" placeholder="Search Name"><br>
 </div>
 
 <table id="myTable" style="font-family: gadugi;text-align: center;">
@@ -108,7 +123,7 @@
 <%  } %>
 </table>
 
-<p style="margin: 10px 0 40px 40px;font-size: 20px;font-family: 'Karla', sans-serif;"><b>Total count of patients </b>: <%= patient_details.length %></p>
+<p style="margin: 14px 0 40px 40px;font-size: 20px;font-family: 'Karla', sans-serif;"><b>Total count of patients </b>: <%= patient_details.length %></p>
 
 <script type="text/javascript" src="js/search.js"></script>
 
