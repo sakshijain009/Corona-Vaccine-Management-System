@@ -19,10 +19,6 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(cookieParser());
 
-
-
-
-
 // MYSQL CONNECTION-----------------------------------------------------------
 /*
 var con = mysql.createConnection({
@@ -58,14 +54,6 @@ con.start.query("SELECT V_name from vaccine", function (err, result) {
   vaccine = result;
 });
 
-
-
-
-
-
-
-
-
 /*****************************GET REQUESTS****************************/
 var counts;
 var vaccine;
@@ -91,8 +79,7 @@ app.get("/choose_hosp/:pin/:pid", (req, res) => {
   con.start.query(sql,[req.params.pin],(err,result)=>{
     console.log(req.params.pin);
     res.render("choose_hosp", { hospital: result,myid:req.params.pid});
-  });
-  
+  });  
 });
 
 app.get("/Registerhospital", (req, res) => {
@@ -106,22 +93,18 @@ app.get("/Registerinventory", (req, res) => {
 });
 
 app.get("/inventory_data", authController.isLoggedIn, (req, res) => {
-
   if (req.user) {
-
     let sql = "select i.*, s.s_time,s.s_quantity from inventory i join supplies s on s_inventory = i.i_id join hosp_data h on h.h_id = s.s_hospital where h.h_id = ? order by s.s_time desc;";
     con.start.query(sql, req.user.H_id, function (err, result) {
       if (err) throw err;
       const invent_details = result;
       res.render('inventory_data', { inventory: invent_details });
     });
-
   } else {
     res.render('hosp_login', {
       message: ''
     });
   }
-
 });
 
 //Login into profile if cookie exists
@@ -129,7 +112,6 @@ app.get("/hospitaldata", authController.isLoggedIn, (req, res) => {
   console.log("inside");
   console.log(req.user);
   if (req.user) {
-
     let sql1 = "select count(*) as count from vaccinates where hosp = ?;";
     con.start.query(sql1, req.user.H_id, function (err, result) {
       if (err) throw err;
@@ -150,21 +132,16 @@ app.get("/hospitaldata", authController.isLoggedIn, (req, res) => {
           });
         });
       });
-
     });
   }
-
   else {
     res.render('hosp_login', {
       message: ''
     });
   }
-
 });
 
-
 app.get("/logout", authController.logout);
-
 app.get("/hosp_login", (req, res) => {
   res.render('hosp_login', {
     message: ''
@@ -172,7 +149,6 @@ app.get("/hosp_login", (req, res) => {
 });
 
 app.get("/hosp_logindata", authController.isLoggedIn, (req, res) => {
-
   if (req.user) {
     let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ?;";
     con.start.query(sql1, req.user.H_id, function (err, result) {
@@ -192,7 +168,6 @@ app.get("/hosp_logindata", authController.isLoggedIn, (req, res) => {
 });
 
 app.get("/onedose", authController.isLoggedIn, (req, res) => {
-
   if (req.user) {
     let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ? and v.Date_first is not NULL and v.Date_second = '0000-00-00';";
     con.start.query(sql1, req.user.H_id, function (err, result) {
@@ -212,7 +187,6 @@ app.get("/onedose", authController.isLoggedIn, (req, res) => {
 });
 
 app.get("/nodose", authController.isLoggedIn, (req, res) => {
-
   if (req.user) {
     let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ? and v.Date_first is null and v.Date_second is null";
     con.start.query(sql1, req.user.H_id, function (err, result) {
@@ -232,7 +206,6 @@ app.get("/nodose", authController.isLoggedIn, (req, res) => {
 });
 
 app.get("/bothdose", authController.isLoggedIn, (req, res) => {
-
   if (req.user) {
     let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ? and v.Date_first != '0000-00-00' and v.Date_second != '0000-00-00';";
     con.start.query(sql1, req.user.H_id, function (err, result) {
@@ -250,18 +223,6 @@ app.get("/bothdose", authController.isLoggedIn, (req, res) => {
     });
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 /************************POST REQUESTS*******************************/
 
@@ -399,9 +360,6 @@ app.post('/hospital_login', async (req, res) => {
     console.log(error);
   }
 });
-
-
-
 
 app.post("/Registerinventory", (req, res) => {
 
