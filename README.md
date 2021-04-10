@@ -30,7 +30,7 @@ Firstly we recommend to install Hyper terminal or any other prompt that supports
 Our web app using mysql database manages all the patients, hospital and inventory data.<br>
 <img src="refer/homepart.png" height="400">
 <br>
-Inventory supplies vaccine to hospitals. Each hospital provides a particular brand of vaccine (Say Covaxin or Covishield).<br>
+Inventory supplies vaccine to hospitals. Each hospital provides a particular brand of vaccine (Say Covaxin or Covishield). Patients can register for hospitals in their area and the hospital can view all the patient requests for vaccine in their hospital on creating an account and loggin in. This aids in easy management of data for the hospitals.<br>
 ## Built With
 - HTML - Markup language
 - CSS - Style Sheet language
