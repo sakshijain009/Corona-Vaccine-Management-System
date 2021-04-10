@@ -16,7 +16,7 @@
   background-repeat: no-repeat;
   width: 100%;
   font-size: 16px;
-  padding: 12px 20px 12px 40px;
+  padding: 10px 20px;
   border: 1px solid #ddd;
   margin-bottom: 12px;
 }
@@ -30,7 +30,7 @@
 }
 
 #myTable th, #myTable td {
-  text-align: left;
+  text-align: center;
   padding: 12px;
 }
 
@@ -63,21 +63,23 @@
   <button type="submit" class="form-control btn btn-primary mx-sm-3 mb-3">Add!</button>
 </form></div>
 <br><br>
-<h1 style="text-align: center; font-family:Times New Roman;font-size: 40px">Inventory Data</h1><br>
+<h1 style="text-align: center; font-family:Times New Roman;font-size: 40px">Inventory Data</h1>
 
-<div class="float-right" style="padding-right: 90px">
+<div class="float-right" style="padding-right: 70px">
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search Name"></div><br><br>
 
 <table id="myTable" style="font-family: gadugi;text-align: center">
   <tr class="header" style="background-color:rgb(60,179,113);color: white;">
     <th style="width:7%;">ID</th>
     <th style="width:15%;">Name</th>
-    <th style="width:20%;">Contact No</th>
-    <th style="width:18%;">Pincode</th>
+    <th style="width:15%;">Contact No</th>
+    <th style="width:15%;">Pincode</th>
     <th style="width:18%;">Date</th>
-    <th style="width:18%;">Quantity</th>
+    <th style="width:15%;">Quantity</th>
+    <th style="width:18%;">Cost</th>
   </tr>
-  <% for(i =0;i<inventory.length ;i++){ %>
+  <% var total = 0;
+   for(i =0;i<inventory.length ;i++){ %>
   <tr>
     <td><%= inventory[i].I_id %></td>
     <td><%= inventory[i].I_name %></td>
@@ -85,10 +87,12 @@
     <td><%= inventory[i].I_address %></td>
     <td><%= inventory[i].s_time.toString().substring(0,16) %></td>
     <td><%= inventory[i].s_quantity %></td>
+    <td><%= cost[i].total_cost %>/-</td>
   </tr>
-  <% } %>
+  <% total += cost[i].total_cost } %>
 </table>
 
+<p style="font-size: 22px;color:black;font-family: 'Karla', sans-serif;margin-left: 5%;margin-top: 1.5%;">Total cost:  <%= total %>/-</p> 
 <script type="text/javascript" src="js/search.js"></script>
 
 <%- include('partials/footer'); -%>
