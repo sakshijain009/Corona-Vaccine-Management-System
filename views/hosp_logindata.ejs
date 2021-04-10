@@ -17,6 +17,7 @@
   font-size: 16px;
   padding: 10px 20px;
   border: 1px solid #ddd;
+  margin-top: 20px;
   margin-bottom: 12px;
 }
 
@@ -29,7 +30,7 @@
 }
 
 #myTable th, #myTable td {
-  text-align: left;
+  text-align: center;
   padding: 12px;
 }
 
@@ -53,7 +54,7 @@
     content: "";
     position: absolute;
     right: 10px;
-    top: 32%;
+    top: 45%;
     width: 0; 
     height: 0; 
     border-left: 6px solid transparent;
@@ -87,7 +88,7 @@
 <label for="myInput" style="padding-left:60px;padding-top:10px;font-size:20px;font-family:'Karla', sans-serif;margin-bottom: 30px;display: block;">To Update the Information of the Person in the above Form first Search for the Person to check if he/she is registered for vaccination.</label>
 <p class ="float-left" style="margin-left:60px;font-size: 30px;font-family: 'Karla', sans-serif;color: rgb(60,179,113);margin-bottom: 40px;"><%= message %><br><b style="font-size: 22px;color:black;font-family: 'Karla', sans-serif;">Total count of patients: <%= patient_details.length %></b></p>
 <div class="dropdown float-right" style="margin-right: 40px;">
-  <a class="nav-link" style="border: 1px solid lightgrey;width: 150px;margin-top: 2px;">Filter</a>
+  <a class="nav-link" style="border: 1px solid lightgrey;width: 150px;margin-top: 22px;">Filter</a>
  <div class="dropdown-content">
   <a href="/nodose">No Dose</a>
   <a href="/onedose">One Dose</a>
@@ -103,9 +104,9 @@
     <th style="width:7%;">ID</th>
     <th style="width:15%;">Person Name</th>
     <th style="width:10%;">Gender</th>
-    <th style="width:20%;">Contact No</th>
-    <th style="width:18%;">Dose-1 Date</th>
-    <th style="width:18%;">Dose-2 Date</th>
+    <th style="width:15%;">Contact No</th>
+    <th style="width:15%;">Dose-1 Date</th>
+    <th style="width:15%;">Dose-2 Date</th>
   </tr>
 
   <% for(i=0; i<patient_details.length; i++) { %>
