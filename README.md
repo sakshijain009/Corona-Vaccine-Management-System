@@ -36,7 +36,13 @@ exports.start = mysql.createConnection({
   password:process.env.DATABASE_PWD,
   database : process.env.DATABASE
 });
-``` 
+```
+```
+con.start.connect((err) => {
+  if (err) throw err;
+  console.log('connected');
+});
+```
 <br>
 
 
