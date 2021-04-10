@@ -20,6 +20,17 @@ body {
 }
 
 .mypage h1 span{
+	background-color: orange;
+	color:white;
+	padding-left: 20px;
+}
+
+.mypage p{
+	padding-left:9%;
+	margin-top: 3vmin;
+}
+
+.mypage h1 span{
 	box-shadow: 10px 10px 10px rgba(44, 62, 80, 1);
 }
 
@@ -42,4 +53,23 @@ body {
 	border-radius: 900px;
 	width: 60%;
 	margin-bottom: 4vmin;
+}
+
+@media only screen and (max-width: 895px) {
+  .mypage{
+	
+	background-image: url("https://images.pexels.com/photos/4022782/pexels-photo-4022782.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+	background-size: cover;
+	background-position: left center;
+	}
+	.mypage{
+	padding-top: 7vmin;
+	padding-bottom: 100vmin;
+	}
+
+	.mypage h1 span{
+	background-color: rgba(0,0,0,0.8);
+	color:white;
+	padding-left: 20px;
+	}
 }
