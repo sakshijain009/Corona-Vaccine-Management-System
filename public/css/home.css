@@ -3,9 +3,9 @@ body {
 }
 
 .mypage{
-	padding-top: 80px;
-	padding-bottom: 200px;
-	background-image: url("https://images.pexels.com/photos/4429561/pexels-photo-4429561.jpeg?cs=srgb&dl=pexels-ketut-subiyanto-4429561.jpg&fm=jpg");
+	padding-top: 120px;
+	padding-bottom: 580px;
+	background-image: url("https://images.pexels.com/photos/4022782/pexels-photo-4022782.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
 	background-size: cover;
 	bottom: 0px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -17,7 +17,9 @@ body {
 
 .mypage p span{
 	font-size: 4vmin;
-	background-color: rgba(255,255,255,0.4);
+	font-weight: 350;
+	color:white;
+	background-color:rgb(51,153,255,0.7);
 }
 
 .count{
