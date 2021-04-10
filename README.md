@@ -26,6 +26,8 @@ Dependencies that are used for the project include:<br>
 ## Getting Started
 Firstly we recommend you to install Hyper terminal or any other prompt that supports Nodejs. After the installation clone the files in your respective directory, traverse to the main folder in your terminal and then use the command `npm start` to run it on localhost.
 
+### How it works
+
 ## Built With
 - HTML - Markup language
 - CSS - Style Sheet language
