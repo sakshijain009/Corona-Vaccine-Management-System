@@ -55,7 +55,7 @@ body {
 	margin-bottom: 4vmin;
 }
 
-@media only screen and (max-width: 895px) {
+@media only screen and (max-width: 1200px) {
   .mypage{
 	
 	background-image: url("https://images.pexels.com/photos/4022782/pexels-photo-4022782.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
