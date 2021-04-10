@@ -24,7 +24,7 @@ Dependencies that are used for the project include:<br>
 `const cookieParser = require("cookie-parser");`<br>
 
 ## Getting Started
-Firstly we recommend to install Hyper terminal or any other prompt that supports Nodejs. After the installation clone the files in your respective directory, traverse to the main folder in your terminal and then use the command `npm start` to run it on localhost.
+Firstly we recommend to install Hyper terminal or any other prompt that supports Nodejs. After the installation clone the files in your pc, traverse to the cloned folder in your pc through your terminal and then use the command `npm start` to run it on localhost. Make sure before running the project, you create the database in your xampp server by pasting the commands in tables.sql file. On starting the execution, the project will run on port 3000.
 
 ## How it works
 Our web app using mysql database manages all the patients, hospital and inventory data.<br>
