@@ -26,7 +26,9 @@ Dependencies that are used for the project include:<br>
 ## Getting Started
 Firstly we recommend to install Hyper terminal or any other prompt that supports Nodejs. After the installation clone the files in your respective directory, traverse to the main folder in your terminal and then use the command `npm start` to run it on localhost.
 
-### How it works
+## How it works
+Our web app using mysql database manages all the patients, hospital and inventory data.
+<img src="refer/homepart.png" height="200">
 
 ## Built With
 - HTML - Markup language
