@@ -11,6 +11,16 @@ Must haves:
 ### Installing
 To install all the dependencies write the following command on your terminal:<br>
 `npm install`
+<br>
+Dependencies that are used for the project include:<br>
+`const express = require("express");
+const bodyParser = require("body-parser");
+const ejs = require("ejs");
+const mysql = require("mysql");
+const dotenv = require("dotenv");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");`
 
 ## Getting Started
 Firstly we recommend you to install Hyper terminal or any other prompt that supports Nodejs. After the installation clone the files in your respective directory, traverse to the main folder in your terminal and then use the command `npm start` to run it on localhost.
