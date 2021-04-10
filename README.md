@@ -27,11 +27,11 @@ Dependencies that are used for the project include:<br>
 Firstly we recommend to install Hyper terminal or any other prompt that supports Nodejs. After the installation clone the files in your pc, traverse to the cloned folder in your pc through your terminal and then use the command `npm start` to run it on localhost. Make sure before running the project, you create the database in your xampp server by pasting the commands in tables.sql file. On starting the execution, the project will run on port 3000.
 
 ## Mysql Connection
-`const mysql = require("mysql");
+`const mysql = require("mysql");`
 
-exports.start = mysql.createConnection({
-  host: process.env.DATABASE_HOST,
-  user: process.env.DATABASE_USER,
+`exports.start = mysql.createConnection({ <br>
+  host: process.env.DATABASE_HOST, <br>
+  user: process.env.DATABASE_USER, <br>
   password:process.env.DATABASE_PWD,
   database : process.env.DATABASE
 });` <br>
