@@ -1,6 +1,6 @@
 # VIYOND 
 #### _V for Virus, Will not Go Beyond.._ <br>
-This project is developed as an academic project. It is Web Application based on management of Corona Vaccine which runs on localhost server.
+This project is developed as an academic project for DBMS subject. It is Web Application based on management of Corona Vaccine which runs on localhost server.
 
 ### Prerequisites
 Must haves:
@@ -11,16 +11,16 @@ Must haves:
 ### Installing
 To install all the dependencies write the following command on your terminal:<br>
 `npm install`
-<br>
+<br><br>
 Dependencies that are used for the project include:<br>
-`const express = require("express");
-const bodyParser = require("body-parser");
-const ejs = require("ejs");
-const mysql = require("mysql");
-const dotenv = require("dotenv");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");`
+`const express = require("express");`<br>
+`const bodyParser = require("body-parser");`<br>
+`const ejs = require("ejs");`<br>
+`const mysql = require("mysql");`<br>
+`const dotenv = require("dotenv");`<br>
+`const bcrypt = require("bcryptjs");`<br>
+`const jwt = require("jsonwebtoken");`<br>
+`const cookieParser = require("cookie-parser");`<br>
 
 ## Getting Started
 Firstly we recommend you to install Hyper terminal or any other prompt that supports Nodejs. After the installation clone the files in your respective directory, traverse to the main folder in your terminal and then use the command `npm start` to run it on localhost.
