@@ -66,6 +66,10 @@ app.get("/patient", (req, res) => {
   res.render("patient", { pincodes: pincode, hospital: hospital });
 });
 
+app.get("/stat", (req, res) => {
+  res.render("stat");
+});
+
 app.get("/choose_hosp/:pin/:pid", (req, res) => {
   let sql = "SELECT * FROM hosp_data where h_address = ?";
   con.start.query(sql,[req.params.pin],(err,result)=>{
