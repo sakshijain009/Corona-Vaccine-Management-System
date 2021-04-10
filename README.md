@@ -9,7 +9,7 @@ Must haves:
 - Terminal that supports Nodejs and git commands.
 
 ### Installing
-To install all the dependencies write the following command on your terminal:
+To install all the dependencies write the following command on your terminal:<br>
 `npm install`
 
 ## Getting Started
