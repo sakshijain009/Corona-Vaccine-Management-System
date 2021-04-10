@@ -60,7 +60,7 @@ Inventory supplies vaccine to hospitals. Each hospital provides a particular bra
 - Javascript- Client Scripting language
 - MySQL - Database Management
 - node.js - Backend Development environment
-- express.js - Web Application framework
+- express.js - Fast, unopinionated, minimalist web framework for Node.js
 
 ## Contributors
 - Sakshi Jain (U19CS048)
