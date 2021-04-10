@@ -29,6 +29,7 @@ Firstly we recommend to install Hyper terminal or any other prompt that supports
 ## ER Diagram
 <img src="refer/er.png">
 <br>
+
 ## Mysql Connection
 ```
 const mysql = require("mysql");
@@ -46,7 +47,6 @@ con.start.connect((err) => {
   console.log('connected');
 });
 ```
-<br>
 
 
 ## The Concept Behind
@@ -54,6 +54,8 @@ Our web app using mysql database manages all the patients, hospital and inventor
 <img src="refer/homepart.png" height="400">
 <br><br>
 Inventory supplies vaccine to hospitals. Each hospital provides a particular brand of vaccine (Say Covaxin or Covishield). Patients can register for hospitals in their area and the hospital can view all the patient requests for vaccine in their hospital on creating an account and loggin in. This aids in easy management of data for the hospitals. All Inventory details are visible at the end of the profile and hospitals can add them in the inventory page that shows all inventory that are linked and quantity of vaccines they have supplies to the respective hospital in the past.<br>
+
+
 ## Built With
 - HTML - Markup language
 - CSS - Style Sheet language
