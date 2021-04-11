@@ -67,11 +67,22 @@ app.get("/patient", (req, res) => {
 });
 
 app.get("/stat", (req, res) => {
-  let sql="SELECT count(P_Gender) as count, P_Gender FROM person GROUP By P_Gender";  
+  let sql="SELECT count(P_Gender) as count, P_Gender FROM person GROUP By P_Gender";
+  let sqd = "SELECT count(*) as count from doctor"; 
+  let sqli= "SELECT count(*) as count ,H_type FROM hospital GROUP By H_type";
+  let doctor,type;
+  con.start.query(sqli,(err,result)=>{
+    if (err) throw error;
+    type=result;
+    console.log(type);
+  }); 
+  con.start.query(sqd,(err,result)=>{
+    if (err) throw error;
+    doctor=result[0];
+  }); 
   con.start.query(sql,(err,result)=>{
       if (err) throw error;
-      console.log(result);
-    res.render("stat", {gender:result});
+    res.render("stat", {gender:result,doctor:doctor, type:type});
       });
 });
 

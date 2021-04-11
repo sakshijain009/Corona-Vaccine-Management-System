@@ -15,12 +15,14 @@
     </div>
   </div>
   <% } %>
+  <% if (doctor!==undefined){ %>
   <div class="card bg-warning">
     <div class="card-body text-center">
-      
-      <p class="card-text">Some text inside the third card</p>
+      <h5 class="card-title" style="font-size: 30px">Doctors Registered</h5><hr>
+      <p class="card-text" style="font-weight: 500;font-size: 60px;"><%= doctor.count %></p>
     </div>
   </div>
+  <% } %>
   <% if (gender[1]!==undefined){ %>
   <div class="card bg-danger">
     <div class="card-body text-center">
@@ -29,11 +31,16 @@
     </div>
   </div> 
   <% } %>
+  <% if (type[0]!==undefined){ %>
   <div class="card bg-danger">
     <div class="card-body text-center">
-      <p class="card-text">Some text inside the fourth card</p>
+      <% if( type[0].H_type==='G') type[0].H_type='Government'; %>
+      <% if( type[0].H_type==='P') type[0].H_type='Private'; %>
+      <h5 class="card-title" style="font-size: 30px"><%= type[0].H_type %> Hospitals</h5><hr>
+      <p class="card-text" style="font-weight: 500;font-size: 60px;"><%= type[0].count %></p>
     </div>
   </div>
+  <% } %>
   <% if (gender[2]!==undefined){ %>
   <div class="card bg-success">
     <div class="card-body text-center">
@@ -42,12 +49,16 @@
     </div>
   </div>
 <% } %>
-  
+  <% if (type[1]!==undefined){ %>
   <div class="card bg-info">
     <div class="card-body text-center">
-      <p class="card-text">Some text inside the sixth card</p>
+      <% if( type[1].H_type==='G') type[1].H_type='Government'; %>
+      <% if( type[1].H_type==='P') type[1].H_type='Private'; %>
+      <h5 class="card-title" style="font-size: 30px"><%= type[1].H_type %> Hospitals</h5><hr>
+      <p class="card-text" style="font-weight: 500;font-size: 60px;"><%= type[1].count %></p>
     </div>
   </div>
+  <% } %>
 </div>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="js/view.js"></script>
