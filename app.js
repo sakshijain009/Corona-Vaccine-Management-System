@@ -192,7 +192,8 @@ app.get("/onedose", authController.isLoggedIn, (req, res) => {
       res.render("hosp_logindata", {
         user: req.user,
         patient_details: result,
-        message:'One dose administered'
+        message:'One dose administered',
+        check:0
       });
     });
   }
@@ -211,7 +212,8 @@ app.get("/nodose", authController.isLoggedIn, (req, res) => {
       res.render("hosp_logindata", {
         user: req.user,
         patient_details: result,
-        message:'No dose administered'
+        message:'No dose administered',
+        check:0
       });
     });
   }
@@ -230,7 +232,8 @@ app.get("/bothdose", authController.isLoggedIn, (req, res) => {
       res.render("hosp_logindata", {
         user: req.user,
         patient_details: result,
-        message:'Both dose administered'
+        message:'Both dose administered',
+        check:0
       });
     });
   }
