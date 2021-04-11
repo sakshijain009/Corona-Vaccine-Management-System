@@ -1,19 +1,48 @@
 <%- include('partials/header'); -%>
 
 <link rel="stylesheet" type="text/css" href="css/view.css">
- 
+
 <% var total = type[0].count + type[1].count; %>
 <h3 style="text-align: center;margin-top: 10vmin;">Total No. of patients are : <%= total %> </h3>
-<div class="card-columns container" style="margin-top: 10vmin;">
+
+<div class="row container mx-auto" style="margin-top: 10vmin;">
   <% if (gender[0]!==undefined){ %>
-  <div class="card bg-primary">
+  <div class=" col-md-4">
+  <div class="card bg-light" style="border-radius: 0px;box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);">
     <div class="card-body text-center">
-        <h5 class="card-title" style="font-size: 30px"><%= gender[0].P_Gender %> Patients</h5><hr>
-        <p class="card-text" style="font-weight: 500;font-size: 60px;"><%= Math.floor(gender[0].percentage *100)/100 %>%</p>
-      <p style="font-size: 22px;">Total count: <%= gender[0].count %></p>
+        <h5 class="card-title" style="font-size: 30px;color: black;"><%= gender[0].P_Gender %> Patients</h5><hr>
+        <p class="card-text" style="font-weight: 500;font-size: 60px;color: green;"><%= Math.floor(gender[0].percentage *100)/100 %>%</p>
+      <p style="font-size: 22px;color: grey;">Total count: <%= gender[0].count %></p>
     </div>
   </div>
+</div>
   <% } %>
+  <% if (gender[1]!==undefined){ %>
+  <div class=" col-md-4">
+    <div class="card bg-light" style="border-radius: 0px;box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);">
+      <div class="card-body text-center">
+        <h5 class="card-title" style="font-size: 30px;color: black;"><%= gender[1].P_Gender %> Patients</h5><hr>
+        <p class="card-text" style="font-weight: 500;font-size: 60px;color: green;"><%= Math.floor(gender[1].percentage*100)/100 %>%</p>
+        <p style="font-size: 22px;color: grey;">Total count: <%= gender[1].count %></p>
+      </div>
+    </div>
+  </div> 
+    <% } %>
+    <% if (gender[2]!==undefined){ %>
+  <div class=" col-md-4">
+  <div class="card bg-light" style="border-radius: 0px;box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);">
+    <div class="card-body text-center">
+      <h5 class="card-title" style="font-size: 30px;color: black;"><%= gender[2].P_Gender %> Patients</h5><hr>
+      <p class="card-text" style="font-weight: 500;font-size: 60px;color: green;"><%= Math.floor(gender[2].percentage*100)/100 %>%</p>
+      <p style="font-size: 22px;color: grey;">Total count: <%= gender[2].count %></p>
+    </div>
+  </div>
+</div>
+<% } %>
+</div><br><hr>
+ 
+<div class="card-columns container" style="margin-top: 18vmin;">
+  
    <% if (dose!==undefined){ 
     var perc = dose.onedose + dose.twodose + dose.nodose; %>
     <div class="card bg-success">
@@ -45,15 +74,7 @@
     </div>
   </div>
   <% } %> 
-  <% if (gender[1]!==undefined){ %>
-    <div class="card bg-danger">
-      <div class="card-body text-center">
-        <h5 class="card-title" style="font-size: 30px"><%= gender[1].P_Gender %> Patients</h5><hr>
-        <p class="card-text" style="font-weight: 500;font-size: 60px;"><%= Math.floor(gender[1].percentage*100)/100 %>%</p>
-        <p style="font-size: 22px;">Total count: <%= gender[1].count %></p>
-      </div>
-    </div> 
-    <% } %>
+  
   <% if (dose!==undefined){ %>
       <div class="card bg-primary">
         <div class="card-body text-center">
@@ -83,15 +104,7 @@
       </div>
     </div>
     <% } %>    
-  <% if (gender[2]!==undefined){ %>
-  <div class="card bg-warning">
-    <div class="card-body text-center">
-      <h5 class="card-title" style="font-size: 30px"><%= gender[2].P_Gender %> Patients</h5><hr>
-      <p class="card-text" style="font-weight: 500;font-size: 60px;"><%= Math.floor(gender[2].percentage*100)/100 %>%</p>
-      <p style="font-size: 22px;">Total count: <%= gender[2].count %></p>
-    </div>
-  </div>
-<% } %>
+  
  <% if (dose!==undefined){ %>
       <div class="card bg-danger">
         <div class="card-body text-center">
