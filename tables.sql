@@ -77,7 +77,7 @@ CREATE TABLE Vaccinates
 
 CREATE VIEW hosp_data AS SELECT H_id, H_name, H_contactno, H_type, H_address, H_email, H_vac FROM hospital;
 
-CREATE VIEW vacc_data AS SELECT v.p,v.hosp,h.h_vac FROM vaccinates v JOIN hosp_data h ON h.h_id = v.hosp;
+CREATE VIEW vacc_data AS SELECT v.p, v.hosp, h.h_vac, h.h_type FROM vaccinates v JOIN hosp_data h ON h.h_id = v.hosp;
 
 INSERT INTO Location VALUES(110005, "Anand Parbat", "Delhi", "Delhi");
 INSERT INTO Location VALUES(110001, "Baroda House", "Delhi", "Delhi");

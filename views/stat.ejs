@@ -2,9 +2,15 @@
 
 <link rel="stylesheet" type="text/css" href="css/view.css">
 
+
 <div class="container text-center" style="margin-top: 10vmin;text-decoration: underline;">
   <h1 style="font-family: sans-serif;">Statistics Viyond</h1>
 </div>
+
+<% var total = type[0].count + type[1].count; %>
+<h3 style="text-align: center;margin-top: 10vmin;">Total no. of patients are : <%= total %> </h3>
+
+
 <div class="row container mx-auto" style="margin-top: 10vmin;">
   <% if (gender[0]!==undefined){ %>
   <div class=" col-md-4">
@@ -39,7 +45,7 @@
   </div>
 </div>
 <% } %>
-</div><hr>
+</div><br><hr>
  
 <div class="card-columns container" style="margin-top: 18vmin;">
   
@@ -63,7 +69,19 @@
       </div>
     </div>
   <% } %> 
-  
+
+  <% if (type[0]!==undefined){ %>
+  <div class="card bg-primary">
+    <div class="card-body text-center">
+      <% if( type[0].h_type==='G') type[0].h_type='Government'; %>
+      <% if( type[0].h_type==='P') type[0].h_type='Private'; %>
+      <h5 class="card-title" style="font-size: 30px"><%= type[0].h_type %> Hospitals</h5><hr>
+      <p class="card-text" style="font-weight: 500;font-size: 60px;"><%= Math.floor(type[0].percentage *100)/100 %>%</p>
+      <p style="font-size: 22px;">Total count: <%= type[0].count %></p>
+    </div>
+  </div>
+  <% } %> 
+
   
   <% if (dose!==undefined){ %>
       <div class="card bg-primary">
@@ -83,7 +101,18 @@
       </div>
     </div>
   <% } %>
-   
+
+  <% if (type[1]!==undefined){ %>
+    <div class="card bg-danger">
+      <div class="card-body text-center">
+        <% if( type[1].h_type==='G') type[1].h_type='Government'; %>
+        <% if( type[1].h_type==='P') type[1].h_type='Private'; %>
+        <h5 class="card-title" style="font-size: 30px"><%= type[1].h_type %> Hospitals</h5><hr>
+        <p class="card-text" style="font-weight: 500;font-size: 60px;"><%= Math.floor(type[1].percentage*100)/100 %>%</p>
+        <p style="font-size: 22px;">Total count: <%= type[1].count %></p>
+      </div>
+    </div>
+    <% } %>    
   
  <% if (dose!==undefined){ %>
       <div class="card bg-danger">
