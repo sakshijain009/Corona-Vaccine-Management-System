@@ -70,19 +70,6 @@
     </div>
   <% } %> 
 
-  <% if (type[0]!==undefined){ %>
-  <div class="card bg-primary">
-    <div class="card-body text-center">
-      <% if( type[0].h_type==='G') type[0].h_type='Government'; %>
-      <% if( type[0].h_type==='P') type[0].h_type='Private'; %>
-      <h5 class="card-title" style="font-size: 30px"><%= type[0].h_type %> Hospitals</h5><hr>
-      <p class="card-text" style="font-weight: 500;font-size: 60px;"><%= Math.floor(type[0].percentage *100)/100 %>%</p>
-      <p style="font-size: 22px;">Total count: <%= type[0].count %></p>
-    </div>
-  </div>
-  <% } %> 
-
-  
   <% if (dose!==undefined){ %>
       <div class="card bg-primary">
         <div class="card-body text-center">
@@ -101,18 +88,7 @@
       </div>
     </div>
   <% } %>
-
-  <% if (type[1]!==undefined){ %>
-    <div class="card bg-danger">
-      <div class="card-body text-center">
-        <% if( type[1].h_type==='G') type[1].h_type='Government'; %>
-        <% if( type[1].h_type==='P') type[1].h_type='Private'; %>
-        <h5 class="card-title" style="font-size: 30px"><%= type[1].h_type %> Hospitals</h5><hr>
-        <p class="card-text" style="font-weight: 500;font-size: 60px;"><%= Math.floor(type[1].percentage*100)/100 %>%</p>
-        <p style="font-size: 22px;">Total count: <%= type[1].count %></p>
-      </div>
-    </div>
-    <% } %>    
+    
   
  <% if (dose!==undefined){ %>
       <div class="card bg-danger">
