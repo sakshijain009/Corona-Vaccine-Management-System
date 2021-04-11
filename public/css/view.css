@@ -125,6 +125,17 @@ h2 {
   height: 15px;
 }
 
+.card{
+  width: 95%;
+  padding-bottom: 5vmin;
+  padding-top: 5vmin;
+  color: white;
+}
+
+.card-text{
+  font-size: 20px;
+}
+
 @media (max-width: 1024px) {
   .report-statistic-box {
     width: 50%;
