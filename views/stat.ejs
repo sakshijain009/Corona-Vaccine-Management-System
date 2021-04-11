@@ -16,7 +16,7 @@
   </div>
   <% } %>
   <% if (doctor!==undefined){ %>
-  <div class="card bg-warning">
+  <div class="card bg-success">
     <div class="card-body text-center">
       <h5 class="card-title" style="font-size: 30px">Doctors Registered</h5><hr>
       <p class="card-text" style="font-weight: 500;font-size: 60px;"><%= doctor.count %></p>
@@ -32,7 +32,7 @@
   </div> 
   <% } %>
   <% if (type[0]!==undefined){ %>
-  <div class="card bg-danger">
+  <div class="card bg-warning">
     <div class="card-body text-center">
       <% if( type[0].H_type==='G') type[0].H_type='Government'; %>
       <% if( type[0].H_type==='P') type[0].H_type='Private'; %>
@@ -50,7 +50,7 @@
   </div>
 <% } %>
   <% if (type[1]!==undefined){ %>
-  <div class="card bg-info">
+  <div class="card bg-danger">
     <div class="card-body text-center">
       <% if( type[1].H_type==='G') type[1].H_type='Government'; %>
       <% if( type[1].H_type==='P') type[1].H_type='Private'; %>
