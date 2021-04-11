@@ -67,7 +67,12 @@ app.get("/patient", (req, res) => {
 });
 
 app.get("/stat", (req, res) => {
-  res.render("stat");
+  let sql="SELECT count(P_Gender) as count, P_Gender FROM person GROUP By P_Gender";  
+  con.start.query(sql,(err,result)=>{
+      if (err) throw error;
+      console.log(result);
+    res.render("stat", {gender:result});
+      });
 });
 
 app.get("/choose_hosp/:pin/:pid", (req, res) => {

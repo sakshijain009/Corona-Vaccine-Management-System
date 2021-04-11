@@ -6,33 +6,43 @@
 <div class="content">
     <div class="report-overview-module"></div>
 </div>
-
 <div class="card-columns container" style="margin-top: 18vmin;">
+  <% if (gender[0]!==undefined){ %>
   <div class="card bg-primary">
     <div class="card-body text-center">
-      <p class="card-text">Some text inside the first card</p>
+        <h5 class="card-title" style="font-size: 30px"><%= gender[0].P_Gender %> Patients</h5><hr>
+      <p class="card-text" style="font-weight: 500;font-size: 60px;"><%= gender[0].count %></p>
     </div>
   </div>
+  <% } %>
   <div class="card bg-warning">
     <div class="card-body text-center">
-      <p class="card-text">Some text inside the second card</p>
-    </div>
-  </div>
-  <div class="card bg-success">
-    <div class="card-body text-center">
+      
       <p class="card-text">Some text inside the third card</p>
     </div>
+  </div>
+  <% if (gender[1]!==undefined){ %>
+  <div class="card bg-danger">
+    <div class="card-body text-center">
+      <h5 class="card-title" style="font-size: 30px"><%= gender[1].P_Gender %> Patients</h5><hr>
+      <p class="card-text" style="font-weight: 500;font-size: 60px;"><%= gender[1].count %></p>
+    </div>
   </div> 
+  <% } %>
   <div class="card bg-danger">
     <div class="card-body text-center">
       <p class="card-text">Some text inside the fourth card</p>
     </div>
   </div>
-  <div class="card bg-dark">
+  <% if (gender[2]!==undefined){ %>
+  <div class="card bg-success">
     <div class="card-body text-center">
-      <p class="card-text">Some text inside the fifth card</p>
+      <h5 class="card-title" style="font-size: 30px"><%= gender[2].P_Gender %> Patients</h5><hr>
+      <p class="card-text" style="font-weight: 500;font-size: 60px;"><%= gender[2].count %></p>
     </div>
   </div>
+<% } %>
+  
   <div class="card bg-info">
     <div class="card-body text-center">
       <p class="card-text">Some text inside the sixth card</p>
