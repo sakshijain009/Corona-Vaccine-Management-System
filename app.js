@@ -172,7 +172,8 @@ app.get("/hosp_logindata", authController.isLoggedIn, (req, res) => {
       res.render("hosp_logindata", {
         user: req.user,
         patient_details: result,
-        message:'All records'
+        message:'All records',
+        check:0
       });
     });
   }
@@ -427,7 +428,21 @@ app.post("/hosp_logindata", authController.isLoggedIn, (req, res) => {
     con.start.query(sql4, val, function (err, result) {
       if (err) throw err;
       console.log("Number of records updated: " + result.affectedRows);
-      res.redirect('/hosp_logindata');
+      if (result.affectedRows===0) {
+        let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ?;";
+        con.start.query(sql1, req.user.H_id, function (err, result) {
+          if (err) throw err;
+          res.render("hosp_logindata", {
+            user: req.user,
+            patient_details: result,
+            message:'All records',
+            check:1
+          });
+        });
+      }else{
+        res.redirect('/hosp_logindata');
+      }
+      
     });
   }
   else {
