@@ -13,7 +13,6 @@
 <% var total = 0;  if (vacc[0] !== undefined) { total = vacc[0].count + vacc[1].count; }%>
 <h3 style="text-align: center;margin-top: 5vmin;color:lightgreen;">Total count of patients : <%= total %> </h3>
 
-<h4 style="margin: 0 auto;margin-top: 5vmin;color:whitesmoke;background-color: green;width: fit-content;"> Based on gender of patients </h4>
 <div class="row container mx-auto" style="margin-top: 8vmin;">
   <% if (gender[0]!==undefined){ %>
   <div class=" col-md-4">
@@ -50,7 +49,7 @@
 <% } %>
 </div><br>
  
-<h4 style="margin: 0 auto;margin-top: 8vmin;color:black;background-color: whitesmoke;width: fit-content;"> Based on vaccine recieved by patients</h4>
+
 <div class="card-columns container" style="margin-top: 8vmin;margin-bottom: 7vmin">
   
    <% if (dose!==undefined){ 
@@ -106,7 +105,6 @@
   
 </div>
 
-<h4 style="margin: 0 auto;margin-top: 8vmin;color:whitesmoke;background-color: green;width: fit-content;"> Based on patients admitted in hospitals </h4>
 <div class="row container mx-auto" style="margin-top: 10vmin;margin-bottom: 8vmin">
   <% if (type[0]!==undefined){ %>
   <div class=" col-md-6">
