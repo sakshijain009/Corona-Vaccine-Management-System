@@ -54,7 +54,9 @@ Our web app using mysql database manages all the patients, hospital and inventor
 <img src="refer/homepart.png">
 <br><br>
 Inventory supplies vaccine to hospitals. Each hospital provides a particular brand of vaccine (Say Covaxin or Covishield). Patients can register for hospitals in their area and the hospital can view all the patient requests for vaccine in their hospital on creating an account and logging in inside Viyond. This aids in easy management of data for the hospitals. All Inventory details are visible in the hospital profile page.Also hospitals can add data in the inventory page inside their profile that shows all inventory that are linked to that hospital and quantity of vaccines they have supplied to the respective hospital in the past. Hospitals can also handle information related to patients and add the dates when the patients received their first and second dose of the vaccine. All this data is instantly updated in the databse. Site viewers can also view statistics of number of male, female and others and percentage regarding the number of doses in the Statistics. The site is end to end validated.<br>
-
+<img src="refer/gender.png">
+<img src="refer/details.png">
+<img src="refer/hospital.png">
 
 ## Built With
 - HTML - Markup language
