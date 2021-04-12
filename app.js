@@ -315,17 +315,22 @@ app.post("/choose_hosp/:id", (req, res) => {
   var sql2 = "SELECT * from hosp_data where H_name = (?)";
   con.start.query(sql2, [hosp_name], function (err, result) {
     if (err) throw err;
-    const hosp_id = result[0].H_id;
-    const p_id=req.params.id;
-    const values = [p_id, hosp_id];
-    con.start.query("INSERT INTO vaccinates (P, Hosp) VALUES (?)", [values], function (err, result) {
-      if (err) throw err;
-      console.log("Number of records inserted in vaccinates: " + result.affectedRows);
+    if (result.length===0) {
       con.start.query("delete from person where p_id not in (select p from vaccinates);", function(err,result){
         if (err) throw error;
         console.log('No of deleted data: ' + result.affectedRows);
       });
-    });
+    }else{
+      const hosp_id = result[0].H_id;
+      const p_id=req.params.id;
+      const values = [p_id, hosp_id];
+      con.start.query("INSERT INTO vaccinates (P, Hosp) VALUES (?)", [values], function (err, result) {
+        if (err) throw err;
+        console.log("Number of records inserted in vaccinates: " + result.affectedRows);
+        
+      });
+    }
+    
     return res.redirect("/");
   });
 });

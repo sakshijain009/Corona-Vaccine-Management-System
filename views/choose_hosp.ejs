@@ -17,7 +17,7 @@
     <label for="inputHOSP"><img src="images/pin.png" width="4%">Choose hospital closest to you</label>
     <select id="inputHOSP" name="inputHOSP" class="form-control">
       <% for(var i =0;i<hospital.length;i++){ %>
-      <option class="form-group"><%= hospital[i].H_name %></option>
+      <option class="form-group" value="<%= hospital[i].H_name %>"><%= hospital[i].H_name %></option>
     <% } %> 
     </select></div>
     
@@ -32,8 +32,14 @@
 
 </div>
 <script>
+
 function myFunction() {
-  alert("Success! You are now Registered for Vaccination! Please carry a Photo ID Proof at the time of Vacciantion.");
+  var valx =  document.getElementById('inputHOSP');
+  if (valx.value === '') {
+    alert("No Hospital available in your area");
+  }else{
+    alert("Success! You are now Registered for Vaccination! Please carry a Photo ID Proof at the time of Vacciantion.");
+  }
 }
 </script>
 <script type="text/javascript" src="js/end.js"></script>
