@@ -10,7 +10,11 @@
 
 <hr style="width: 100%;height: 2px;margin: 40px auto;">
 
-<% var total = 0;  if (vacc[0] !== undefined) { total = vacc[0].count + vacc[1].count; }%>
+<% var total = 0 %>
+<% for(var i = 0;i<vacc.length;i++){ %>
+<%  total+=vacc[i].count; %>
+<% } %>
+
 <h3 style="text-align: center;margin-top: 5vmin;color:lightgreen;">Total count of patients : <%= total %> </h3>
 
 <div class="row container mx-auto" style="margin-top: 8vmin;">
@@ -63,15 +67,15 @@
     </div>
   <% } %> 
 
-  <% if (vacc[0]!==undefined){ %>
-    <div class="card bg-warning">
+<% for(var i = 0;i<vacc.length;i++){ %>
+<div class="card bg-warning">
       <div class="card-body text-center">
-        <h5 class="card-title" style="font-size: 30px"><%= vacc[0].h_vac %></h5><hr>
-        <p class="card-text" style="font-weight: 500;font-size: 60px;"><%= Math.floor(vacc[0].percentage *100)/100 %>%</p>
-        <p style="font-size: 22px;">Total count: <%= vacc[0].count %> </p>
+        <h5 class="card-title" style="font-size: 30px"><%= vacc[i].h_vac %></h5><hr>
+        <p class="card-text" style="font-weight: 500;font-size: 60px;"><%= Math.floor(vacc[i].percentage *100)/100 %>%</p>
+        <p style="font-size: 22px;">Total count: <%= vacc[i].count %> </p>
       </div>
     </div>
-  <% } %> 
+<% } %>
 
   <% if (dose!==undefined){ %>
       <div class="card bg-primary">
@@ -82,15 +86,6 @@
         </div>
       </div>
     <% } %> 
-  <% if (vacc[1]!==undefined){ %>
-    <div class="card bg-success">
-      <div class="card-body text-center">
-        <h5 class="card-title" style="font-size: 30px"><%= vacc[1].h_vac %></h5><hr>
-        <p class="card-text" style="font-weight: 500;font-size: 60px;"><%= Math.floor(vacc[1].percentage *100)/100 %>%</p>
-        <p style="font-size: 22px;">Total count: <%= vacc[1].count %> </p>
-      </div>
-    </div>
-  <% } %>
     
   
  <% if (dose!==undefined){ %>
