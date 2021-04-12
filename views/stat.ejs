@@ -67,16 +67,6 @@
     </div>
   <% } %> 
 
-<% for(var i = 0;i<vacc.length;i++){ %>
-<div class="card bg-warning">
-      <div class="card-body text-center">
-        <h5 class="card-title" style="font-size: 30px"><%= vacc[i].h_vac %></h5><hr>
-        <p class="card-text" style="font-weight: 500;font-size: 60px;"><%= Math.floor(vacc[i].percentage *100)/100 %>%</p>
-        <p style="font-size: 22px;">Total count: <%= vacc[i].count %> </p>
-      </div>
-    </div>
-<% } %>
-
   <% if (dose!==undefined){ %>
       <div class="card bg-primary">
         <div class="card-body text-center">
@@ -98,6 +88,18 @@
       </div>
     <% } %>  
   
+</div>
+
+<div class="card-columns container" style="margin-top: 8vmin;margin-bottom: 7vmin;">
+<% for(var i = 0;i<vacc.length;i++){ %>
+  <div class="card bg-dark">
+        <div class="card-body text-center">
+          <h5 class="card-title" style="font-size: 30px"><%= vacc[i].h_vac %></h5><hr>
+          <p class="card-text" style="font-weight: 500;font-size: 60px;color: greenyellow;"><%= Math.floor(vacc[i].percentage *100)/100 %>%</p>
+          <p style="font-size: 22px;">Total count: <%= vacc[i].count %> </p>
+        </div>
+      </div>
+  <% } %>
 </div>
 
 <div class="row container mx-auto" style="margin-top: 10vmin;margin-bottom: 8vmin">
