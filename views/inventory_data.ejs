@@ -95,4 +95,13 @@
 <p style="font-size: 22px;color:black;font-family: 'Karla', sans-serif;margin-left: 5%;margin-top: 1.5%;">Total cost:  <%= total %>/-</p> 
 <script type="text/javascript" src="js/search.js"></script>
 
+
+<script>
+  Myfunc(<%= check %>);
+  function Myfunc(check){
+    if (check===1) {
+      alert("Unable to update, please check your data.");
+    }
+  }
+</script>
 <%- include('partials/footer'); -%>

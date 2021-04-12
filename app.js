@@ -27,6 +27,8 @@ con.start.connect((err) => {
 });
 
 
+
+//Some GLOBAL VARIABLES====================================================
 var pincode;
 con.start.query("SELECT pincode FROM location", function (err, result, fields) {
   if (err) throw err;
@@ -46,7 +48,12 @@ con.start.query("SELECT V_name from vaccine", function (err, result) {
   vaccine = result;
 });
 
+
+
+
+
 /*****************************GET REQUESTS****************************/
+/*********************************************************************/
 var counts;
 var vaccine;
 app.get("/", (req, res) => {
@@ -62,10 +69,15 @@ app.get("/", (req, res) => {
   })
 });
 
+
+
+//Patient form get request---------------------------------------------------
 app.get("/patient", (req, res) => {
   res.render("patient", { pincodes: pincode, hospital: hospital });
 });
 
+
+//Stat page get request---------------------------------------------------
 app.get("/stat", (req, res) => {
   let sql="SELECT count(P_Gender) as count, ((count(P_Gender)*100)/(select count(*) from person)) as percentage, P_Gender FROM person GROUP By P_Gender";
   let sqli= "SELECT count(*) as count ,((count(h_type)*100)/(select count(*) from vacc_data)) as percentage,H_type FROM vacc_data GROUP By h_type;";
@@ -91,7 +103,7 @@ app.get("/stat", (req, res) => {
 });
 
 
-
+//Choose hospital during patient registration-----------------------------------------
 app.get("/choose_hosp/:pin/:pid", (req, res) => {
   let sql = "SELECT * FROM hosp_data where h_address = ?";
   con.start.query(sql,[req.params.pin],(err,result)=>{
@@ -100,16 +112,22 @@ app.get("/choose_hosp/:pin/:pid", (req, res) => {
   });  
 });
 
+
+//Hospital form get request---------------------------------------------------
 app.get("/Registerhospital", (req, res) => {
   con.start.query("SELECT V_name from vaccine", function (err, result) {
       res.render("Registerhospital", { pincodes: pincode, message: 'Enter details to Register', color: 'success', vaccines: result });
   }); 
 });
 
+
+//Inventory form get request---------------------------------------------------
 app.get("/Registerinventory", (req, res) => {
   res.render("Registerinventory", { pincodes: pincode });
 });
 
+
+//Inventory data from profile-----------------------------------------------------
 app.get("/inventory_data", authController.isLoggedIn, (req, res) => {
   if (req.user) {
     let sql = "select i.*, s.s_time,s.s_quantity from inventory i join supplies s on s_inventory = i.i_id join hosp_data h on h.h_id = s.s_hospital where h.h_id = ? order by s.s_time desc;";
@@ -119,7 +137,7 @@ app.get("/inventory_data", authController.isLoggedIn, (req, res) => {
       const invent_details = result;
       con.start.query(sql2,req.user.H_id,function(err,result){
         if (err) throw error;
-        res.render('inventory_data', { inventory: invent_details, cost: result });
+        res.render('inventory_data', { inventory: invent_details, cost: result,check:0});
       })
     });
   } else {
@@ -129,7 +147,8 @@ app.get("/inventory_data", authController.isLoggedIn, (req, res) => {
   }
 });
 
-//Login into profile if cookie exists
+
+//Login into profile if cookie exists---------------------------------------------------------
 app.get("/hospitaldata", authController.isLoggedIn, (req, res) => {
   console.log("inside");
   console.log(req.user);
@@ -163,6 +182,8 @@ app.get("/hospitaldata", authController.isLoggedIn, (req, res) => {
   }
 });
 
+
+//LOGOUT request---------------------------------------------------
 app.get("/logout", authController.logout);
 app.get("/hosp_login", (req, res) => {
   res.render('hosp_login', {
@@ -170,6 +191,8 @@ app.get("/hosp_login", (req, res) => {
   });
 });
 
+
+//Hospital patient data page request---------------------------------------------------
 app.get("/hosp_logindata", authController.isLoggedIn, (req, res) => {
   if (req.user) {
     let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ?;";
@@ -190,6 +213,9 @@ app.get("/hosp_logindata", authController.isLoggedIn, (req, res) => {
   }
 });
 
+
+
+//ONE DOSE in patient page in hospital profile request---------------------------------------------------
 app.get("/onedose", authController.isLoggedIn, (req, res) => {
   if (req.user) {
     let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ? and v.Date_first is not NULL and v.Date_second = '0000-00-00';";
@@ -210,6 +236,8 @@ app.get("/onedose", authController.isLoggedIn, (req, res) => {
   }
 });
 
+
+//No DOSE in patient page in hospital profile request---------------------------------------------------
 app.get("/nodose", authController.isLoggedIn, (req, res) => {
   if (req.user) {
     let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ? and v.Date_first is null and v.Date_second is null";
@@ -230,6 +258,8 @@ app.get("/nodose", authController.isLoggedIn, (req, res) => {
   }
 });
 
+
+//BOTH DOSE in patient page in hospital profile request---------------------------------------------------
 app.get("/bothdose", authController.isLoggedIn, (req, res) => {
   if (req.user) {
     let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ? and v.Date_first != '0000-00-00' and v.Date_second != '0000-00-00';";
@@ -251,7 +281,10 @@ app.get("/bothdose", authController.isLoggedIn, (req, res) => {
 });
 
 /************************POST REQUESTS*******************************/
+/********************************************************************/
 
+
+//Patient registration post request-------------------------------------------------
 app.post("/patient", (req, res) => {
 
   const val = [
@@ -274,6 +307,8 @@ app.post("/patient", (req, res) => {
   });
 });
 
+
+//Choosing hospital during patient registration---------------------------------
 app.post("/choose_hosp/:id", (req, res) => {
 
   const hosp_name = req.body.inputHOSP;
@@ -295,7 +330,9 @@ app.post("/choose_hosp/:id", (req, res) => {
   });
 });
 
-// This is hospital signup page post request
+
+
+// This is hospital signup page post request------------------------------
 app.post("/Registerhospital", (req, res) => {
   console.log(req.body)
 
@@ -347,7 +384,7 @@ app.post("/Registerhospital", (req, res) => {
 
 
 
-//Hospital login page post request
+//Hospital login page post request-------------------------------------------------------
 app.post('/hospital_login', async (req, res) => {
 
   try {
@@ -391,6 +428,8 @@ app.post('/hospital_login', async (req, res) => {
   }
 });
 
+
+//Post request to register inventory-------------------------------------------
 app.post("/Registerinventory", (req, res) => {
 
   const val = [
@@ -407,6 +446,8 @@ app.post("/Registerinventory", (req, res) => {
 
 });
 
+
+//Post request from inventory page in hospital profile------------------------------------------
 app.post("/inventory_data", authController.isLoggedIn, (req, res) => {
   if (req.user) {
  
@@ -415,15 +456,31 @@ app.post("/inventory_data", authController.isLoggedIn, (req, res) => {
       req.body.id,
       req.body.quantity,
       req.body.date
-      ]  
+      ] 
 
-      let sql3 = "INSERT INTO supplies (S_hospital,S_inventory,S_quantity,S_time) VALUES (?);";
-      con.start.query(sql3, [val], function (err, result) {
+      let sqlcheck ="SELECT I_id from inventory where I_id=?"; 
+      con.start.query(sqlcheck,[req.body.id],(err, result)=>{
         if (err) throw err;
-        console.log("Number of records inserted in inventory: " + result.affectedRows);
-        res.redirect('/inventory_data');
-
-    });
+        if(result.length===0){
+          let sql = "select i.*, s.s_time,s.s_quantity from inventory i join supplies s on s_inventory = i.i_id join hosp_data h on h.h_id = s.s_hospital where h.h_id = ? order by s.s_time desc;";
+          let sql2 = "select case when h.h_type = 'P' then v.v_cost*s.s_quantity when h.h_type = 'G' then 0 end as total_cost from hosp_data h join vaccine v on v.v_name = h.h_vac join supplies s on s.s_hospital = h.h_id where h.h_id = ? order by s.s_time desc;"
+          con.start.query(sql, req.user.H_id, function (err, result) {
+            if (err) throw err;
+            const invent_details = result;
+            con.start.query(sql2,req.user.H_id,function(err,result){
+              if (err) throw error;
+              res.render('inventory_data', { inventory: invent_details, cost: result,check:1});
+            })
+          });
+        }else{
+            let sql3 = "INSERT INTO supplies (S_hospital,S_inventory,S_quantity,S_time) VALUES (?)";
+            con.start.query(sql3, [val], function (err, result) {
+              if (err) throw err;
+              console.log("Number of records inserted in inventory: " + result.affectedRows);
+                res.redirect('/inventory_data');
+             });
+        }
+      }); 
     }
   
   else {
@@ -434,6 +491,8 @@ app.post("/inventory_data", authController.isLoggedIn, (req, res) => {
 
 });
 
+
+//Hospital after logging in can see this page for adding patient data-------------------------------------------
 app.post("/hosp_logindata", authController.isLoggedIn, (req, res) => {
   if (req.user) {
     const val = [[req.body.dose1], [req.body.dose2], [req.user.H_id], [req.body.id], [req.user.H_id]];
