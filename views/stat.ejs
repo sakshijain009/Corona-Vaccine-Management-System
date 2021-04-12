@@ -130,7 +130,11 @@
 </div>
 
 <hr style="width: 100%;height: 2px;margin: 40px auto;">
-<% var tot_hosp_count = 0; if(type2[0] !==undefined) { tot_hosp_count = type2[0].count + type2[1].count } %>
+<% var tot_hosp_count=0 %>
+<% for(var i = 0;i<type2.length;i++){ %>
+<%  tot_hosp_count+=type2[i].count; %>
+<% } %>
+
 <h3 style="text-align: center;margin-top: 8vmin;color:lightgreen;">Total count of hospitals : <%= tot_hosp_count %> </h3>
 <div class="row container mx-auto" style="margin-top: 10vmin;margin-bottom: 6vmin">
 
