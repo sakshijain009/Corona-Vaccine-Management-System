@@ -10,17 +10,16 @@
 	
 <form style="padding: 80px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);font-family: 'Varela Round', sans-serif;" method="post" action='/choose_hosp/<%=myid %>'>
 	<h1 style="font-family: 'Dancing Script', cursive;">Choose hospital</h1><hr>
-
-
   
   <div style="margin-top: 10vmin;" class="form-group col-md-6">
-    <label for="inputHOSP"><img src="images/pin.png" width="4%">Choose hospital closest to you</label>
+    <label for="inputHOSP">Choose hospital closest to you</label>
     <select id="inputHOSP" name="inputHOSP" class="form-control">
       <% for(var i =0;i<hospital.length;i++){ %>
-      <option class="form-group" value="<%= hospital[i].H_name %>"><%= hospital[i].H_name %></option>
+      <% if( hospital[i].H_type==='G') hospital[i].H_type='Government'; %>
+      <% if( hospital[i].H_type==='P') hospital[i].H_type='Private'; %>
+      <option class="form-group" value="<%= hospital[i].H_name %>"><%= hospital[i].H_name %> - <%= hospital[i].H_type %></option>
     <% } %> 
     </select></div>
-    
 
   <div class="row d-flex justify-content-between">
   	<div class="col-md-8">
