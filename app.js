@@ -80,14 +80,19 @@ app.get("/patient", (req, res) => {
 //Stat page get request---------------------------------------------------
 app.get("/stat", (req, res) => {
   let sql="SELECT count(P_Gender) as count, ((count(P_Gender)*100)/(select count(*) from person)) as percentage, P_Gender FROM person GROUP By P_Gender";
-  let sqli= "SELECT count(*) as count ,((count(h_type)*100)/(select count(*) from hospital)) as percentage,H_type FROM hospital GROUP By h_type;";
+  let sqli= "SELECT count(*) as count ,((count(H_type)*100)/(select count(*) from vacc_data)) as percentage,H_type FROM vacc_data GROUP By H_type;";
+  let sqla= "SELECT count(*) as count ,((count(h_type)*100)/(select count(*) from hosp_data)) as percentage,H_type FROM hosp_data GROUP By h_type;";
   let sqlii = "select h_vac, count(*) as count, ((count(h_vac)*100)/(select count(*) from vacc_data)) as percentage from vacc_data group by h_vac;";
   let sqlb = "select (select count(*) from vaccinates where Date_first is not NULL and Date_second = '0000-00-00') as onedose, (select count(*) from vaccinates where Date_first is not NULL and Date_second is not null and Date_second != '0000-00-00') as twodose, (select count(*) from vaccinates where Date_first is NULL and Date_second is null) as nodose from dual;";
-  let doctor,type,vacc,dose;
+  let type2,type,vacc,dose;
   con.start.query(sqli,(err,result)=>{
     if (err) throw error;
     type=result;
-  });  
+  }); 
+  con.start.query(sqla,(err,result)=>{
+    if (err) throw error;
+    type2=result;
+  }); 
   con.start.query(sqlii,(err,result)=>{
     if (err) throw error;
     vacc=result;
@@ -98,7 +103,7 @@ app.get("/stat", (req, res) => {
   }); 
   con.start.query(sql,(err,result)=>{
       if (err) throw error;
-    res.render("stat", {gender:result, type:type, vacc:vacc, dose: dose});
+    res.render("stat", {gender:result, type:type, type2:type2, vacc:vacc, dose: dose});
       });
 });
 
