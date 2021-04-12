@@ -17,7 +17,7 @@
       <% for(var i =0;i<hospital.length;i++){ %>
       <% if( hospital[i].H_type==='G') hospital[i].H_type='Government'; %>
       <% if( hospital[i].H_type==='P') hospital[i].H_type='Private'; %>
-      <option class="form-group" value="<%= hospital[i].H_name %>"><%= hospital[i].H_name %> - <%= hospital[i].H_type %></option>
+<option class="form-group" value="<%= hospital[i].H_name %>"><%= hospital[i].H_name %> - <%= hospital[i].H_type %>- <%= hospital[i].H_vac %> </option>
     <% } %> 
     </select></div>
 
