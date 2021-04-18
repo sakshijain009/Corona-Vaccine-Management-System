@@ -1,4 +1,4 @@
--- TABLES 
+-------------------------------------------------------- TABLES ------------------------------------------------------------
 
 CREATE TABLE Location
 (
@@ -110,6 +110,26 @@ ELSEIF old.Date_second is null && old.Date_first is null THEN -- if both dose ar
 update hospital set quant_rem = quant_rem - 2 where h_id = new.hosp; 
 END IF; 
 END
+-------------------------------------------------------- PROCEDURES ----------------------------------------------------------
+
+CREATE PROCEDURE update_vaccinates(IN date_first DATE, IN date_second DATE, IN h_id INT, IN p_id INT) 
+BEGIN 
+update vaccinates SET Date_first = date_first, Date_second = date_second where Hosp = h_id and P = p_id; 
+END
+
+CREATE PROCEDURE filter_patients(IN dose INT, IN h_id INT) 
+BEGIN 
+CASE dose 
+WHEN 1 THEN
+select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = h_id and v.Date_first is not NULL and v.Date_second = '0000-00-00'; 
+WHEN 2 THEN 
+select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = h_id and v.Date_first != '0000-00-00' and v.Date_second != '0000-00-00'; 
+WHEN 3 THEN 
+select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = h_id and v.Date_first is null and v.Date_second is null; 
+WHEN 4 THEN 
+select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = h_id; 
+END CASE;
+END;
 
 -------------------------------------------------------- INSERTION IN TABLES -------------------------------------------------
 
