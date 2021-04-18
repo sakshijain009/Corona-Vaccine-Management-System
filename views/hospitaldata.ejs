@@ -51,9 +51,10 @@
         <% if( user.H_type==='G') user.H_type='Government'; %>
         <% if( user.H_type==='P') user.H_type='Private'; %>
         <b><h5 style="font-family: 'Montserrat', sans-serif;"><b>Hospital Type : <span style="color: rgb(74, 135, 60);background-color: white;padding-left: 10px;padding-right: 10px;"><%= user.H_type %></span></b></h5>
-        <h5 style="font-family: 'Montserrat', sans-serif;"><b>Vaccine Provided : <span style="color: rgb(74, 135, 60);background-color: white;padding-left: 10px;padding-right: 10px;"><%= user.H_vac %></span></b></h5>
         <h5 style="font-family: 'Montserrat', sans-serif;"><b>Hospital Email : <span style="color: rgb(74, 135, 60);background-color: white;padding-left: 10px;padding-right: 10px;"><%= user.H_email %></span></b></h5>
         <h5 style="font-family: 'Montserrat', sans-serif;"><b>Hospital Contact : <span style="color: rgb(74, 135, 60);background-color: white;padding-left: 10px;padding-right: 10px;"><%= user.H_contactno %></span></b></h5></b>
+        <h5 style="font-family: 'Montserrat', sans-serif;"><b>Vaccine Provided : <span style="color: rgb(74, 135, 60);background-color: white;padding-left: 10px;padding-right: 10px;"><%= user.H_vac %></span></b></h5>
+        <h5 style="font-family: 'Montserrat', sans-serif;"><b>Vaccines remaining : <span style="color: rgb(74, 135, 60);background-color: white;padding-left: 10px;padding-right: 10px;"><%= user.quant_rem %></span></b></h5></b>
         <div class="mb-4">
                 <hr style="border-top: 7px solid rgba(204,229,255,0.9);">
             </div>
