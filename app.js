@@ -108,12 +108,17 @@ app.get("/stat", (req, res) => {
 });
 
 
+var pri;
 //Choose hospital during patient registration-----------------------------------------
 app.get("/choose_hosp/:pin/:pid", (req, res) => {
+  con.start.query("select check_priority(P_DOB) as priority from person where P_id = ?;", req.params.pid, function (err, result) {
+    if (err) throw err;
+    pri = result;
+  });
   let sql = "SELECT * FROM hosp_data where h_address = ?";
   con.start.query(sql, [req.params.pin], (err, result) => {
     console.log(req.params.pin);
-    res.render("choose_hosp", { hospital: result, myid: req.params.pid });
+    res.render("choose_hosp", { hospital: result, myid: req.params.pid, pri: pri[0].priority });
   });
 });
 
@@ -200,12 +205,15 @@ app.get("/hosp_login", (req, res) => {
 //Hospital patient data page request---------------------------------------------------
 app.get("/hosp_logindata", authController.isLoggedIn, (req, res) => {
   if (req.user) {
-    let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ?;";
+    // let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ?;";
+    let sql1 = "call filter_patients(4, ?);";
     con.start.query(sql1, req.user.H_id, function (err, result) {
+      var result1 = JSON.stringify(result);
+      var result2 = JSON.parse(result1);
       if (err) throw err;
       res.render("hosp_logindata", {
         user: req.user,
-        patient_details: result,
+        patient_details: result2,
         message: 'All records',
         check: 0
       });
@@ -223,7 +231,8 @@ app.get("/hosp_logindata", authController.isLoggedIn, (req, res) => {
 //ONE DOSE in patient page in hospital profile request---------------------------------------------------
 app.get("/onedose", authController.isLoggedIn, (req, res) => {
   if (req.user) {
-    let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ? and v.Date_first is not NULL and v.Date_second = '0000-00-00';";
+    // let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ? and v.Date_first is not NULL and v.Date_second = '0000-00-00';";
+    let sql1 = "call filter_patients(1, ?);";
     con.start.query(sql1, req.user.H_id, function (err, result) {
       if (err) throw err;
       res.render("hosp_logindata", {
@@ -245,7 +254,8 @@ app.get("/onedose", authController.isLoggedIn, (req, res) => {
 //No DOSE in patient page in hospital profile request---------------------------------------------------
 app.get("/nodose", authController.isLoggedIn, (req, res) => {
   if (req.user) {
-    let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ? and v.Date_first is null and v.Date_second is null";
+    // let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ? and v.Date_first is null and v.Date_second is null";
+    let sql1 = "call filter_patients(3, ?);";
     con.start.query(sql1, req.user.H_id, function (err, result) {
       if (err) throw err;
       res.render("hosp_logindata", {
@@ -267,7 +277,8 @@ app.get("/nodose", authController.isLoggedIn, (req, res) => {
 //BOTH DOSE in patient page in hospital profile request---------------------------------------------------
 app.get("/bothdose", authController.isLoggedIn, (req, res) => {
   if (req.user) {
-    let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ? and v.Date_first != '0000-00-00' and v.Date_second != '0000-00-00';";
+    // let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ? and v.Date_first != '0000-00-00' and v.Date_second != '0000-00-00';";
+    let sql1 = "call filter_patients(2, ?);";
     con.start.query(sql1, req.user.H_id, function (err, result) {
       if (err) throw err;
       res.render("hosp_logindata", {
@@ -300,7 +311,6 @@ app.post("/patient", (req, res) => {
     req.body.contact,
     req.body.optradio
   ]
-
 
   let sql = "INSERT INTO person (p_name,p_email,p_address,p_dob,p_contactno,p_gender) VALUES (?)";
   con.start.query(sql, [val], function (err, result) {
@@ -506,10 +516,12 @@ app.post("/inventory_data", authController.isLoggedIn, (req, res) => {
 app.post("/hosp_logindata", authController.isLoggedIn, (req, res) => {
   if (req.user) {
     const val = [[req.body.dose1], [req.body.dose2], [req.user.H_id], [req.body.id]];
-    let sql4 = "Update vaccinates SET Date_first = ?, Date_second = ? where Hosp = ? and P = ?;";
+    // let sql4 = "Update vaccinates SET Date_first = ?, Date_second = ? where Hosp = ? and P = ?;";
+    let sql4 = "call update_vaccinates(?,?,?,?)";
     con.start.query(sql4, val, function (err, result) {
       if (err) { // if quant_rem in hospital is 0, error is thrown so redirect to all_records
-        let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ?;";
+        // let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ?;";
+        let sql1 = "call filter_patients(4, ?);";
         con.start.query(sql1, req.user.H_id, function (err, result) {
           if (err) throw err;
           res.render("hosp_logindata", {
