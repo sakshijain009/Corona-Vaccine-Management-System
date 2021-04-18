@@ -15,32 +15,42 @@
     <hr>
 
     <div style="margin-top: 10vmin;" class="form-group col-md-6">
-      <label for="inputHOSP">Choose hospital closest to you</label>
-      <select id="inputHOSP" name="inputHOSP" class="form-control">
-        <% for(var i=0;i<hospital.length;i++){ %>
-          <% if( hospital[i].H_type==='G' ) hospital[i].H_type='Government' ; %>
-            <% if( hospital[i].H_type==='P' ) hospital[i].H_type='Private' ; %>
-              <option class="form-group" value="<%= hospital[i].H_name %>">
-                <%= hospital[i].H_name %> - <%= hospital[i].H_type %>- <%= hospital[i].H_vac %>
-              </option>
-              <% } %>
-      </select>
+      <% if (hospital.length==0) { %>
+        <h2>No hospital available for this area please go back!</h2>
+        <% } else { %>
+          <label for="inputHOSP">Choose hospital closest to you </label>
+          <select id="inputHOSP" name="inputHOSP" class="form-control">
+            <% for(var i=0;i<hospital.length;i++){ %>
+              <% if( hospital[i].H_type==='G' ) hospital[i].H_type='Government' ; %>
+                <% if( hospital[i].H_type==='P' ) hospital[i].H_type='Private' ; %>
+                  <option class="form-group" value="<%= hospital[i].H_name %>">
+                    <%= hospital[i].H_name %> - <%= hospital[i].H_type %>- <%= hospital[i].H_vac %>
+                  </option>
+                  <% }} %>
+          </select>
     </div>
 
-    <div class="row d-flex justify-content-between">
-      <div class="col-md-8">
-        <button style="margin: 3vmin 0 40px 16px" type="submit" class="btn btn-primary" style="width: 40%"
-          onclick="myFunction()">Register</button>
+    <% if (hospital.length> 0) { %>
+      <div class="row d-flex justify-content-between">
+        <div class="col-md-8">
+          <button style="margin: 3vmin 0 40px 16px" type="submit" class="btn btn-primary" style="width: 40%"
+            onclick="myFunction()">Register</button>
+        </div>
       </div>
-    </div>
-    
-    <h5 style="margin-left: 10px;display: inline;">Applicable for priority vaccine : </h5>
-    <% if (pri == 'Yes') { %>
-      <h5 style="color: green;display: inline;"> <%= pri %></h5>
-      <p style="margin-left: 10px;margin-top: 10px;"> Please contact customer support for further details. </p>
-    <% } else if (pri == 'No') { %>
-      <h5 style="color: red;display: inline;"> <%= pri %></h5>
-    <% } %>
+
+
+      <h5 style="margin-left: 10px;display: inline;">Applicable for priority vaccine : </h5>
+      <% if (pri=='Yes' ) { %>
+        <h5 style="color: green;display: inline;">
+          <%= pri %>
+        </h5>
+        <p style="margin-left: 10px;margin-top: 10px;"> Please contact customer support for further details. </p>
+        <% } else if (pri=='No' ) { %>
+          <h5 style="color: red;display: inline;">
+            <%= pri %>
+          </h5>
+          <% } %>
+            <% } %>
   </form>
 
 </div>

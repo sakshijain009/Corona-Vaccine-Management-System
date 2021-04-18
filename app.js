@@ -342,7 +342,10 @@ app.post("/choose_hosp/:id", (req, res) => {
       con.start.query("INSERT INTO vaccinates (P, Hosp) VALUES (?)", [values], function (err, result) {
         if (err) throw err;
         console.log("Number of records inserted in vaccinates: " + result.affectedRows);
-
+        con.start.query("delete from person where p_id not in (select p from vaccinates);", function (err, result) {
+          if (err) throw error;
+          console.log('No of deleted data: ' + result.affectedRows);
+        });
       });
     }
 
