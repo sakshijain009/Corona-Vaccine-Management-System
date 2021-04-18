@@ -90,10 +90,26 @@ CREATE VIEW vacc_data AS SELECT v.p, v.hosp, h.h_vac, h.h_type FROM vaccinates v
 -------------------------------------------------------- TRIGGERS ------------------------------------------------------------
 
 -- adds the new amount of vaccines ordered from inventory in quant_rem in hospital table.
-CREATE OR REPLACE TRIGGER update_vacc_quant_hosp AFTER INSERT ON supplies FOR EACH ROW update hospital set quant_rem = quant_rem + new.s_quantity where h_id = new.s_hospital;
+CREATE OR REPLACE 
+TRIGGER update_vacc_quant_hosp 
+AFTER INSERT ON supplies 
+FOR EACH ROW 
+update hospital set quant_rem = quant_rem + new.s_quantity where h_id = new.s_hospital;
 
 -- decreases quant_rem by 1 after dose is given to patient
-CREATE OR REPLACE TRIGGER update_vacc_quant_rem_hosp AFTER UPDATE on vaccinates FOR EACH ROW update hospital set quant_rem = quant_rem - 1 where h_id = new.hosp;
+CREATE OR REPLACE TRIGGER
+update_vacc_quant_rem_hosp 
+AFTER UPDATE ON vaccinates 
+FOR EACH ROW 
+BEGIN
+IF old.Date_second = '0000-00-00' THEN -- if only second dose is added
+update hospital set quant_rem = quant_rem - 1 where h_id = new.hosp; 
+ELSEIF new.Date_second = '0000-00-00' THEN -- if only first dose is added
+update hospital set quant_rem = quant_rem - 1 where h_id = new.hosp; 
+ELSEIF old.Date_second is null && old.Date_first is null THEN -- if both dose are added
+update hospital set quant_rem = quant_rem - 2 where h_id = new.hosp; 
+END IF; 
+END
 
 -------------------------------------------------------- INSERTION IN TABLES -------------------------------------------------
 
