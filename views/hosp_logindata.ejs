@@ -98,7 +98,7 @@
     <p class="float-left"
       style="margin-left:60px;font-size: 30px;font-family: 'Karla', sans-serif;color: rgb(60,179,113);margin-bottom: 40px;">
       <%= message %><br><b style="font-size: 22px;color:black;font-family: 'Karla', sans-serif;">Total count of
-          patients: <%= patient_details.length %></b>
+          patients: <%= patient_details[0].length %></b>
     </p>
     <div class="dropdown float-right" style="margin-right: 40px;">
       <a class="nav-link" style="border: 1px solid lightgrey;width: 150px;margin-top: 22px;">Filter</a>
@@ -122,29 +122,29 @@
         <th style="width:15%;">Dose-2 Date</th>
       </tr>
 
-      <% for(i=0; i<patient_details.length; i++) { %>
+      <% for(i=0; i<patient_details[0].length; i++) { %>
         <tr>
           <td>
-            <%= patient_details[i].P_id %>
+            <%= patient_details[0][i]["P_id"] %>
           </td>
           <td>
-            <%= patient_details[i].P_name %>
+            <%= patient_details[0][i]["P_name"] %>
           </td>
           <td>
-            <%= patient_details[i].P_Gender %>
+            <%= patient_details[0][i]["P_Gender"] %>
           </td>
           <td>
-            <%= patient_details[i].P_contactno %>
+            <%= patient_details[0][i]["P_contactno"] %>
           </td>
-          <% if(patient_details[i].Date_first===null ||patient_details[i].Date_first==='0000-00-00'
-            )patient_details[i].Date_first='N/A' %>
+          <% if(patient_details[0][i]["Date_first"]===null ||patient_details[0][i]["Date_first"]==='0000-00-00'
+            )patient_details[0][i]["Date_first"]='N/A' %>
             <td>
-              <%= patient_details[i].Date_first.toString().substring(0,16) %>
+              <%= patient_details[0][i]["Date_first"].toString().substring(0,10) %>
             </td>
-            <% if(patient_details[i].Date_second===null ||patient_details[i].Date_second==='0000-00-00'
-              )patient_details[i].Date_second='N/A' %>
+            <% if(patient_details[0][i]["Date_second"]===null ||patient_details[0][i]["Date_second"]==='0000-00-00'
+              )patient_details[0][i].Date_second='N/A' %>
               <td>
-                <%= patient_details[i].Date_second.toString().substring(0,16) %>
+                <%= patient_details[0][i]["Date_second"].toString().substring(0,10) %>
               </td>
         </tr>
         <% } %>
