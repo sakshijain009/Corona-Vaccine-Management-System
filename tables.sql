@@ -1,3 +1,5 @@
+-- TABLES 
+
 CREATE TABLE Location
 (
     pincode numeric(6) PRIMARY KEY,
@@ -5,6 +7,7 @@ CREATE TABLE Location
     city varchar(20) NOT NULL,
     state varchar(20) NOT NULL
 );
+
 CREATE TABLE Inventory
 (
     I_id int PRIMARY KEY AUTO_INCREMENT,
@@ -31,10 +34,11 @@ CREATE TABLE Hospital
     H_address numeric(6) NOT NULL,
     H_email varchar(30),
     H_vac varchar(20),
+    quant_rem int DEFAULT 0,
+    CHECK (quant_rem > 0),
     FOREIGN KEY (H_address) REFERENCES Location(pincode) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (H_vac) REFERENCES Vaccine(V_name) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 
 CREATE TABLE Supplies
 (
@@ -46,6 +50,7 @@ CREATE TABLE Supplies
     Foreign key (S_hospital) references hospital(h_id) on delete cascade on update cascade,
     Foreign key (S_inventory) references inventory(i_id) on delete cascade on update cascade
 );
+
 CREATE TABLE Person
 (
     P_id int PRIMARY KEY AUTO_INCREMENT,
@@ -57,6 +62,7 @@ CREATE TABLE Person
     P_email varchar(30),
     FOREIGN KEY (P_address) REFERENCES Location(pincode) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
 CREATE TABLE Doctor
 (
     D_id int PRIMARY KEY,
@@ -75,9 +81,21 @@ CREATE TABLE Vaccinates
     FOREIGN KEY (Hosp) REFERENCES Hospital(H_id)  ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+-------------------------------------------------------- VIEWS ---------------------------------------------------------------
+
 CREATE VIEW hosp_data AS SELECT H_id, H_name, H_contactno, H_type, H_address, H_email, H_vac FROM hospital;
 
 CREATE VIEW vacc_data AS SELECT v.p, v.hosp, h.h_vac, h.h_type FROM vaccinates v JOIN hosp_data h ON h.h_id = v.hosp;
+
+-------------------------------------------------------- TRIGGERS ------------------------------------------------------------
+
+-- adds the new amount of vaccines ordered from inventory in quant_rem in hospital table.
+CREATE OR REPLACE TRIGGER update_vacc_quant_hosp AFTER INSERT ON supplies FOR EACH ROW update hospital set quant_rem = quant_rem + new.s_quantity where h_id = new.s_hospital;
+
+-- decreases quant_rem by 1 after dose is given to patient
+CREATE OR REPLACE TRIGGER update_vacc_quant_rem_hosp AFTER UPDATE on vaccinates FOR EACH ROW update hospital set quant_rem = quant_rem - 1 where h_id = new.hosp;
+
+-------------------------------------------------------- INSERTION IN TABLES -------------------------------------------------
 
 INSERT INTO Location VALUES(110005, "Anand Parbat", "Delhi", "Delhi");
 INSERT INTO Location VALUES(110001, "Baroda House", "Delhi", "Delhi");
