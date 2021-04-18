@@ -110,6 +110,7 @@ ELSEIF old.Date_second is null && old.Date_first is null THEN -- if both dose ar
 update hospital set quant_rem = quant_rem - 2 where h_id = new.hosp; 
 END IF; 
 END
+
 -------------------------------------------------------- PROCEDURES ----------------------------------------------------------
 
 CREATE PROCEDURE update_vaccinates(IN date_first DATE, IN date_second DATE, IN h_id INT, IN p_id INT) 
@@ -130,6 +131,20 @@ WHEN 4 THEN
 select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = h_id; 
 END CASE;
 END;
+
+-------------------------------------------------------- FUNCTION ----------------------------------------------------------
+
+CREATE FUNCTION check_priority(birthdate DATE) 
+RETURNS VARCHAR(4)  
+BEGIN 
+DECLARE priority VARCHAR(4); 
+IF year(curdate()) - year(birthdate) > 60 THEN 
+SET priority = 'Yes'; 
+ELSE 
+SET priority = 'No'; 
+END IF; 
+RETURN (priority); 
+END
 
 -------------------------------------------------------- INSERTION IN TABLES -------------------------------------------------
 
