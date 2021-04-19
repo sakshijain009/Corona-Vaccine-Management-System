@@ -409,7 +409,7 @@ app.post("/Registerhospital", (req, res) => {
     console.log(hashedPassword);
 
 
-    con.start.query('INSERT INTO hospital SET ?', { h_name: name, h_email: email, h_contactno: contact, h_type: htype, h_address: pin, h_pwd: hashedPassword, h_vac: vacc }, function (err, result) {
+    con.start.query('INSERT INTO hospital SET ?', { h_name: name, h_email: email, h_contactno: contact, h_type: htype, h_address: pin, h_pwd: hashedPassword, h_vac: vacc,quant_rem:0 }, function (err, result) {
       if (err) throw err;
       console.log("Number of records inserted in hospital: " + result.affectedRows);
       return res.render("Registerhospital", {
