@@ -300,13 +300,14 @@ app.get("/bothdose", authController.isLoggedIn, (req, res) => {
 /************************POST REQUESTS*******************************/
 /********************************************************************/
 
+
+//Deletes records from supplies table from inventory page
 app.post("/delete", authController.isLoggedIn,(req,res)=>{
   if (req.user) {
-    console.log(req.body.checkbox);
+    
     let sql = "delete FROM supplies where S_id = ? and S_hospital = ?";
     con.start.query(sql,[req.body.checkbox,req.user.H_id],(err,result)=>{
       if (err) throw err;
-      console.log(result);
         res.redirect("/inventory_data");
     });
   }else{
