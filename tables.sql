@@ -34,8 +34,7 @@ CREATE TABLE Hospital
     H_address numeric(6) NOT NULL,
     H_email varchar(30),
     H_vac varchar(20),
-    quant_rem int DEFAULT 0,
-    CHECK (quant_rem > 0),
+    quant_rem int,
     FOREIGN KEY (H_address) REFERENCES Location(pincode) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (H_vac) REFERENCES Vaccine(V_name) ON DELETE CASCADE ON UPDATE CASCADE
 );
