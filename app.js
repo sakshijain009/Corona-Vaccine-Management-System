@@ -538,6 +538,7 @@ app.post("/hosp_logindata", authController.isLoggedIn, (req, res) => {
     console.log(req.body);
     const val = [[req.body.dose1], [req.body.dose2], [req.user.H_id], [req.body.id]];
     // let sql4 = "Update vaccinates SET Date_first = ?, Date_second = ? where Hosp = ? and P = ?;";
+    let sqlcheck="SELECT quant_rem FROM Hospital WHERE H_id=?";
     let flag;
     con.start.query(sqlcheck,[req.user.H_id],(err,result)=>{
       if (err) throw err;
