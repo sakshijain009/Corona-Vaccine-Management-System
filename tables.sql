@@ -110,6 +110,14 @@ ELSEIF old.Date_second is null && old.Date_first is null then update hospital se
 end if; 
 END
 
+CREATE OR REPLACE TRIGGER
+delete_inventory
+AFTER DELETE ON supplies 
+FOR EACH ROW 
+begin 
+update hospital set quant_rem = quant_rem - old.s_quantity where h_id = old.s_hospital;
+end
+
 
 -------------------------------------------------------- PROCEDURES ----------------------------------------------------------
 
