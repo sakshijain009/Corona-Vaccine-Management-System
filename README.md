@@ -1,7 +1,7 @@
 # VIYOND 
 #### _V for Virus, Will not Go Beyond.._ <br>
 <img src="refer/viyond.png"><br><br>
-This project is developed as an academic project for DBMS subject. It is Web Application based on management of Corona Vaccine which runs on localhost server.
+This project is developed as an academic project for DBMS subject and <b>AMOC 2021</b>. It is Web Application based on management of Corona Vaccine which runs on localhost server.
 
 ### Prerequisites
 Must haves:
