@@ -140,11 +140,12 @@ app.get("/Registerinventory", (req, res) => {
 //Inventory data from profile-----------------------------------------------------
 app.get("/inventory_data", authController.isLoggedIn, (req, res) => {
   if (req.user) {
-    let sql = "select i.*, s.s_time,s.s_quantity from inventory i join supplies s on s_inventory = i.i_id join hosp_data h on h.h_id = s.s_hospital where h.h_id = ? order by s.s_time desc;";
+    let sql = "select i.*, s.s_time,s.s_quantity,s_id from inventory i join supplies s on s_inventory = i.i_id join hosp_data h on h.h_id = s.s_hospital where h.h_id = ? order by s.s_time desc;";
     let sql2 = "select case when h.h_type = 'P' then v.v_cost*s.s_quantity when h.h_type = 'G' then 0 end as total_cost from hosp_data h join vaccine v on v.v_name = h.h_vac join supplies s on s.s_hospital = h.h_id where h.h_id = ? order by s.s_time desc;"
     con.start.query(sql, req.user.H_id, function (err, result) {
       if (err) throw err;
       const invent_details = result;
+      console.log(invent_details);
       con.start.query(sql2, req.user.H_id, function (err, result) {
         if (err) throw error;
         res.render('inventory_data', { inventory: invent_details, cost: result, check: 0 });
@@ -298,6 +299,21 @@ app.get("/bothdose", authController.isLoggedIn, (req, res) => {
 
 /************************POST REQUESTS*******************************/
 /********************************************************************/
+
+app.post("/delete", authController.isLoggedIn,(req,res)=>{
+  if (req.user) {
+    console.log(req.body.checkbox);
+    let sql = "delete FROM supplies where S_id = ? and S_hospital = ?";
+    con.start.query(sql,[req.body.checkbox,req.user.H_id],(err,result)=>{
+      if (err) throw err;
+      console.log(result);
+        res.redirect("/inventory_data");
+    });
+  }else{
+    res.redirect("/");
+  }
+    
+});
 
 
 //Patient registration post request-------------------------------------------------
