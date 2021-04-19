@@ -102,16 +102,22 @@ update_vacc_quant_rem_hosp
 AFTER UPDATE ON vaccinates 
 FOR EACH ROW 
 begin 
-IF old.Date_first is not null && old.Date_second is not null THEN --if only date updation is done
-update hospital set quant_rem = quant_rem where h_id = new.hosp;
-ELSEIF old.Date_second = '0000-00-00' THEN -- if only second dose is added
-update hospital set quant_rem = quant_rem - 1 where h_id = new.hosp;
-ELSEIF new.Date_second = '0000-00-00' THEN  -- if only first dose is added
-update hospital set quant_rem = quant_rem - 1 where h_id = new.hosp; 
-ELSEIF old.Date_second is null && old.Date_first is null then -- if both dose are added
-update hospital set quant_rem = quant_rem - 2 where h_id = new.hosp;  
+IF old.Date_second = '0000-00-00' and old.Date_first!='0000-00-00' THEN update hospital set quant_rem = quant_rem - 1 where h_id = new.hosp;
+ELSEIF old.Date_first is not null && old.Date_second is not null THEN update hospital set quant_rem = quant_rem where h_id = new.hosp;
+ELSEIF new.Date_second = '0000-00-00' THEN update hospital set quant_rem = quant_rem - 1 where h_id = new.hosp; 
+ELSEIF old.Date_second is null && old.Date_first is null then update vaccinates as v,hospital as h  set new.v.Date_first=old.v.Date_first,new.v.Date_second=old.v.Date_second where h.h_id = new.hosp and v.P= new.P and h.quant_rem<=1; 
+ELSEIF old.Date_second is null && old.Date_first is null then update hospital set quant_rem = quant_rem - 2 where h_id = new.hosp and quant_rem>=2;  
 end if; 
 END
+
+CREATE OR REPLACE TRIGGER
+delete_inventory
+AFTER DELETE ON supplies 
+FOR EACH ROW 
+begin 
+update hospital set quant_rem = quant_rem - old.s_quantity where h_id = old.s_hospital;
+end
+
 
 -------------------------------------------------------- PROCEDURES ----------------------------------------------------------
 
