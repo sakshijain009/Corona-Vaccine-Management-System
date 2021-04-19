@@ -114,7 +114,7 @@ delete_inventory
 AFTER DELETE ON supplies 
 FOR EACH ROW 
 begin 
-update hospital set quant_rem = quant_rem - old.s_quantity where h_id = old.s_hospital;
+update hospital as h,supplies as s set h.quant_rem = h.quant_rem - old.s_quantity where h.h_id = old.s_hospital and h.quant_rem-old.s_quantity>=0;
 end
 
 
