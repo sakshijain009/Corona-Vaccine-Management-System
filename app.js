@@ -535,40 +535,76 @@ app.post("/inventory_data", authController.isLoggedIn, (req, res) => {
 //Hospital after logging in can see this page for adding patient data-------------------------------------------
 app.post("/hosp_logindata", authController.isLoggedIn, (req, res) => {
   if (req.user) {
+    console.log(req.body);
     const val = [[req.body.dose1], [req.body.dose2], [req.user.H_id], [req.body.id]];
     // let sql4 = "Update vaccinates SET Date_first = ?, Date_second = ? where Hosp = ? and P = ?;";
-    let sql4 = "call update_vaccinates(?,?,?,?)";
-    con.start.query(sql4, val, function (err, result) {
-      if (err) { // if quant_rem in hospital is 0, error is thrown so redirect to all_records
-        // let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ?;";
-        let sql1 = "call filter_patients(4, ?);";
-        con.start.query(sql1, req.user.H_id, function (err, result) {
-          if (err) throw err;
-          res.render("hosp_logindata", {
-            user: req.user,
-            patient_details: result,
-            message: 'All records',
-            check: 1
-          });
-        });
-        return;
-      };
-      console.log("Number of records updated: " + result.affectedRows);
-      if (result.affectedRows === 0) { // if there are errors in updation
-        let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ?;";
-        con.start.query(sql1, req.user.H_id, function (err, result) {
-          if (err) throw err;
-          res.render("hosp_logindata", {
-            user: req.user,
-            patient_details: result,
-            message: 'All records',
-            check: 1
-          });
-        });
+    let flag;
+    con.start.query(sqlcheck,[req.user.H_id],(err,result)=>{
+      if (err) throw err;
+      const quantity=result[0].quant_rem;
+      if (req.body.dose1!=='' && req.body.dose2===''&& quantity>=1) {
+        flag=1;
+      }else if(req.body.dose1!=='' && req.body.dose2!==''&& quantity>=1){
+        flag=1;
       } else {
-        res.redirect('/hosp_logindata');
+        flag=0;
       }
+        console.log(flag);
+      if (flag===1){
+
+        let sql4 = "call update_vaccinates(?,?,?,?)";
+
+        con.start.query(sql4, val, function (err, result) {
+          if (err) { // if quant_rem in hospital is 0, error is thrown so redirect to all_records
+            // let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ?;";
+            let sql1 = "call filter_patients(4, ?);";
+            con.start.query(sql1, req.user.H_id, function (err, result) {
+              if (err) throw err;
+              res.render("hosp_logindata", {
+                user: req.user,
+                patient_details: result,
+                message: 'All records',
+                check: 1
+              });
+            });
+            return;
+          };
+          console.log("Number of records updated: " + result.affectedRows);
+          if (result.affectedRows === 0) { // if there are errors in updation
+            let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ?;";
+            con.start.query(sql1, req.user.H_id, function (err, result) {
+              if (err) throw err;
+              res.render("hosp_logindata", {
+                user: req.user,
+                patient_details: result,
+                message: 'All records',
+                check: 1
+              });
+             
+            });
+
+          } else {
+            res.redirect('/hosp_logindata');
+          }
+        });
+    }else {
+      let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ?;";
+          con.start.query(sql1, req.user.H_id, function (err, result) {
+              if (err) throw err;
+              res.render("hosp_logindata", {
+                user: req.user,
+                patient_details: result,
+                message: 'All records',
+                check: 1
+              });
+            });
+
+    }     
     });
+
+    
+
+    
   }
   else {
     res.render('hosp_login', {
