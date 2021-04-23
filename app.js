@@ -142,13 +142,18 @@ app.get("/inventory_data", authController.isLoggedIn, (req, res) => {
   if (req.user) {
     let sql = "select i.*, s.s_time,s.s_quantity,s_id from inventory i join supplies s on s_inventory = i.i_id join hosp_data h on h.h_id = s.s_hospital where h.h_id = ? order by s.s_time desc;";
     let sql2 = "select case when h.h_type = 'P' then v.v_cost*s.s_quantity when h.h_type = 'G' then 0 end as total_cost from hosp_data h join vaccine v on v.v_name = h.h_vac join supplies s on s.s_hospital = h.h_id where h.h_id = ? order by s.s_time desc;"
+    let sql3 = "select quant_rem from hospital where h_id = ?;"
     con.start.query(sql, req.user.H_id, function (err, result) {
       if (err) throw err;
       const invent_details = result;
-      console.log(invent_details);
+      // console.log(invent_details);
       con.start.query(sql2, req.user.H_id, function (err, result) {
         if (err) throw error;
-        res.render('inventory_data', { inventory: invent_details, cost: result, check: 0 });
+        const cost = result;
+        con.start.query(sql3, req.user.H_id, function (err, result) {
+          if (err) throw error;
+          res.render('inventory_data', { inventory: invent_details, cost: cost, check: 0, quant_rem: result[0].quant_rem });
+        })
       })
     });
   } else {
@@ -164,7 +169,7 @@ app.get("/hospitaldata", authController.isLoggedIn, (req, res) => {
   console.log("inside");
   console.log(req.user);
   if (req.user) {
-    let sql1 = "select count(*) as count from vaccinates where hosp = ?;";
+    let sql1 = "select count(*) as count from vaccinates where hosp = ? and date_first is not null;";
     con.start.query(sql1, req.user.H_id, function (err, result) {
       if (err) throw err;
       const count = result[0].count;
@@ -302,18 +307,18 @@ app.get("/bothdose", authController.isLoggedIn, (req, res) => {
 
 
 //Deletes records from supplies table from inventory page
-app.post("/delete", authController.isLoggedIn,(req,res)=>{
+app.post("/delete", authController.isLoggedIn, (req, res) => {
   if (req.user) {
-    
+
     let sql = "delete FROM supplies where S_id = ? and S_hospital = ?";
-    con.start.query(sql,[req.body.checkbox,req.user.H_id],(err,result)=>{
+    con.start.query(sql, [req.body.checkbox, req.user.H_id], (err, result) => {
       if (err) throw err;
-        res.redirect("/inventory_data");
+      res.redirect("/inventory_data");
     });
-  }else{
+  } else {
     res.redirect("/");
   }
-    
+
 });
 
 
@@ -409,7 +414,7 @@ app.post("/Registerhospital", (req, res) => {
     console.log(hashedPassword);
 
 
-    con.start.query('INSERT INTO hospital SET ?', { h_name: name, h_email: email, h_contactno: contact, h_type: htype, h_address: pin, h_pwd: hashedPassword, h_vac: vacc,quant_rem:0 }, function (err, result) {
+    con.start.query('INSERT INTO hospital SET ?', { h_name: name, h_email: email, h_contactno: contact, h_type: htype, h_address: pin, h_pwd: hashedPassword, h_vac: vacc, quant_rem: 0 }, function (err, result) {
       if (err) throw err;
       console.log("Number of records inserted in hospital: " + result.affectedRows);
       return res.render("Registerhospital", {
@@ -502,14 +507,19 @@ app.post("/inventory_data", authController.isLoggedIn, (req, res) => {
     con.start.query(sqlcheck, [req.body.id], (err, result) => {
       if (err) throw err;
       if (result.length === 0) {
-        let sql = "select i.*, s.s_time,s.s_quantity from inventory i join supplies s on s_inventory = i.i_id join hosp_data h on h.h_id = s.s_hospital where h.h_id = ? order by s.s_time desc;";
+        let sql = "select i.*, s.s_time,s.s_quantity,s_id from inventory i join supplies s on s_inventory = i.i_id join hosp_data h on h.h_id = s.s_hospital where h.h_id = ? order by s.s_time desc;";
         let sql2 = "select case when h.h_type = 'P' then v.v_cost*s.s_quantity when h.h_type = 'G' then 0 end as total_cost from hosp_data h join vaccine v on v.v_name = h.h_vac join supplies s on s.s_hospital = h.h_id where h.h_id = ? order by s.s_time desc;"
+        let sql3 = "select quant_rem from hospital where h_id = ?;"
         con.start.query(sql, req.user.H_id, function (err, result) {
           if (err) throw err;
           const invent_details = result;
           con.start.query(sql2, req.user.H_id, function (err, result) {
             if (err) throw error;
-            res.render('inventory_data', { inventory: invent_details, cost: result, check: 1 });
+            const cost = result;
+            con.start.query(sql3, req.user.H_id, function (err, result) {
+              if (err) throw error;              
+              res.render('inventory_data', { inventory: invent_details, cost: cost, check: 1, quant_rem: result[0].quant_rem });
+            })
           })
         });
       } else {
@@ -538,26 +548,27 @@ app.post("/hosp_logindata", authController.isLoggedIn, (req, res) => {
     console.log(req.body);
     const val = [[req.body.dose1], [req.body.dose2], [req.user.H_id], [req.body.id]];
     // let sql4 = "Update vaccinates SET Date_first = ?, Date_second = ? where Hosp = ? and P = ?;";
-    let sqlcheck="SELECT quant_rem FROM Hospital WHERE H_id=?";
+    let sqlcheck = "SELECT quant_rem FROM Hospital WHERE H_id=?";
     let flag;
-    con.start.query(sqlcheck,[req.user.H_id],(err,result)=>{
+    con.start.query(sqlcheck, [req.user.H_id], (err, result) => {
       if (err) throw err;
-      const quantity=result[0].quant_rem;
-      if (req.body.dose1!=='' && req.body.dose2===''&& quantity>=1) {
-        flag=1;
-      }else if(req.body.dose1!=='' && req.body.dose2!==''&& quantity>=1){
-        flag=1;
+      const quantity = result[0].quant_rem;
+      if (req.body.dose1 !== '' && req.body.dose2 === '' && quantity >= 1) {
+        flag = 1;
+      } else if (req.body.dose1 !== '' && req.body.dose2 !== '' && quantity >= 1) {
+        flag = 1;
       } else {
-        flag=0;
+        flag = 0;
       }
-        console.log(flag);
-      if (flag===1){
+      console.log(flag);
+      if (flag === 1) {
 
-        let sql4 = "call update_vaccinates(?,?,?,?)";
+        let sql4 = "Update vaccinates SET Date_first = ?, Date_second = ? where Hosp = ? and P = ?";
 
         con.start.query(sql4, val, function (err, result) {
           if (err) { // if quant_rem in hospital is 0, error is thrown so redirect to all_records
             // let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ?;";
+            throw err;
             let sql1 = "call filter_patients(4, ?);";
             con.start.query(sql1, req.user.H_id, function (err, result) {
               if (err) throw err;
@@ -581,31 +592,31 @@ app.post("/hosp_logindata", authController.isLoggedIn, (req, res) => {
                 message: 'All records',
                 check: 1
               });
-             
+
             });
 
           } else {
             res.redirect('/hosp_logindata');
           }
         });
-    }else {
-      let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ?;";
-          con.start.query(sql1, req.user.H_id, function (err, result) {
-              if (err) throw err;
-              res.render("hosp_logindata", {
-                user: req.user,
-                patient_details: result,
-                message: 'All records',
-                check: 1
-              });
-            });
+      } else {
+        let sql1 = "select * from person p join vaccinates v on v.P = p.p_id join hosp_data h on v.hosp = h.h_id where h.h_id = ?;";
+        con.start.query(sql1, req.user.H_id, function (err, result) {
+          if (err) throw err;
+          res.render("hosp_logindata", {
+            user: req.user,
+            patient_details: result,
+            message: 'All records',
+            check: 1
+          });
+        });
 
-    }     
+      }
     });
 
-    
 
-    
+
+
   }
   else {
     res.render('hosp_login', {
