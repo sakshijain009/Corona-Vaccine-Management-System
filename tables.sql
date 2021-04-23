@@ -120,11 +120,6 @@ end
 
 -------------------------------------------------------- PROCEDURES ----------------------------------------------------------
 
-CREATE PROCEDURE update_vaccinates(IN date_first DATE, IN date_second DATE, IN h_id INT, IN p_id INT) 
-BEGIN 
-update vaccinates SET Date_first = date_first, Date_second = date_second where Hosp = h_id and P = p_id; 
-END
-
 CREATE PROCEDURE filter_patients(IN dose INT, IN h_id INT) 
 BEGIN 
 CASE dose 
