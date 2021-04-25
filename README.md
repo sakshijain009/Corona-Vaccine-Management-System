@@ -14,14 +14,16 @@ To install all the dependencies write the following command on your terminal:<br
 `npm install`
 <br><br>
 Dependencies that are used for the project include:<br>
-`const express = require("express");`<br>
-`const bodyParser = require("body-parser");`<br>
-`const ejs = require("ejs");`<br>
-`const mysql = require("mysql");`<br>
-`const dotenv = require("dotenv");`<br>
-`const bcrypt = require("bcryptjs");`<br>
-`const jwt = require("jsonwebtoken");`<br>
-`const cookieParser = require("cookie-parser");`<br>
+```
+const express = require("express");
+const bodyParser = require("body-parser");
+const ejs = require("ejs");
+const mysql = require("mysql");
+const dotenv = require("dotenv");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
+```
 
 ## Getting Started
 Firstly we recommend to install Hyper terminal or any other prompt that supports Nodejs. After the installation clone the files in your pc, traverse to the cloned folder in your pc through your terminal and then use the command `npm start` to run it on localhost. Make sure before running the project, you create the database in your xampp server by pasting the commands in tables.sql file. On starting the execution, the project will run on port 3000.<br>
