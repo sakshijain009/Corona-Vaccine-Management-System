@@ -107,7 +107,7 @@ ELSEIF new.Date_second = '0000-00-00' THEN update hospital set quant_rem = quant
 ELSEIF old.Date_second is null && old.Date_first is null then update vaccinates as v,hospital as h  set new.v.Date_first=old.v.Date_first,new.v.Date_second=old.v.Date_second where h.h_id = new.hosp and v.P= new.P and h.quant_rem<=1; 
 ELSEIF old.Date_second is null && old.Date_first is null then update hospital set quant_rem = quant_rem - 2 where h_id = new.hosp and quant_rem>=2;  
 end if; 
-END
+END;
 
 CREATE OR REPLACE TRIGGER
 delete_inventory
@@ -115,7 +115,7 @@ AFTER DELETE ON supplies
 FOR EACH ROW 
 begin 
 update hospital as h,supplies as s set h.quant_rem = h.quant_rem - old.s_quantity where h.h_id = old.s_hospital and h.quant_rem-old.s_quantity>=0;
-end
+END;
 
 
 -------------------------------------------------------- PROCEDURES ----------------------------------------------------------
