@@ -11,9 +11,9 @@ Must haves:
 
 ### Video Presentation
 
-<figure class="video_container">
+
   <iframe src="https://www.youtube.com/embed/D1jLkO86_gE" frameborder="0" allowfullscreen="true"> </iframe>
-</figure>
+
 
 ## Getting Started
 Clone the repository in your local machine.
