@@ -19,7 +19,7 @@ Traverse to the cloned folder in your pc using your terminal and then install al
 ```
 npm install 
 ```
-<br>
+
 Dependencies that are used for the project include:
 <br><br>
 
