@@ -1,12 +1,11 @@
 # VIYOND 
 #### _V for Virus, Will not Go Beyond.._ <br>
 <img src="refer/viyond.png"><br><br>
-This project is developed as an academic project for DBMS subject and <b>AMOC 2021</b>. It is Web Application based on management of Corona Vaccine which runs on localhost server.
+This project is developed as an academic project for DBMS subject and <b>AMOC 2021</b>. It is Web Application based which controls and maintains the flow of vaccines.
 
 ### Prerequisites
 Must haves:
 - MYSQL(Using XAMPP)
-- Browser(That supports HTML and CSS)
 - Terminal that supports Nodejs and git commands.
 
 ## Getting Started
@@ -20,7 +19,7 @@ Traverse to the cloned folder in your pc using your terminal and then install al
 npm install 
 ```
 <br>
-Dependencies that are used for the project include:<br>
+Dependencies that are used for the project include <br>
 
 ```
 const express = require("express");
@@ -36,7 +35,7 @@ After installing the dependencies run the project using the following command to
 ```
 npm start
 ```
-<br>
+
 
 
 ## ER Diagram
