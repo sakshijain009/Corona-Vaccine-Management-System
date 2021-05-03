@@ -21,7 +21,7 @@ npm install
 ```
 
 Dependencies that are used for the project include:
-<br><br>
+<br>
 
 ```
 const express = require("express");
