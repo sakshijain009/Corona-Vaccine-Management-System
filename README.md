@@ -10,17 +10,18 @@ Must haves:
 - Terminal that supports Nodejs and git commands.
 
 ## Getting Started
-Clone the repository in your local machine.<br>
+Clone the repository in your local machine.
 ```
-git clone 
+git clone https://github.com/sakshijain009/Corona-Vaccine-Management-System.git
 ```
-<br>
+
 Traverse to the cloned folder in your pc using your terminal and then install all the dependencies.<br>
 ```
 npm install 
 ```
 <br>
-Dependencies that are used for the project include:<br>
+Dependencies that are used for the project include:
+
 ```
 const express = require("express");
 const bodyParser = require("body-parser");
