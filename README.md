@@ -9,10 +9,17 @@ Must haves:
 - Browser(That supports HTML and CSS)
 - Terminal that supports Nodejs and git commands.
 
-### Installing
-To install all the dependencies write the following command on your terminal:<br>
-`npm install`
-<br><br>
+## Getting Started
+Clone the repository in your local machine.<br>
+```
+git clone 
+```
+<br>
+Traverse to the cloned folder in your pc using your terminal and then install all the dependencies.<br>
+```
+npm install 
+```
+<br>
 Dependencies that are used for the project include:<br>
 ```
 const express = require("express");
@@ -24,10 +31,13 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 ```
+<br>
+After installing the dependencies run the project using the following command to run it on localhost. Make sure before running the project, you create the database in your xampp server by pasting the commands in tables.sql file. On starting the execution, the project will run on port 3000. We have also used PL-SQL in our project. Make sure you also add the procedures, triggers and functions of pl sql (from tables.sql file) in your xampp server before running the project.
+```
+npm start
+```
+<br>
 
-## Getting Started
-Firstly we recommend to install Hyper terminal or any other prompt that supports Nodejs. After the installation clone the files in your pc, traverse to the cloned folder in your pc through your terminal and then use the command `npm start` to run it on localhost. Make sure before running the project, you create the database in your xampp server by pasting the commands in tables.sql file. On starting the execution, the project will run on port 3000.<br>
-We have also used PL-SQL in our project. Make sure you also add the procedures, triggers and functions of pl sql (from tables.sql file) in your xampp server before running the project.
 
 ## ER Diagram
 <img src="refer/er.png">
