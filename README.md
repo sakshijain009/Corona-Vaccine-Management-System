@@ -10,8 +10,9 @@ Must haves:
 - Terminal that supports Nodejs and git commands.
 
 ### Video Presentation
+
 <figure class="video_container">
-  <iframe src="https://www.youtube.com/watch?v=D1jLkO86_gE" frameborder="0" allowfullscreen="true"> </iframe>
+  <iframe src="https://www.youtube.com/embed/D1jLkO86_gE" frameborder="0" allowfullscreen="true"> </iframe>
 </figure>
 
 ## Getting Started
