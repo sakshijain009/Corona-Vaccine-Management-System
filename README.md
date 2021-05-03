@@ -1,5 +1,5 @@
 # VIYOND 
-> V for Virus, Will not Go Beyond >
+> __V for Virus, Will not Go Beyond__
 <br>
 <img src="refer/viyond.png"><br><br>
 This project is developed as an academic project for DBMS subject and <b>AMOC 2021</b>. It is Web Application based which controls and maintains the flow of vaccines.
