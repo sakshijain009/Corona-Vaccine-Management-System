@@ -1,5 +1,5 @@
 # VIYOND 
-#### _V for Virus, Will not Go Beyond.._ <br>
+> V for Virus, Will not Go Beyond 
 <img src="refer/viyond.png"><br><br>
 This project is developed as an academic project for DBMS subject and <b>AMOC 2021</b>. It is Web Application based which controls and maintains the flow of vaccines.
 
@@ -82,8 +82,8 @@ We also provide a statistics page. Site viewers can view statistics of percentag
 - express.js - Fast, unopinionated, minimalist web framework for Node.js
 
 ## Contributors
-- Sakshi Jain (U19CS048)
-- Himani Verma (U19CS075)
-- Riya Sharma (U19CS079)
-- Esha Srivastav (U19CS109)
+- Sakshi Jain
+- Himani Verma 
+- Riya Sharma
+- Esha Srivastav
 
