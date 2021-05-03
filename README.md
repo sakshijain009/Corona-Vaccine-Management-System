@@ -9,11 +9,6 @@ Must haves:
 - MYSQL(Using XAMPP)
 - Terminal that supports Nodejs and git commands.
 
-### Video Presentation
-
-
-  <iframe src="https://www.youtube.com/embed/D1jLkO86_gE" frameborder="0" allowfullscreen="true"> </iframe>
-
 
 ## Getting Started
 Clone the repository in your local machine.
