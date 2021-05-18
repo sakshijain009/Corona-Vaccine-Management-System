@@ -1,7 +1,4 @@
 # VIYOND 
-* [General info](#general-info)
-* [Technologies](#technologies)
-* [Setup](#setup)
 
 > _V for Virus, Will not Go Beyond_
 <br>
