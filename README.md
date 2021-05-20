@@ -10,7 +10,8 @@ Link to demonstration: https://www.youtube.com/watch?v=D1jLkO86_gE&t=17s
 ### Prerequisites
 Must haves:
 - MYSQL(Using XAMPP)
-- Terminal that supports Nodejs and git commands.
+- Node.js
+- Git Bash
 
 
 ## Getting Started
