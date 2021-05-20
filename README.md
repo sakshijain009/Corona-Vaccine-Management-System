@@ -1,6 +1,6 @@
 # VIYOND 
-[![Made withReact](https://img.shields.io/badge/Made%20with-React-blue?style=for-the-badge&logo=React)]() [![Made withExpress](https://img.shields.io/badge/Made%20with-Express-yellow?style=for-the-badge&logo=NodeJS)]() [![Made MUI](https://img.shields.io/badge/Made%20with-CSS-orange?style=for-the-badge&logo=css)]()  [![Made withMySQL](https://img.shields.io/badge/Made%20with-MySQL-blue?style=for-the-badge&logo=MySQL)]()  ![Made withNode.js](https://img.shields.io/badge/Made%20with-Node.js-green?style=for-the-badge&logo=node.js)
-> _V for Virus, Will not Go Beyond_
+ [![Made withExpress](https://img.shields.io/badge/Made%20with-Express-yellow?style=for-the-badge&logo=NodeJS)]() [![Made MUI](https://img.shields.io/badge/Made%20with-CSS-orange?style=for-the-badge&logo=css)]()  [![Made withMySQL](https://img.shields.io/badge/Made%20with-MySQL-blue?style=for-the-badge&logo=MySQL)]()  ![Made withNode.js](https://img.shields.io/badge/Made%20with-Node.js-green?style=for-the-badge&logo=node.js)
+> Because we believe<br> _V for Virus, Will not Go Beyond_
 <br>
 <img src="refer/viyond.png"><br>
 This project is developed as an academic project for DBMS subject and <b>AMOC 2021</b>. It is Web Application based which controls and maintains the flow of vaccines.<br>
